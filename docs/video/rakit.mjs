@@ -114,15 +114,15 @@ const outLen = (segs) => segs.reduce((s, [a, b, sp]) => s + (b - a) / sp, 0);
 mkdirSync(OUT_WIN, { recursive: true }); mkdirSync(join(OUT_WIN, "txt"), { recursive: true });
 const hasLogo = existsSync(LOGO_WIN);
 const WM = hasLogo
-  ? `[base][logo]overlay=W-w-40:36:format=auto`
-  : `[base]drawtext=expansion=none:fontfile=${FONT}:text='IDwebhost  ·  AI Hosting':fontsize=26:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=w-tw-40:y=36`;
+  ? `[base][logo]overlay=W-w-40:H-h-40:format=auto`
+  : `[base]drawtext=expansion=none:fontfile=${FONT}:text='IDwebhost  ·  AI Hosting':fontsize=26:fontcolor=white@0.95:box=1:boxcolor=black@0.7:boxborderw=12:x=w-tw-40:y=h-th-40`;
 const VID = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -c:a aac -b:a 96k -shortest -movflags +faststart";
 const lines = ["#!/bin/bash", "set -euo pipefail", `cd "${OUT}"`, `SRC="${SRC}"`, ""];
 let total = 0; const list = [];
 
 function card(name, items, seconds) {
   const dt = items.map(([t, size, font, y]) => `drawtext=expansion=none:fontfile=${font}:text='${esc(t)}':fontsize=${size}:fontcolor=white:x=(w-tw)/2:y=${Math.round(y * 1080)}`).join(",");
-  const wm = hasLogo ? `;movie=${LOGO},scale=-1:56[logo];[base][logo]overlay=W-w-40:36` : "";
+  const wm = hasLogo ? `;movie=${LOGO},scale=-1:56[logo];[base][logo]overlay=W-w-40:H-h-40` : "";
   const fc = hasLogo ? `color=c=0x141d18:s=1920x1080:d=${seconds},${dt},fade=t=in:st=0:d=0.6,fade=t=out:st=${seconds - 0.6}:d=0.6[base]${wm}` : `color=c=0x141d18:s=1920x1080:d=${seconds},${dt},fade=t=in:st=0:d=0.6,fade=t=out:st=${seconds - 0.6}:d=0.6[base];${WM}`;
   lines.push(`echo "== ${name}"; ffmpeg -v error -y -f lavfi -i "${fc.split("[base]")[0].replace(/,$/, "")}" -f lavfi -i anullsrc=r=48000:cl=stereo -t ${seconds} -vf "${hasLogo ? "" : ""}" ${VID} "${name}.mp4"`);
   total += seconds; list.push(`${name}.mp4`);
@@ -131,26 +131,32 @@ function card(name, items, seconds) {
 lines.length = 5;
 function cardSimple(name, items, seconds) {
   const dt = items.map(([t, size, font, y]) => `drawtext=expansion=none:fontfile=${font}:text='${esc(t)}':fontsize=${size}:fontcolor=white:x=(w-tw)/2:y=${Math.round(y * 1080)}`).join(",");
-  const wm = hasLogo ? "" : `,drawtext=expansion=none:fontfile=${FONT}:text='IDwebhost  ·  AI Hosting':fontsize=26:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=w-tw-40:y=36`;
+  const wm = hasLogo ? "" : `,drawtext=expansion=none:fontfile=${FONT}:text='IDwebhost  ·  AI Hosting':fontsize=26:fontcolor=white@0.95:box=1:boxcolor=black@0.7:boxborderw=12:x=w-tw-40:y=h-th-40`;
   const logoIn = hasLogo ? `-i "${LOGO}"` : "";
   const fc = hasLogo
-    ? `-filter_complex "[0:v]${dt},fade=t=in:st=0:d=0.6,fade=t=out:st=${seconds - 0.6}:d=0.6[b];[2:v]scale=-1:56[l];[b][l]overlay=W-w-40:36"`
+    ? `-filter_complex "[0:v]${dt},fade=t=in:st=0:d=0.6,fade=t=out:st=${seconds - 0.6}:d=0.6[b];[2:v]scale=-1:56[l];[b][l]overlay=W-w-40:H-h-40"`
     : `-vf "${dt}${wm},fade=t=in:st=0:d=0.6,fade=t=out:st=${seconds - 0.6}:d=0.6"`;
-  lines.push(`echo "== ${name}"; ffmpeg -v error -y -f lavfi -i color=c=0x141d18:s=1920x1080:d=${seconds}:r=30 -f lavfi -i anullsrc=r=48000:cl=stereo ${logoIn} ${fc} -t ${seconds} ${VID} "${name}.mp4"`);
+  lines.push(`echo "== ${name}"; [ -s "${name}.mp4" ] || ffmpeg -v error -y -f lavfi -i color=c=0x141d18:s=1920x1080:d=${seconds}:r=30 -f lavfi -i anullsrc=r=48000:cl=stereo ${logoIn} ${fc} -t ${seconds} ${VID} "${name}.mp4"`);
   total += seconds; list.push(`${name}.mp4`);
 }
 
 cardSimple("00-pembuka", OPENER, 7);
 
+mkdirSync(join(OUT_WIN, "seg"), { recursive: true });
 for (const sc of SCENES) {
   const segs = segments(sc); const len = outLen(segs);
-  // filter: trim+setpts per segmen → concat → skala/crop 16:9 → judul adegan → caption → watermark
-  const parts = segs.map(([a, b, sp], i) => `[0:v]trim=start=${a.toFixed(2)}:end=${b.toFixed(2)},setpts=(PTS-STARTPTS)/${sp.toFixed(3)}[s${i}]`).join(";");
-  const cat = segs.map((_, i) => `[s${i}]`).join("") + `concat=n=${segs.length}:v=1:a=0[cat]`;
-  const geo = `[cat]fps=30,scale=1920:-2,crop=1920:1080[g]`;
+  // Tiap segmen dirender terpisah dengan -ss/-to (hemat memori; satu filtergraph dengan puluhan trim dari satu sumber
+  // menahan semua frame 2880p di antrean dan ffmpeg dibunuh OOM), lalu digabung tanpa re-encode, lalu diberi teks.
+  const segFiles = segs.map(([a, b, sp], i) => {
+    const f = `seg/${sc.id}-${String(i).padStart(2, "0")}.mp4`;
+    lines.push(`[ -s "${f}" ] || ffmpeg -v error -y -ss ${a.toFixed(2)} -t ${(b - a).toFixed(2)} -i "$SRC/Screen Recording 2026-09-10 ${sc.clip}.mp4" -an -vf "setpts=(PTS-STARTPTS)/${sp.toFixed(3)},fps=30,scale=1920:-2,crop=1920:1080" -c:v libx264 -preset veryfast -crf 17 -pix_fmt yuv420p "${f}"`);
+    return f;
+  });
+  writeFileSync(join(OUT_WIN, `seg/${sc.id}.txt`), segFiles.map((f) => `file '${f.replace("seg/", "")}'`).join("\n") + "\n");
+  lines.push(`[ -s "seg/${sc.id}-cat.mp4" ] || ffmpeg -v error -y -f concat -safe 0 -i seg/${sc.id}.txt -c copy "seg/${sc.id}-cat.mp4"`);
   // judul adegan (lower-third kiri atas) 5 detik pertama
   const judulFile = `txt/${sc.id}-judul.txt`; writeFileSync(join(OUT_WIN, judulFile), sc.judul, "utf8");
-  let chain = `[g]drawtext=expansion=none:fontfile=${FONTB}:textfile=${judulFile}:fontsize=34:fontcolor=white:box=1:boxcolor=0x2f6b4a@0.92:boxborderw=14:x=40:y=36:enable='lt(t,5.5)'`;
+  let chain = `[0:v]drawtext=expansion=none:fontfile=${FONTB}:textfile=${judulFile}:fontsize=34:fontcolor=white:box=1:boxcolor=0x2f6b4a@0.92:boxborderw=14:x=40:y=36:enable='lt(t,5.5)'`;
   // caption narasi berurutan
   const n = sc.captions.length; const each = Math.max(3.5, (len - 1) / n);
   sc.captions.forEach((c, i) => {
@@ -163,7 +169,7 @@ for (const sc of SCENES) {
   const logoIn = hasLogo ? `-i "${LOGO}"` : "";
   const aIdx = hasLogo ? 2 : 1;
   lines.push(`echo "== adegan ${sc.id} (${sc.clip}) → ${len.toFixed(1)} s dari ${(segs[segs.length - 1][1] - segs[0][0]).toFixed(0)} s"`);
-  lines.push(`ffmpeg -v error -y -i "$SRC/Screen Recording 2026-09-10 ${sc.clip}.mp4" ${logoIn} -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex "${parts};${cat};${geo};${chain}${wm}" -map "[v]" -map ${aIdx}:a -t ${len.toFixed(2)} ${VID} "${sc.id}.mp4"`);
+  lines.push(`[ -s "${sc.id}.mp4" ] || ffmpeg -v error -y -i "seg/${sc.id}-cat.mp4" ${logoIn} -f lavfi -i anullsrc=r=48000:cl=stereo -filter_complex "${chain}${wm}" -map "[v]" -map ${aIdx}:a -t ${len.toFixed(2)} ${VID} "${sc.id}.mp4"`);
   total += len; list.push(`${sc.id}.mp4`);
 }
 
