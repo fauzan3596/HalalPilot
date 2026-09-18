@@ -1,0 +1,115 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agen yang Mengejar Dokumen: Menjalankan OpenClaw untuk 120 UMK Menjelang Wajib Halal 17 Oktober</title>
+<style>body{margin:0;background:#fafaf8;color:#141d18;font:17px/1.65 Georgia,"Times New Roman",serif}main{max-width:760px;margin:0 auto;padding:40px 20px 80px}h1{font:600 34px/1.2 "Segoe UI",Inter,Arial,sans-serif;letter-spacing:-.02em;margin:0 0 8px}h2{font:600 22px/1.3 "Segoe UI",Inter,Arial,sans-serif;margin:36px 0 10px}.meta{color:#6b7a70;font:14px "Segoe UI",Arial,sans-serif;margin-bottom:28px}a{color:#2f6b4a}code{font:14px Consolas,"Cascadia Mono",monospace;background:#eef2ee;padding:1px 5px;border-radius:4px}pre code{background:none;padding:0;color:inherit;font-size:13.5px}li{margin:4px 0}</style></head>
+<body><main><h1>Agen yang Mengejar Dokumen: Menjalankan OpenClaw untuk 120 UMK Menjelang Wajib Halal 17 Oktober</h1><div class="meta">Muhammad Fauzan Ramadhan · September 2026 · pratinjau lokal, gambar dari img/</div>
+<blockquote style="border-left:4px solid #2f6b4a;margin:16px 0;padding:6px 16px;color:#4b5a51"><p><strong>Ringkasan.</strong> HalalPilot adalah agen OpenClaw di Telegram yang membantu koperasi menyiapkan berkas sertifikasi halal jalur self-declare untuk UMK anggotanya, lalu mengejar dokumen yang belum dikirim sampai berkasnya layak ditinjau pendamping. Agen tidak pernah memutuskan jalur halal sendiri; ia memanggil mesin aturan berbasis YAML yang bisa dibaca manusia, dan menjelaskan hasilnya. Seluruh demo berjalan di satu VPS 4 vCPU dengan memori 3,8 GiB, dengan integrasi ke portal pemerintah masih berupa simulasi berlabel.</p></blockquote>
+<p><img style="max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid #dde3df;border-radius:8px" src="img/01-arsitektur.png" alt="Arsitektur HalalPilot: Telegram, Gateway OpenClaw, orchestrator Express dengan mesin aturan, SQLite, dan mock berlabel simulasi"></p>
+<h2>1. Tenggat yang tidak bergeser</h2>
+<p>Ekonom INDEF A. Hakam Naja, mengutip data Bappenas 2026, menyebut baru sekitar 4 persen pelaku usaha di Indonesia yang produknya bersertifikat halal (Republika, 21 Agustus 2026). Padahal penahapan kewajiban halal untuk produk makanan dan minuman UMK berakhir 17 Oktober 2026 menurut PP 42/2024, dan dalam rapat koordinasi di Kemenko PMK pada 12 Agustus 2026 Kementerian Agama menegaskan tidak ada pergeseran jadwal.</p>
+<p>Kapasitasnya bukan masalah di atas kertas. BPJPH membuka 1,35 juta kuota sertifikasi gratis lewat SEHATI 2026 dan mencatat lebih dari 111 ribu Pendamping Proses Produk Halal (P3H). Produk UMK yang sudah bersertifikat mencapai sekitar 13 juta, kumulatif sejak 2019. Dua angka itu tidak boleh disandingkan begitu saja karena satuannya berbeda: 13 juta menghitung produk, 4 persen menghitung pelaku usaha. Tetapi keduanya menunjuk hal yang sama: yang tertinggal adalah usaha kecil yang berkasnya tidak pernah lengkap sejak awal.</p>
+<p>Yang saya lihat di lapangan sederhana. Satu pendamping memegang puluhan sampai ratusan UMK. Dokumen datang sepotong-sepotong lewat WhatsApp: foto label yang buram, cerita proses yang belum ditulis, nomor sertifikat pemasok yang belum ditanyakan. Tidak ada yang bertugas mengejar yang kurang.</p>
+<h2>2. Kenapa bukan chatbot halal lagi</h2>
+<p>BPJPH sudah punya Halalmax sebagai dasbor pendamping dan chatbot untuk pertanyaan umum. Aplikasi pemindai bahan juga sudah banyak. Celahnya bukan pada informasi, melainkan pada pekerjaan: tidak ada yang <strong>mengerjakan</strong> penyiapan berkas dan <strong>mengejar</strong> dokumen yang belum dikirim.</p>
+<p>Karena itu HalalPilot dipasang untuk koperasi atau paguyuban produsen, bukan untuk UMK tunggal dan bukan untuk BPJPH. Koperasi punya pendamping yang bertanggung jawab atas banyak anggota sekaligus, dan Halalmax adalah tempat paket akhirnya diunggah, bukan pesaing.</p>
+<h2>3. Apa yang agen lakukan</h2>
+<p>Tiga UMK fiktif dari video menggambarkan alurnya:</p>
+<ul>
+<li><strong>Dapur Bu Ratih (nastar).</strong> UMK memfoto label. Agen membaca komposisi, meminta konfirmasi daftar bahan, lalu mesin aturan menemukan margarin sebagai bahan kritis yang butuh sertifikat pemasok. Setelah cerita proses dan nomor sertifikat masuk, skor kesiapan mencapai 100 dan agen menyusun berkas self-declare secara otomatis untuk ditinjau pendamping.</li>
+<li><strong>Sambal Mak Ijah.</strong> Bahannya aman, tetapi kode KBLI di NIB tidak mencakup produknya. Agen meminta perbaikan data OSS dan foto label. Ketika UMK diam, pengingat datang pada hari ke-1, ke-3, dan ke-7 dengan nada meningkat. Pada hari ke-10 agen berhenti mengejar dan melapor ke pendamping.</li>
+<li><strong>Bakso Pak Darto.</strong> Daging digiling di pasar tanpa bukti dari rumah potong bersertifikat. Agen tidak menolak, tetapi meminta dokumen yang tepat dan menjelaskan aturannya.</li>
+</ul>
+<p><img style="max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid #dde3df;border-radius:8px" src="img/04-telegram-intake.png" alt="Percakapan Telegram: setelah UMK membalas &quot;benar&quot;, agen menyampaikan jalur, skor 60 dari 100, alasan per aturan (E11, E13), dan dokumen yang masih diperlukan"></p>
+<p>Setiap jawaban mengikuti pola yang sama: jalur, alasan dengan kode aturan, dokumen yang diminta, langkah berikutnya. Pendamping meninjau lewat perintah <code>setuju</code> atau <code>kembalikan</code> dengan satu kalimat alasan. Di video, berkas Dapur Bu Ratih dikembalikan karena foto label kurang jelas; agen meneruskan alasannya ke UMK, mencatat keputusan baru dengan skor yang turun, dan mulai mengejar lagi. Foto ulang yang masuk menutup permintaan itu secara otomatis, berkas versi dua tersusun, lalu disetujui dan diajukan ke SiHalal simulasi. Setiap pagi pukul tujuh pendamping menerima ringkasan portofolio tanpa membuka aplikasi apa pun.</p>
+<p>Kalimat kuncinya: <strong>agen tidak pernah menaikkan atau menurunkan jalur sendiri. Ia memanggil mesin aturan dan menjelaskan hasilnya.</strong></p>
+<h2>4. Yang diputuskan model, yang diputuskan kode</h2>
+<table style="border-collapse:collapse;width:100%;margin:16px 0;font-size:15px">
+<thead>
+<tr>
+<th style="border:1px solid #cfd6d1;padding:8px 10px;text-align:left;background:#eef2ee">Diputuskan model (OpenClaw + model cloud)</th>
+<th style="border:1px solid #cfd6d1;padding:8px 10px;text-align:left;background:#eef2ee">Diputuskan kode (Express + SQLite + YAML)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Membaca foto label dan kemasan</td>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Kelayakan self-declare: 18 aturan E01 sampai E18 dari Kepkaban BPJPH 146/2025</td>
+</tr>
+<tr>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Memahami bahasa UMK yang tidak baku</td>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Kelas bahan menurut KMA 1360/2021 dan dokumen yang wajib menyusul</td>
+</tr>
+<tr>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Menulis pengingat dengan nada yang pas</td>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Jadwal pengejaran, jam tenang 21.00 sampai 07.00, batas dua pesan per UMK per hari</td>
+</tr>
+<tr>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Merangkum portofolio untuk pendamping</td>
+<td style="border:1px solid #cfd6d1;padding:8px 10px;vertical-align:top">Idempotensi, log audit, hash SHA-256 setiap dossier</td>
+</tr>
+</tbody></table>
+<p>Alasannya: model yang kualitasnya tidak saya kendalikan tidak boleh memegang keputusan yang berdampak hukum. Aturan hidup di berkas YAML yang bisa dibaca pendamping, diberi nomor versi, dan diubah tanpa menyentuh kode. Setiap keputusan yang tersimpan membawa versi aturan yang dipakai, sehingga tetap tertelusur kalau aturan berubah. Kamus bahan saat ini memuat 509 sinonim, 124 bahan dikecualikan yang disalin dari lampiran KMA 1360/2021 setebal 182 halaman, 24 bahan positif, 33 bahan kritis, serta daftar bahan sembelihan, haram eksplisit, dan berbahaya.</p>
+<p>Kebijakan pengejaran, misalnya, cukup dibaca sekali oleh orang non-teknis:</p>
+<pre style="background:#141d18;color:#e8eee9;padding:14px 16px;border-radius:8px;overflow:auto;font-size:13.5px;line-height:1.5"><code class="language-yaml">tahapan:
+  - { tahap: 1, setelah_jam: 24,  target: umk,        nada: ramah }
+  - { tahap: 2, setelah_jam: 72,  target: umk,        nada: tegas_sopan }
+  - { tahap: 3, setelah_jam: 168, target: umk,        nada: mendesak }
+  - { tahap: 4, setelah_jam: 240, target: pendamping, nada: laporan }
+batas: { maks_pesan_per_umk_per_hari: 2, gabungkan_dokumen: true }
+</code></pre>
+<p>Penjadwal di Express yang menghitung jatuh tempo dan memanggil hooks OpenClaw. Model hanya menulis kalimat pengingatnya.</p>
+<h2>5. Pelajaran dari OpenClaw 2026.8.2</h2>
+<p>Bagian ini yang paling banyak memakan malam. Lima temuan dari uji ujung ke ujung pada 10 September:</p>
+<ol>
+<li><strong>Pengingat terkirim sebagai pesan suara.</strong> Plugin <code>talk-voice</code> aktif otomatis, dan setelah dimatikan, TTS inti masih mengirim <code>sendVoice</code> ketika model menyisipkan penanda suara (nilai bawaan <code>tts.auto</code> adalah <code>tagged</code>). Untuk demo yang harus terbaca di layar, keduanya dimatikan, dan tool <code>tts</code> masuk daftar tolak agen.</li>
+<li><strong>Heartbeat mengirim ke &quot;target terakhir&quot;.</strong> Saat satu akun demo berganti peran, heartbeat bisa jatuh ke akun pengganti yang tidak ada. Heartbeat dimatikan; digest, sapuan, dan cek kuota dijalankan lewat automations cron.</li>
+<li><strong>Narasi rencana model bocor ke Telegram.</strong> Kalimat seperti &quot;saya akan menjalankan…&quot; dan penanda &quot;Exec&quot; tampil sebelum jawaban akhir. Solusinya <code>blockStreamingDefault: &quot;off&quot;</code> ditambah streaming Telegram dimatikan, sehingga hanya jawaban akhir yang dikirim.</li>
+<li><strong>Daftar <code>allow</code> pada tools hanya mempersempit profil.</strong> Profil minimal dengan <code>allow: [exec, message]</code> menghasilkan &quot;No callable tools remain&quot;. Yang bekerja: profil <code>coding</code>, tambah <code>message</code>, lalu tolak grup fs, web, ui, media, automation, dan tts.</li>
+<li><strong>Automations punya aturan bentuk sendiri.</strong> Bentuk cron menerima pesan sebagai argumen posisi, bentuk <code>--every</code> menuntut <code>--message</code>, job tanpa <code>--agent</code> jatuh ke agen default, job <code>--command</code> tanpa <code>--no-deliver</code> melempar keluarannya ke chat terakhir, dan <code>--exact</code> mematikan penggeseran acak jadwal.</li>
+</ol>
+<p>Konfigurasi yang akhirnya dipakai, dipangkas ke bagian yang relevan:</p>
+<pre style="background:#141d18;color:#e8eee9;padding:14px 16px;border-radius:8px;overflow:auto;font-size:13.5px;line-height:1.5"><code class="language-json5">agents: { defaults: {
+  blockStreamingDefault: &quot;off&quot;, thinkingDefault: &quot;low&quot;,
+  heartbeat: { every: &quot;0m&quot; } } },
+channels: { telegram: { streaming: { mode: &quot;off&quot; }, accounts: { default: { dmPolicy: &quot;allowlist&quot; } } } },
+plugins: { entries: { &quot;talk-voice&quot;: { enabled: false } } },
+tts: { enabled: false, auto: &quot;off&quot; },
+</code></pre>
+<p>Satu pelajaran lagi soal latensi: <code>thinkingDefault: &quot;medium&quot;</code> membuat satu giliran berlangsung 1 sampai 3 menit karena agen memanggil beberapa perintah skill berurutan. Dengan <code>low</code>, sekitar satu menit per giliran. Untuk alur yang setiap langkahnya sudah ditentukan skill, itu cukup.</p>
+<h2>6. Menjalankannya di VPS 4 GB</h2>
+<p>Servernya satu: Ubuntu 24.04, 4 vCPU, memori 3,8 GiB, disk 19 GB. Yang berjalan di dalamnya hanya Gateway OpenClaw, satu proses Node untuk API dan penjadwal, dan SQLite. Tidak ada Chromium, tidak ada model lokal. Saat semuanya hidup, termasuk satu OpenClaw lain yang sudah terpasang di server itu, pemakaian memori terukur 1,4 GB dari 3,9 GB. Model lokal 3 sampai 4 miliar parameter tidak muat berdampingan di memori sebesar itu, jadi pemahaman bahasa dan gambar diserahkan ke model cloud lewat OpenRouter. Skrip pemasangan menambah swap 2 GB sebagai jaring pengaman; selama demo pemakaiannya tetap nol.</p>
+<p><img style="max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid #dde3df;border-radius:8px" src="img/03-terminal-vps.png" alt="Terminal VPS: spesifikasi server, status Gateway dan kanal Telegram, tiga automations HalalPilot yang berjalan sesuai jadwal, dan dua unit systemd aktif"></p>
+<p>Seluruh demo berjalan di satu paket <a href="https://idwebhost.com/ai-hosting">AI Hosting</a> IDwebhost yang disediakan panitia AI HackFest 2026 dengan OpenClaw sudah terpasang saat server diserahkan. Saya memasang versi terkunci 2026.8.2 secara terpisah di prefix sendiri, dengan state, port, dan unit systemd sendiri, tanpa menyentuh instalasi bawaan. Pelajaran mahalnya: percobaan pertama <code>npm install -g</code> tanpa prefix menimpa paket bawaan dan harus dipulihkan. Di mesin bersama, selalu pasang ke prefix sendiri. Untuk replikasi di koperasi lain, <a href="https://cloudbaik.com">Cloud VPS</a> 4 core dengan memori 4 GB sudah lebih dari cukup, karena beban terberat ada di sisi model cloud, bukan di server.</p>
+<p>Pengamanan yang dipasang: Gateway dan API hanya mendengarkan di loopback, dasbor diakses lewat SSH tunnel, firewall hanya membuka port SSH, kanal Telegram dibatasi ke akun terdaftar, tidak ada skill dari marketplace, versi OpenClaw dikunci, dan agen tidak punya akses berkas atau web selain skrip skill.</p>
+<h2>7. Yang sudah berjalan, yang belum</h2>
+<p>Yang berjalan ujung ke ujung di VPS dan terekam di video: intake foto sampai dossier PDF, pengejaran terjadwal dengan pengingat sebagai teks, eskalasi ke pendamping, pengembalian berkas dan siklus ulang, persetujuan, pengajuan simulasi, dan digest pagi yang tiba pukul 07.00 dari cron tanpa campur tangan. Di repo ada 85 uji otomatis dan 87 skenario penerimaan tertulis.</p>
+<p><img style="max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid #dde3df;border-radius:8px" src="img/02-dashboard-portofolio.png" alt="Dashboard koperasi: 19 dari 120 UMK siap unggah, 38 hari menuju tenggat, laju 7 hari di bawah kebutuhan, papan diurutkan dari yang paling mendesak"></p>
+<p>Yang belum, saya tulis dengan angkanya:</p>
+<ul>
+<li>Dari 120 UMK di portofolio, hanya 3 yang benar-benar dijalankan lewat Telegram. 117 sisanya data sintetis deterministik untuk membuat papan terlihat seperti koperasi sungguhan.</li>
+<li>OSS, SEHATI, dan SiHalal seluruhnya tiruan berlabel &quot;simulasi&quot;. Integrasi resmi hanya bisa dibuka BPJPH; sampai saat itu paket yang disetujui tetap diunggah manusia.</li>
+<li>Kelas bahan dikecualikan disalin dari lampiran KMA 1360/2021. Kelas positif dan kritis disusun dari praktik lembaga pemeriksa halal dan belum divalidasi P3H atau LPH. Itu batas, bukan cacat tersembunyi, dan dicatat terbuka di spesifikasi.</li>
+<li>Belum ada uji lapangan dengan koperasi nyata. Itu langkah berikutnya setelah 17 Oktober, ketika penahapan untuk produk lain masih berjalan.</li>
+</ul>
+<h2>8. Batas yang dipegang</h2>
+<ol>
+<li>HalalPilot <strong>menyiapkan</strong> berkas, tidak menerbitkan sertifikat dan tidak menjanjikan hasil.</li>
+<li>Keputusan halal sepenuhnya milik BPJPH dan pendamping; agen menyiapkan dan menjelaskan.</li>
+<li>Tidak ada data pribadi: tanpa KTP, nomor HP, atau rekening. Ada persetujuan sebelum pemrosesan, dan data bisa dihapus dengan meninggalkan satu baris audit berisi hash, sejalan dengan UU 27/2022.</li>
+<li>Seluruh entitas demo fiktif.</li>
+</ol>
+<h2>9. Penutup</h2>
+<p>Ukuran keberhasilannya ada di meja pendamping: dari menyusun berkas satu jam per UMK menjadi menyetujui satu berkas dalam satu menit, dengan setiap keputusan membawa rujukan aturannya. Sisanya, mengejar foto yang belum dikirim pada hari ke-3 dan ke-7, adalah pekerjaan yang paling cocok diserahkan ke agen yang tidak pernah bosan.</p>
+<p>Proyek ini dibuat untuk AI HackFest 2026 IDwebhost. Kode, aturan YAML, konfigurasi OpenClaw, skenario uji, dan data seed tersedia dengan lisensi MIT di <code>[URL repo]</code>. Video demo: <code>[URL video]</code>.</p>
+<h2>Referensi</h2>
+<ul>
+<li>BPJPH, &quot;BPJPH: 17 Oktober 2026 Produk Makanan-Minuman UMK Harus Sudah Bersertifikat Halal&quot;, 21 Oktober 2024. <a href="https://bpjph.halal.go.id/detail/bpjph-17-oktober-2026-produk-makanan-minuman-umk-harus-sudah-bersertifikat-halal-bagaimana-dengan-produk-luar-negeri/">https://bpjph.halal.go.id/detail/bpjph-17-oktober-2026-produk-makanan-minuman-umk-harus-sudah-bersertifikat-halal-bagaimana-dengan-produk-luar-negeri/</a></li>
+<li>Republika, &quot;Kemenag Pastikan Wajib Halal Tetap Berlaku Oktober 2026&quot;, 1 September 2026. <a href="https://sharia.republika.co.id/berita/tkobdl423/kemenag-pastikan-wajib-halal-tetap-berlaku-oktober-2026">https://sharia.republika.co.id/berita/tkobdl423/kemenag-pastikan-wajib-halal-tetap-berlaku-oktober-2026</a></li>
+<li>BPJPH, &quot;BPJPH Buka Kuota 1,35 Juta Sertifikasi Halal Gratis 2026 bagi UMK&quot;, 2 Januari 2026 (juga memuat jumlah P3H). <a href="https://bpjph.halal.go.id/detail/kabar-gembira-bpjph-buka-kuota-1-35-juta-sertifikasi-halal-gratis-2026-bagi-umk/">https://bpjph.halal.go.id/detail/kabar-gembira-bpjph-buka-kuota-1-35-juta-sertifikasi-halal-gratis-2026-bagi-umk/</a></li>
+<li>Harian Jogja, &quot;BPJPH Klaim 13 Juta Produk UMKM Kantongi Sertifikat Halal&quot;, 7 Juni 2026. <a href="https://ekbis.harianjogja.com/r-1258900/bpjph-klaim-13-juta-produk-umkm-kantongi-sertifikat-halal">https://ekbis.harianjogja.com/r-1258900/bpjph-klaim-13-juta-produk-umkm-kantongi-sertifikat-halal</a></li>
+<li>Republika, &quot;Sertifikasi Halal Wajib Oktober 2026, Kesiapan Pelaku Usaha Jadi Tantangan&quot;, 21 Agustus 2026. <a href="https://sharia.republika.co.id/berita/tk3rz0370/sertifikasi-halal-wajib-oktober-2026-kesiapan-pelaku-usaha-jadi-tantangan">https://sharia.republika.co.id/berita/tk3rz0370/sertifikasi-halal-wajib-oktober-2026-kesiapan-pelaku-usaha-jadi-tantangan</a></li>
+<li>Keputusan Kepala BPJPH No. 146 Tahun 2025 tentang Petunjuk Teknis Layanan Permohonan Sertifikasi Halal atas Produk yang Tidak Wajib. <a href="https://cmsbl.halal.go.id/uploads/146_2025_Kep_Ka_BPJPH_Petunjuk_Teknis_Layanan_Permohonan_Sertifikasi_Halal_atas_Produk_yang_Tidak_Wajib_546bcae1d3.pdf">https://cmsbl.halal.go.id/uploads/146_2025_Kep_Ka_BPJPH_Petunjuk_Teknis_Layanan_Permohonan_Sertifikasi_Halal_atas_Produk_yang_Tidak_Wajib_546bcae1d3.pdf</a></li>
+<li>Keputusan Menteri Agama No. 1360 Tahun 2021 tentang Bahan yang Dikecualikan dari Kewajiban Bersertifikat Halal. <a href="https://halal.kemenperin.go.id/kma-nomor-1360-tentang-bahan-yang-dikecualikan-dari-kewajiban-bersertifikat-halal/">https://halal.kemenperin.go.id/kma-nomor-1360-tentang-bahan-yang-dikecualikan-dari-kewajiban-bersertifikat-halal/</a></li>
+<li>Peraturan Pemerintah No. 42 Tahun 2024 tentang Penyelenggaraan Bidang Jaminan Produk Halal.</li>
+<li>Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.</li>
+</ul>
+
+
+</main></body></html>
