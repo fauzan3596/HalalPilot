@@ -1,0 +1,24 @@
+# Replika lokal orchestrator (SYS-09-P). OpenClaw dijalankan di host/WSL, bukan di compose, agar identik dengan VPS.
+# Jalankan: cp .env.example .env (isi token) → docker compose up -d → curl localhost:3000/api/v1/health
+services:
+  api:
+    build: .
+    container_name: halalpilot-api
+    env_file: .env
+    environment:
+      BIND: 0.0.0.0                       # di dalam container; port hanya dipublikasikan ke 127.0.0.1 host
+      DATA_DIR: /data
+      PDF_DIR: /data/pdf
+      RULES_DIR: /app/rules
+      TZ: Asia/Jakarta
+      # gateway OpenClaw berjalan di host → host.docker.internal
+      OPENCLAW_HOOKS_URL: http://host.docker.internal:18789/hooks/agent
+    ports: ["127.0.0.1:3000:3000"]
+    volumes:
+      - halalpilot_data:/data
+      - ./rules:/app/rules:ro              # aturan bisa diubah tanpa rebuild (restart untuk memuat ulang)
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    mem_limit: 600m
+    restart: unless-stopped
+volumes:
+  halalpilot_data: {}

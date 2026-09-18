@@ -1,0 +1,20 @@
+[Unit]
+Description=HalalPilot OpenClaw gateway (2026.8.2, terpisah dari OpenClaw prainstal panitia)
+After=network-online.target halalpilot-api.service
+Wants=network-online.target
+
+[Service]
+User=root
+Environment=HOME=/root
+Environment=OPENCLAW_STATE_DIR=__OC_STATE__
+Environment=OPENCLAW_CONFIG_PATH=__OC_STATE__/openclaw.json
+EnvironmentFile=-__OC_STATE__/.env
+WorkingDirectory=/root
+ExecStart=__OC_PREFIX__/bin/openclaw gateway run
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=25
+
+[Install]
+WantedBy=multi-user.target

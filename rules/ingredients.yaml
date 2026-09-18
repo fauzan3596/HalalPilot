@@ -1,0 +1,796 @@
+# Kamus klasifikasi bahan HalalPilot.
+# Kelas (harus cocok dengan CHECK ingredient.kelas di db/schema.sql):
+#   dikecualikan_A : bahan dari alam tanpa/diolah fisik saja — KMA 1360/2021 bagian a (a.1 tumbuhan, a.2 hewan non-sembelihan, a.3 fermentasi mikroba, a.4 air alam)
+#   dikecualikan_B : bahan olahan tidak berisiko — KMA 1360/2021 bagian b (kebanyakan non-pangan; CMC relevan pangan)
+#   dikecualikan_C : bahan kimia tambang/pemurnian & sintesis — KMA 1360/2021 bagian c (hanya entri yang relevan pangan yang dimuat)
+#   positif        : bahan olahan yang lazim bersertifikat; agent minta merek/pemasok, sertifikat merek dianggap cukup (tidak WAJIB sertifikat)
+#   kritis         : bahan berisiko; WAJIB sertifikat halal pemasok (rule E11)
+#   tidak_dikenal  : tidak ada di kamus → konfirmasi UMK (rule E12)
+#
+# SUMBER: lampiran KMA 1360/2021 dibaca langsung dari salinan resmi (PDF scan, SELURUH 182 halaman; hal. 5-15 pada 5 Sep, hal. 12-182 pada 10 Sep 2026).
+# Bagian c.2 (bahan kimia sintesis, no. 1-4038) didominasi farmasi & perisa/fragrans; hanya entri yang relevan label pangan yang dimuat (nomor entri dicatat).
+# Kelas 'positif' dan 'kritis' BUKAN dari KMA; disusun dari praktik LPH/SJPH dan harus divalidasi pendamping (P3H).
+version: "2026-09-10.3"
+
+normalisasi:
+  # sinonim (huruf kecil) → nama_normal. Fuzzy Levenshtein ≤ 2 diterapkan setelah pencocokan persis.
+  # --- a.1 tumbuhan ---
+  "buah segar": buah_segar
+  "buah": buah_segar
+  "nanas": buah_segar
+  "pisang": buah_segar
+  "sayur": sayur_segar
+  "sayuran segar": sayur_segar
+  "sayuran kering": sayur_kering
+  "serealia": serealia
+  "beras": beras
+  "jagung": jagung
+  "beras jagung": beras_jagung
+  "gandum": serealia
+  "oat": oat
+  "oat murni": oat
+  "gluten": wheat_gluten
+  "wheat gluten": wheat_gluten
+  "singkong": singkong
+  "ubi": ubi
+  "umbi": umbi_segar
+  "kentang": umbi_segar
+  "kacang tanah": kacang_tanah
+  "kacang hijau": kacang_hijau
+  "kedelai": kedelai
+  "kacang kedelai": kedelai
+  "rumput laut": rumput_laut
+  "rumput laut kering": rumput_laut_kering
+  "kelapa": kelapa
+  "kelapa parut": kelapa_parut
+  "kelapa parut kering": kelapa_parut_kering
+  "air kelapa": air_kelapa
+  "kulit tahu": kulit_tahu
+  "kembang tahu": kulit_tahu
+  "tahu": tahu_tradisional
+  "bungkil kedelai": bungkil_kedelai
+  "spirulina": spirulina
+  "agar": agar_agar
+  "agar-agar": agar_agar
+  "serbuk agar": agar_agar
+  "gom akasia": gom_akasia
+  "gum arab": gom_akasia
+  "minyak atsiri": minyak_atsiri
+  "minyak kayu manis": minyak_kayu_manis
+  "kayu manis": rempah
+  "serbuk coklat": cokelat_bubuk
+  "cokelat bubuk": cokelat_bubuk
+  "coklat bubuk": cokelat_bubuk
+  "kakao bubuk": cokelat_bubuk
+  "menthol": menthol
+  "minyak orange": minyak_orange
+  "minyak jeruk": minyak_orange
+  "peppermint": peppermint
+  "minyak permen": peppermint
+  "cabai": cabai
+  "cabe": cabai
+  "cabai rawit": cabai
+  "cabai merah": cabai
+  "bawang merah": bawang_merah
+  "bawang putih": bawang_putih
+  "bawang bombay": bawang_bombay
+  "jahe": rempah
+  "kunyit": rempah
+  "lengkuas": rempah
+  "ketumbar": rempah
+  "merica": rempah
+  "lada": rempah
+  "daun jeruk": rempah
+  "sereh": rempah
+  "serai": rempah
+  "kemiri": kemiri
+  "wijen": wijen
+  "tomat": sayur_segar
+  # --- a.2 hewan non-sembelihan ---
+  "susu segar": susu_segar
+  "susu sapi segar": susu_segar
+  "telur": telur
+  "telur ayam": telur
+  "telur bebek": telur
+  "ikan": ikan_segar
+  "ikan segar": ikan_segar
+  "ikan beku": ikan_beku
+  "ikan kering": ikan_kering
+  "ikan asin": ikan_asin
+  "teri": ikan_kering
+  "ikan teri": ikan_kering
+  "udang": udang_segar
+  "cumi": ikan_segar
+  "belalang": belalang
+  # --- a.3 fermentasi mikroba ---
+  "tape": tape
+  "tape singkong": tape
+  "tape ketan": tape
+  "oncom": oncom
+  "oncom merah": oncom
+  "oncom hitam": oncom
+  "dadih": dadih
+  "tempe": tempe
+  # --- a.4 air alam ---
+  "air": air
+  "air mineral": air
+  "air sumur": air
+  "es batu": es_batu
+  "es": es_batu
+  # --- b ---
+  "cmc": cmc
+  "carboxy methyl cellulose": cmc
+  "carboxymethyl cellulose": cmc
+  "na-cmc": cmc
+  "selulosa": selulosa
+  # --- c.1 tambang / c.2 sintesis (pangan) ---
+  "garam": garam
+  "garam dapur": garam
+  "natrium klorida": garam
+  "titanium dioksida": titanium_dioksida
+  "e171": titanium_dioksida
+  "silikon dioksida": silikon_dioksida
+  "anti kempal": silikon_dioksida
+  "kapur sirih": kalsium_oksida
+  "kalsium oksida": kalsium_oksida
+  "batu kapur": batu_kapur
+  "tawas": tawas
+  "asam asetat": asam_asetat
+  "cuka": asam_asetat
+  "asam benzoat": asam_benzoat
+  "asam fosfat": asam_fosfat
+  "asam sorbat": asam_sorbat
+  "asam alginat": asam_alginat
+  "asam sitrat": asam_sitrat
+  "sitrun": asam_sitrat
+  # --- c.2 KMA 1360/2021: bahan tambahan pangan sintetis (dikecualikan) ---
+  "natrium benzoat": natrium_benzoat
+  "sodium benzoate": natrium_benzoat
+  "kalium benzoat": natrium_benzoat
+  "kalsium benzoat": natrium_benzoat
+  "kalium sorbat": kalium_sorbat
+  "potassium sorbate": kalium_sorbat
+  "natrium sorbat": kalium_sorbat
+  "kalsium sorbat": kalium_sorbat
+  "natrium propionat": natrium_propionat
+  "kalsium propionat": natrium_propionat
+  "sodium propionate": natrium_propionat
+  "natrium metabisulfit": sulfit
+  "natrium bisulfit": sulfit
+  "natrium sulfit": sulfit
+  "kalium metabisulfit": sulfit
+  "kalium sulfit": sulfit
+  "sulfur dioksida": sulfit
+  "sulfit": sulfit
+  "natrium nitrit": nitrit_nitrat
+  "natrium nitrat": nitrit_nitrat
+  "kalium nitrat": nitrit_nitrat
+  "sendawa": nitrit_nitrat
+  "natrium diasetat": natrium_diasetat
+  "metil paraben": paraben
+  "metilparaben": paraben
+  "propil paraben": paraben
+  "propilparaben": paraben
+  "etil paraben": paraben
+  "nipagin": paraben
+  "asam malat": asam_malat
+  "asam tartarat": asam_tartarat
+  "asam fumarat": asam_fumarat
+  "asam adipat": asam_adipat
+  "asam suksinat": asam_suksinat
+  "natrium asetat": natrium_asetat
+  "kalium asetat": natrium_asetat
+  "kalsium asetat": natrium_asetat
+  "natrium bikarbonat": soda_kue
+  "sodium bicarbonate": soda_kue
+  "bikarbonat": soda_kue
+  "natrium karbonat": natrium_karbonat
+  "soda abu": natrium_karbonat
+  "kalium karbonat": natrium_karbonat
+  "amonium bikarbonat": amonium_bikarbonat
+  "amonium karbonat": amonium_bikarbonat
+  "ammonium bicarbonate": amonium_bikarbonat
+  "kalsium karbonat": kalsium_karbonat
+  "kalsium hidroksida": kalsium_oksida
+  "kalium hidroksida": basa_pangan
+  "natrium hidroksida": basa_pangan
+  "soda api": basa_pangan
+  "asam klorida": asam_anorganik
+  "asam sulfat": asam_anorganik
+  "natrium fosfat": fosfat
+  "kalium fosfat": fosfat
+  "kalsium fosfat": fosfat
+  "dinatrium fosfat": fosfat
+  "trinatrium fosfat": fosfat
+  "monokalsium fosfat": fosfat
+  "natrium aluminium fosfat": fosfat
+  "pirofosfat": fosfat
+  "natrium pirofosfat": fosfat
+  "natrium tripolifosfat": fosfat
+  "stpp": fosfat
+  "sapp": fosfat
+  "natrium asam pirofosfat": fosfat
+  "heksametafosfat": fosfat
+  "natrium heksametafosfat": fosfat
+  "polifosfat": fosfat
+  "glukono delta lakton": glukonat
+  "gdl": glukonat
+  "natrium glukonat": glukonat
+  "kalium glukonat": glukonat
+  "kalsium glukonat": glukonat
+  "sakarin": sakarin
+  "natrium sakarin": sakarin
+  "siklamat": siklamat
+  "natrium siklamat": siklamat
+  "neohesperidin": neohesperidin_dc
+  "tartrazin": pewarna_sintetis_pangan
+  "tartrazine": pewarna_sintetis_pangan
+  "kuning fcf": pewarna_sintetis_pangan
+  "sunset yellow": pewarna_sintetis_pangan
+  "karmoisin": pewarna_sintetis_pangan
+  "carmoisine": pewarna_sintetis_pangan
+  "azorubin": pewarna_sintetis_pangan
+  "ponceau 4r": pewarna_sintetis_pangan
+  "ponceau": pewarna_sintetis_pangan
+  "allura red": pewarna_sintetis_pangan
+  "merah allura": pewarna_sintetis_pangan
+  "brilliant blue": pewarna_sintetis_pangan
+  "biru berlian": pewarna_sintetis_pangan
+  "indigotin": pewarna_sintetis_pangan
+  "indigo carmine": pewarna_sintetis_pangan
+  "eritrosin": pewarna_sintetis_pangan
+  "erythrosine": pewarna_sintetis_pangan
+  "quinoline yellow": pewarna_sintetis_pangan
+  "kuning kuinolin": pewarna_sintetis_pangan
+  "green s": pewarna_sintetis_pangan
+  "hijau s": pewarna_sintetis_pangan
+  "brilliant black": pewarna_sintetis_pangan
+  "brown ht": pewarna_sintetis_pangan
+  "coklat ht": pewarna_sintetis_pangan
+  "karamel": karamel
+  "caramel": karamel
+  "pewarna karamel": karamel
+  "karamel kelas i": karamel
+  "karamel kelas iv": karamel
+  "antosianin": pewarna_alami_kma
+  "anthocyanin": pewarna_alami_kma
+  "betanin": pewarna_alami_kma
+  "beetroot red": pewarna_alami_kma
+  "merah bit": pewarna_alami_kma
+  "klorofilin": pewarna_alami_kma
+  "klorofil": pewarna_alami_kma
+  "karmin": karmin
+  "carmine": karmin
+  "asam karminat": karmin
+  "oksida besi": oksida_besi
+  "iron oxide": oksida_besi
+  "hpmc": hpmc
+  "hidroksipropil metilselulosa": hpmc
+  "metilselulosa": hpmc
+  "metil selulosa": hpmc
+  "etilselulosa": hpmc
+  "mikrokristalin selulosa": hpmc
+  "selulosa mikrokristal": hpmc
+  "natrium alginat": alginat
+  "kalium alginat": alginat
+  "kalsium alginat": alginat
+  "alginat": alginat
+  "propilen glikol alginat": alginat
+  "karagenan": karagenan
+  "carrageenan": karagenan
+  "amonium fosfatida": amonium_fosfatida
+  "pati oktenil suksinat": pati_termodifikasi_osa
+  "osa starch": pati_termodifikasi_osa
+  "pvp": pvp
+  "polivinilpirolidon": pvp
+  "kalsium klorida": kalsium_klorida
+  "magnesium klorida": kalsium_klorida
+  "bha": bha
+  "butil hidroksianisol": bha
+  "bht": bht
+  "butil hidroksitoluen": bht
+  "tbhq": tbhq
+  "propil galat": galat
+  "oktil galat": galat
+  "dodesil galat": galat
+  "natrium askorbat": askorbat
+  "kalsium askorbat": askorbat
+  "tokoferol": tokoferol
+  "alfa tokoferol": tokoferol
+  "edta": edta
+  "disodium edta": edta
+  "dinatrium edta": edta
+  "kalsium disodium edta": edta
+  "kalium iodida": mineral_fortifikan
+  "kalium klorida": mineral_fortifikan
+  "zink sulfat": mineral_fortifikan
+  "seng sulfat": mineral_fortifikan
+  "mangan sulfat": mineral_fortifikan
+  "besi sulfat": mineral_fortifikan
+  "ferro sulfat": mineral_fortifikan
+  "besi fumarat": mineral_fortifikan
+  "ferro fumarat": mineral_fortifikan
+  "besi pirofosfat": mineral_fortifikan
+  "ferri pirofosfat": mineral_fortifikan
+  "magnesium sulfat": mineral_fortifikan
+  "tembaga glukonat": mineral_fortifikan
+  "natrium selenat": mineral_fortifikan
+  "kolin klorida": mineral_fortifikan
+  "niasin": mineral_fortifikan
+  "asam nikotinat": mineral_fortifikan
+  "kalsium pantotenat": mineral_fortifikan
+  "karbon dioksida": gas_kemasan
+  "co2": gas_kemasan
+  "nitrogen": gas_kemasan
+  "oksigen": gas_kemasan
+  "maltol": maltol
+  "etil maltol": maltol
+  "dinatrium suksinat": dinatrium_suksinat
+  "magnesium karbonat": anti_kempal_silikat
+  "magnesium trisilikat": anti_kempal_silikat
+  "talk": anti_kempal_silikat
+  "talkum": anti_kempal_silikat
+  "kalsium silikat": anti_kempal_silikat
+  "natrium aluminium silikat": anti_kempal_silikat
+  "natrium ferosianida": anti_kempal_silikat
+  "kalium ferosianida": anti_kempal_silikat
+  "silika": silikon_dioksida
+  "silika gel": silikon_dioksida
+  "propilen glikol": propilen_glikol
+  "propylene glycol": propilen_glikol
+  "polietilen glikol": propilen_glikol
+  "dimetilpolisiloksan": antibusa
+  "dimetikon": antibusa
+  "simetikon": antibusa
+  "antibusa": antibusa
+  "carnauba wax": pelapis_lilin
+  "lilin karnauba": pelapis_lilin
+  "shellac": pelapis_lilin
+  "lilin lebah": cera_alba
+  "beeswax": cera_alba
+  "kafein": kafein
+  "caffeine": kafein
+  "kuinin": kuinin
+  "quinine": kuinin
+  "eugenol": perisa_sintetis_kma
+  "etil vanilin": perisa_sintetis_kma
+  "ethyl vanillin": perisa_sintetis_kma
+  "sinamaldehida": perisa_sintetis_kma
+  "benzaldehida": perisa_sintetis_kma
+  "anetol": perisa_sintetis_kma
+  "kalium bromat": kalium_bromat
+  "potassium bromate": kalium_bromat
+  "bromat": kalium_bromat
+  # --- sinonim Inggris umum (model kadang menerjemahkan label; 10 Sep 2026) ---
+  "flour": tepung_terigu
+  "wheat flour": tepung_terigu
+  "all purpose flour": tepung_terigu
+  "egg": telur
+  "eggs": telur
+  "sugar": gula_pasir
+  "granulated sugar": gula_pasir
+  "pineapple jam": selai
+  "jam": selai
+  "vanilla": vanili
+  "vanilla extract": vanili
+  "salt": garam
+  "water": air
+  "milk": susu_bubuk
+  "milk powder": susu_bubuk
+  "cooking oil": minyak_sawit
+  "palm oil": minyak_sawit
+  "vegetable oil": minyak_sawit
+  "chili": cabai
+  "chilli": cabai
+  "garlic": bawang_putih
+  "shallot": bawang_merah
+  "onion": bawang_bombay
+  "beef": daging_sapi
+  "chicken": daging_ayam
+  "tapioca": tepung_tapioka
+  "tapioca starch": tepung_tapioka
+  "soy sauce": kecap
+  "shrimp paste": terasi
+  "baking powder": baking_powder
+  "yeast": ragi
+  "flavor enhancer": msg
+  "cocoa powder": cokelat_bubuk
+  "coconut": kelapa
+  "rice": beras
+  "corn": jagung
+  "peanut": kacang_tanah
+  "soybean": kedelai
+  # --- positif (olahan lazim bersertifikat) ---
+  "tepung terigu": tepung_terigu
+  "terigu": tepung_terigu
+  "tepung": tepung_terigu
+  "tepung tapioka": tepung_tapioka
+  "tapioka": tepung_tapioka
+  "tepung beras": tepung_beras
+  "tepung maizena": tepung_maizena
+  "maizena": tepung_maizena
+  "tepung sagu": tepung_sagu
+  "gula pasir": gula_pasir
+  "gula": gula_pasir
+  "gula merah": gula_merah
+  "gula aren": gula_merah
+  "gula jawa": gula_merah
+  "gula halus": gula_pasir
+  "minyak goreng": minyak_sawit
+  "minyak sawit": minyak_sawit
+  "minyak kelapa": minyak_kelapa
+  "santan": santan_segar
+  "santan instan": santan_kemasan
+  "santan kemasan": santan_kemasan
+  "susu bubuk": susu_bubuk
+  "susu kental manis": skm
+  "skm": skm
+  "susu uht": susu_uht
+  "pengembang": baking_powder
+  "soda kue": soda_kue
+  "baking soda": soda_kue
+  "ragi": ragi
+  "ragi instan": ragi
+  "fermipan": ragi
+  "vanili": vanili
+  "vanila": vanili
+  "kecap": kecap
+  "kecap manis": kecap
+  "kecap asin": kecap
+  "terasi": terasi
+  "selai": selai
+  "selai nanas": selai
+  "madu": madu
+  "sirup": sirup
+  "meses": meses
+  "keju parut": keju
+  # --- kritis (wajib sertifikat pemasok) ---
+  "daging sapi": daging_sapi
+  "sapi": daging_sapi
+  "daging ayam": daging_ayam
+  "ayam": daging_ayam
+  "daging kambing": daging_kambing
+  "kambing": daging_kambing
+  "jeroan": jeroan
+  "tulang": tulang
+  "kulit sapi": kulit
+  "kulit": kulit
+  "lemak sapi": lemak_hewani
+  "lemak hewani": lemak_hewani
+  "gelatin": gelatin
+  "margarin": margarin
+  "margarine": margarin
+  "mentega": mentega
+  "butter": mentega
+  "keju": keju
+  "whey": whey
+  "cokelat batang": cokelat_compound
+  "coklat batang": cokelat_compound
+  "cokelat compound": cokelat_compound
+  "dark cooking chocolate": cokelat_compound
+  "perisa": perisa
+  "flavor": perisa
+  "essence": perisa
+  "esens": perisa
+  "pewarna makanan": pewarna
+  "pewarna": pewarna
+  "penyedap rasa": msg
+  "msg": msg
+  "micin": msg
+  "kaldu ayam": kaldu_bubuk
+  "kaldu bubuk": kaldu_bubuk
+  "kaldu jamur": kaldu_bubuk
+  "saus tiram": saus_tiram
+  "saus tomat": saus_kemasan
+  "saus sambal": saus_kemasan
+  "mayones": mayones
+  "shortening": shortening
+  "emulsifier": emulsifier
+  "sp": emulsifier
+  "ovalet": emulsifier
+  "tbm": emulsifier
+  "enzim": enzim
+  "kolagen": kolagen
+  "rum essence": rum_essence
+  "bumbu instan": bumbu_instan
+  "bumbu racik": bumbu_instan
+  "sosis": sosis
+  "bakso": bakso_olahan
+  "nugget": nugget
+  "abon": abon
+  "krimer": krimer
+  "creamer": krimer
+  "whipping cream": krim
+  "krim": krim
+  "yogurt": yogurt
+  "cuka apel": asam_asetat
+  "mirin": mirin
+  "angciu": angciu
+  "arak": arak
+  "rum": rum
+  "wine": wine
+  "sake": sake
+  "bir": bir
+  "babi": babi
+  "lemak babi": lemak_babi
+  "lard": lard
+  "bacon": bacon
+  "ham": ham
+  "boraks": boraks
+  "bleng": boraks
+  "formalin": formalin
+  "rhodamin b": rhodamin_b
+  "methanil yellow": methanil_yellow
+  "pewarna tekstil": methanil_yellow
+
+kelas:
+  dikecualikan_A:
+    rule_id: K1360_A
+    catatan: "KMA 1360/2021 bagian a: a.1 tumbuhan (no.1–34), a.2 hewan non-sembelihan (no.1–8), a.3 fermentasi mikroba (no.1–5), a.4 air alam (no.1–3). Syarat: tanpa penambahan bahan penolong/tambahan/lain."
+    bahan:
+      # a.1 tumbuhan
+      - buah_segar
+      - sayur_segar
+      - sayur_kering
+      - serealia
+      - beras
+      - jagung
+      - beras_jagung
+      - oat
+      - wheat_gluten
+      - umbi_segar
+      - singkong
+      - ubi
+      - kacang_tanah
+      - kacang_hijau
+      - kedelai
+      - kemiri
+      - wijen
+      - rumput_laut
+      - rumput_laut_kering
+      - kelapa
+      - kelapa_parut
+      - kelapa_parut_kering
+      - air_kelapa
+      - kulit_tahu
+      - bungkil_kedelai
+      - tahu_tradisional
+      - spirulina
+      - agar_agar
+      - gom_akasia
+      - minyak_atsiri
+      - minyak_kayu_manis
+      - cokelat_bubuk          # "Serbuk coklat" a.1 no.31 (murni, tanpa tambahan)
+      - menthol
+      - minyak_orange
+      - peppermint
+      - cabai
+      - bawang_merah
+      - bawang_putih
+      - bawang_bombay
+      - rempah
+      # a.2 hewan non-sembelihan
+      - susu_segar
+      - telur
+      - ikan_segar
+      - ikan_beku
+      - ikan_kering
+      - ikan_asin
+      - udang_segar
+      - belalang
+      - cera_flava
+      - cera_alba
+      # a.3 fermentasi mikroba
+      - tape
+      - oncom
+      - dadih
+      - tempe
+      # a.4 air alam
+      - air
+      - es_batu
+  dikecualikan_B:
+    rule_id: K1360_B
+    catatan: "KMA 1360/2021 bagian b: bahan olahan tidak berisiko (kasa, kapas, selulosa & turunannya, polimer sintetik). Untuk pangan relevan: CMC/Na-CMC, selulosa."
+    bahan:
+      - cmc
+      - selulosa
+  dikecualikan_C:
+    rule_id: K1360_C
+    catatan: "KMA 1360/2021 bagian c.1 (tambang/pemurnian, 20 entri) dan c.2 (sintesis anorganik/organik, no. 1-4038; SELURUH halaman dibaca 10 Sep 2026). Hanya entri relevan label pangan yang dimuat. TIDAK ADA di lampiran (tetap positif/kritis): asam sitrat, asam laktat, MSG, lesitin, gliserol, pektin, maltodekstrin, dekstrin, xanthan, aspartam, sukralosa, sorbitol, xylitol."
+    bahan:
+      # c.1 tambang/pemurnian
+      - garam                 # c.1 no.13 Natrium Klorida
+      - titanium_dioksida     # c.1 no.3 E171; juga c.2 no.3878, 3961
+      - silikon_dioksida      # c.1 no.17; c.2 no.413 silika koloid, 851 silika gel, 2627, 3910
+      - kalsium_oksida        # c.1 no.16; c.2 no.167/2645/3241 kalsium hidroksida, 4018
+      - batu_kapur            # c.1 no.19
+      # c.2 pengasam / pengatur keasaman
+      - tawas                 # c.2 no.21, 2655
+      - asam_asetat           # c.2 no.33
+      - asam_benzoat          # c.2 no.34
+      - asam_fosfat           # c.2 no.35
+      - asam_sorbat           # c.2 no.38
+      - asam_alginat          # c.2 no.31
+      - asam_malat            # c.2 no.2636 (E296)
+      - asam_tartarat         # c.2 no.454, 714 (E334)
+      - asam_fumarat          # c.2 no.1899 (E297)
+      - asam_adipat           # c.2 no.1900 (E355)
+      - asam_suksinat         # c.2 no.1922 (E363)
+      - natrium_asetat        # c.2 no.398, 1137; kalium/kalsium asetat no.3980-3982
+      - soda_kue              # c.2 no.246 natrium bikarbonat (E500ii)  <- dipindah dari positif
+      - natrium_karbonat      # c.2 no.3431 (E500i); kalium karbonat no.3430 (E501)
+      - amonium_bikarbonat    # c.2 no.380, 833, 925, 2731 (E503)
+      - kalsium_karbonat      # c.2 no.168, 2753, 3081 (E170)
+      - basa_pangan           # c.2 no.338 NaOH (E524), 381/2745/3327 KOH (E525), 2643/3840 amonium hidroksida (E527)
+      - asam_anorganik        # c.2 no.378/2682 HCl (E507), 4015 H2SO4 (E513)
+      - fosfat                # c.2 no.396-397, 2646-2649, 2675 SALP, 2680, 2686, 2741, 2766 TKPP, 2787/2918 TSPP, 2804 STPP, 2833/3421 SHMP, 2894 SAPP, 3432-3434, 3991-3997, 4011 (E338-E452)
+      - glukonat              # c.2 no.3862 kalsium glukonat, 4027 GDL, 4028-4029 (E575-E578)
+      # c.2 pengawet
+      - natrium_benzoat       # c.2 no.340 (E211); kalium/kalsium benzoat no.3563-3564 (E212-E213)
+      - kalium_sorbat         # c.2 no.3194-3196 (E201-E203)
+      - natrium_propionat     # c.2 no.386, 3186 (E281)
+      - sulfit                # c.2 no.339, 394, 2881, 3166-3172, 3579, 3952-3953, 3968-3972 (E220-E228)
+      - nitrit_nitrat         # c.2 no.2653-2654, 2938, 3978-3979 (E249-E252)
+      - natrium_diasetat      # c.2 no.2795 (E262)
+      - paraben               # c.2 no.419, 422, 426, 3124-3159, 3963-3967 (E214-E219; metil/etil/propil)
+      # c.2 pemanis
+      - sakarin               # c.2 no.344-345, 875 (E954)
+      - siklamat              # c.2 no.2721 (E952)
+      - neohesperidin_dc      # c.2 no.1236 (E959)
+      # c.2 pewarna
+      - pewarna_sintetis_pangan   # c.2 no.1027/3370/3409/3662 Sunset Yellow E110; 1040/3363/3382/3675/3960 Tartrazin E102; 3020/3391/3652 Karmoisin E122; 3365/3392/3666 Ponceau 4R E124; 3371/3393/3663 Allura Red E129; 3233/3395/3684/3868 Brilliant Blue E133; 3059/3394/3710 Indigotin E132; 3397 Eritrosin E127; 3047/3390/3698 Quinoline Yellow E104; 3038/3403/3690 Green S E142; 3388/3404/3680 Brilliant Black E151; 3396 Brown HT E155
+      - karamel               # c.2 no.3411-3415 (E150a-d)
+      - pewarna_alami_kma     # c.2 no.3099 antosianin (E163), 3416 beetroot red (E162), 1269/3071/3718 klorofilin tembaga (E141)
+      - karmin                # c.2 no.3871 (E120)
+      - oksida_besi           # c.2 no.3088-3091, 3406, 3723-3732, 3873-3875, 3962 (E172)
+      # c.2 pengemulsi / penstabil
+      - cmc                   # KMA b; c.2 no.405
+      - hpmc                  # c.2 no.406, 3429, 3804 HPMC (E464); 337/407 metilselulosa (E461); 408/1166/3905 etilselulosa (E462); 409-410/4012 MCC (E460); 4013-4014
+      - alginat               # c.2 no.412, 4003-4006 (E401-E404); 1167/4007 propilen glikol alginat (E405)
+      - karagenan             # c.2 no.4008 (E407)
+      - amonium_fosfatida     # c.2 no.4010 (E442)
+      - pati_termodifikasi_osa   # c.2 no.1139 (E1450)
+      - pvp                   # c.2 no.849 (E1201)
+      - kalsium_klorida       # c.2 no.169, 2650 (E509); magnesium klorida 2754 (E511)
+      # c.2 antioksidan / sekuestran
+      - bha                   # c.2 no.390, 433 (E320)
+      - bht                   # c.2 no.72, 391, 657, 3423 (E321)
+      - tbhq                  # c.2 no.3424 (E319)
+      - galat                 # c.2 no.393, 536 propil galat (E310); 3989-3990 (E311-E312)
+      - askorbat              # c.2 no.3983-3984 natrium/kalsium askorbat (E301-E302)
+      - tokoferol             # c.2 no.3985-3988 (E306-E309)
+      - edta                  # c.2 no.96-97, 1010, 2723, 2926, 3427, 3896 (E385-E386)
+      # c.2 vitamin / mineral fortifikan
+      - mineral_fortifikan    # c.2 no.162-171, 215, 334-335, 416-417, 2658, 2750-2763, 2769, 2786, 2794, 2837, 3422, 3737, 3862, 3883, 3925, 4002
+      # c.2 gas kemasan
+      - gas_kemasan           # c.2 no.414 O2 (E948), 421 CO2 (E290), 2631 H2 (E949), 2632 N2 (E941)
+      # c.2 penguat rasa / perisa sintetis spesifik
+      - maltol                # c.2 no.2552 maltol (E636), 2663 etil maltol (E637)
+      - dinatrium_suksinat    # c.2 no.1935
+      - perisa_sintetis_kma   # c.2 no.343 eugenol, 400/1685 etil vanilin, 1669 sinamaldehida, 1948 benzaldehida, 1608 anetol, 388 fenil etil alkohol
+      # c.2 anti kempal
+      - anti_kempal_silikat   # c.2 no.214/3093 magnesium karbonat (E504), 216 magnesium trisilikat, 427/2665/3352 talk (E553b), 4024 kalsium silikat (E552), 4025-4026 (E554/E556), 4019 MgO (E530), 4020-4022 ferosianida (E535-E538)
+      # c.2 lainnya
+      - propilen_glikol       # c.2 no.424 (E1520); 404 PEG (E1521)
+      - antibusa              # c.2 no.95 dimetikon, 303 simetikon, 848/4030 dimetilpolisiloksan (E900)
+      - pelapis_lilin         # c.2 no.4031 carnauba (E903), 4032 shellac (E904), 817 white wax (E901)
+      - kafein                # c.2 no.3797
+      - kuinin                # c.2 no.3335
+  positif:
+    rule_id: POS_OLAHAN
+    catatan: "Olahan lazim yang biasanya bersertifikat merek. Agent meminta merek/pemasok; jika merek ada di registry (mock) atau UMK menunjukkan logo halal kemasan, dianggap terdokumentasi."
+    bahan:
+      - tepung_terigu
+      - tepung_tapioka
+      - tepung_beras
+      - tepung_maizena
+      - tepung_sagu
+      - gula_pasir            # bukan bahan dikecualikan KMA; gula rafinasi umumnya bersertifikat
+      - gula_merah
+      - minyak_sawit
+      - minyak_kelapa
+      - santan_segar
+      - santan_kemasan
+      - susu_bubuk
+      - skm
+      - susu_uht
+      - baking_powder      # campuran; bahan aktif bikarbonat/fosfat dikecualikan, pembawa pati perlu dicek
+      - ragi
+      - vanili
+      - kecap
+      - terasi
+      - selai
+      - madu
+      - sirup
+      - meses
+      - asam_sitrat
+  kritis:
+    rule_id: KRITIS_WAJIB_SERT
+    catatan: "Wajib sertifikat halal pemasok (E11). Daging/turunan hewan sembelihan, gelatin, lemak, flavor, pewarna, emulsifier, enzim, produk susu olahan tertentu, produk olahan daging, bumbu jadi, saus."
+    bahan:
+      - daging_sapi
+      - daging_ayam
+      - daging_kambing
+      - jeroan
+      - tulang
+      - kulit
+      - lemak_hewani
+      - gelatin
+      - kolagen
+      - margarin
+      - mentega
+      - shortening
+      - keju
+      - whey
+      - krimer
+      - krim
+      - yogurt
+      - cokelat_compound
+      - perisa
+      - pewarna
+      - emulsifier
+      - enzim
+      - msg
+      - kaldu_bubuk
+      - saus_tiram
+      - saus_kemasan
+      - mayones
+      - bumbu_instan
+      - rum_essence
+      - sosis
+      - bakso_olahan
+      - nugget
+      - abon
+
+# Bahan yang menandai product.bahan_berbahaya = 1 (E06) — dari Permenkes/Perka BPOM bahan dilarang pada pangan
+berbahaya:
+  - boraks
+  - formalin
+  - rhodamin_b
+  - methanil_yellow
+  - kalium_bromat      # tercantum KMA c.2 no.4035 (E924) tetapi dilarang untuk pangan di Indonesia (Permenkes 033/2012)
+
+# Bahan yang menandai product.mengandung_hewan_sembelihan = 1 (E09)
+sembelihan:
+  - daging_sapi
+  - daging_ayam
+  - daging_kambing
+  - jeroan
+  - tulang
+  - kulit
+  - lemak_hewani
+  - sosis
+  - bakso_olahan
+  - nugget
+  - abon
+
+# Haram eksplisit → TIDAK_LAYAK tanpa evaluasi lanjut
+haram_eksplisit:
+  - babi
+  - lemak_babi
+  - lard
+  - bacon
+  - ham
+  - arak
+  - rum
+  - wine
+  - sake
+  - mirin
+  - angciu
+  - bir
+
+# Salinan entri lampiran KMA 1360/2021 yang dibaca (audit trail; tidak dipakai mesin)
+kma_lampiran_dibaca:
+  halaman: "5–15 dari 182"
+  a1_tumbuhan: [Buah segar, Sayuran segar, Sayuran kering, Serealia, Umbi-umbian segar, Umbi-umbian kering, Kacang-kacangan segar, Kacang-kacangan kering, Rumput laut segar, Rumput laut kering, Beras jagung, Oat murni, Wheat gluten murni, Kelapa parut kering, Kelapa murni, Air kelapa murni, Kulit/kembang tahu murni, Bungkil kedelai murni, Bungkil kacang tanah murni, Tahu kedelai tradisional murni, Chlorella ellipsoides, Spirulina spp, Scenedesmus spp, Galactomannan, Kulit Kina, Serbuk Agar, Gom Akasia Murni, Minyak atsiri, Minyak kayu manis, Serbuk coklat, Menthol, Minyak orange, Pepermint]
+  a2_hewan_non_sembelihan: [Susu segar, Telur segar, Ikan segar, Ikan dibekukan, Ikan dikeringkan, Ikan diasinkan, Belalang segar/dikeringkan, Malam Kuning (cera flava), Malam Putih (cera alba)]
+  a3_fermentasi: [Tape, Oncom merah, Oncom hitam, Dadih, Tempe]
+  a4_air: [Air dari sumber mata air/air tanah, Air untuk injeksi, Es batu]
+  b_tidak_berisiko: [Kasa pembalut, Kapas murni, Pembalut krep katun, Polimer berbasis selulosa, Selulosa dan turunannya (diasetat, asetat, eter, triasetat, CMC, Na-CMC), Polimer sintetik (PE, PS, poliamin, poliuretan, polieter, poliurea, poliakrilat, PVP, PVC, PVA)]
+  c1_tambang: [Magnesium Oksida, Zink oksida, E171 Titanium dioksida, Bentonite, Diatomaceous earth, Kaolin, Zeolite, Activated Alumina, Perlite, Parafin, Natrium Klorida, Diatomite, Batu bara, Kalsium oksida, Silikon dioksida, Timah (II) oksida, Batu kapur, Tanah liat]
+  c2_sintesis_pangan_hal10_11: [Tawas, Amonia, Amonium Klorida, Asam Alginat, Asam Asetat, Asam Benzoat, Asam Fosfat, Asam Sorbat]
+  c2_sintesis_hal12_182:
+    dibaca: "10 Sep 2026, 6 pembaca paralel, seluruh halaman terbaca; tabel berakhir no. 4038 (hal. 182) disusul tanda tangan Menteri Agama"
+    ringkasan: "Didominasi farmasi (hal. 12-25), perisa/fragrans (hal. 26-116, 128-131, 155-160), pewarna rambut/tabir surya/surfaktan (hal. 133-135, 161-164, 170). Entri pangan terkonsentrasi di hal. 12-30 (BTP dasar), 120-127 (fosfat, mineral, gas), 136-156 (pewarna, pengawet), 178-182 (blok E-number)."
+    tidak_ditemukan_di_lampiran: [asam sitrat, asam laktat, MSG, lesitin, gliserol, pektin, maltodekstrin, dekstrin, xanthan, aspartam, sukralosa, sorbitol, xylitol, kalium bitartrat, Fast Green FCF, Patent Blue V]
+    catatan_kualitas: "Beberapa CAS di dokumen keliru/tidak lengkap (mis. kalsium karbonat '471-341-1', HPMC '9004-32-4'/'9004-65', etil vanilin '121-33-5'); nomor entri yang dicatat tetap merujuk dokumen. Kalium bromat (no.4035) tercantum namun dilarang di Indonesia -> kelas berbahaya."

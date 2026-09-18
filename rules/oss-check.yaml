@@ -1,0 +1,39 @@
+# Pengecekan konsistensi data usaha vs NIB/OSS (mock). Ketidakcocokan = penyebab penolakan paling sering.
+version: "2026-09-02.1"
+
+sumber_mock: "GET /mock/oss/{nib}"       # Express mengembalikan record sintetis: {nama, alamat, kbli[], skala, status_nib}
+
+pembanding:
+  - field: nama_usaha
+    metode: normalisasi_lalu_fuzzy       # lowercase, hapus PT/CV/UD/"toko", jarak Levenshtein ≤ 2 dianggap sama
+    ambang: 0.9
+    pesan: "Nama usaha di pengajuan '{{a}}' berbeda dengan NIB '{{b}}'."
+  - field: alamat
+    metode: token_overlap               # kelurahan/kecamatan/kota harus sama; nomor rumah boleh beda
+    ambang: 0.7
+    pesan: "Alamat produksi tidak sama dengan alamat NIB. Jika pindah, perbarui OSS dulu."
+  - field: kbli
+    metode: himpunan
+    aturan: "kbli produk ∈ oss.kbli[]"
+    pesan: "KBLI {{a}} tidak terdaftar di NIB ({{b}}). Tambahkan KBLI di OSS sebelum mengajukan."
+  - field: skala
+    metode: sama_persis
+    pesan: "Skala usaha di NIB adalah '{{b}}', bukan UMK."
+  - field: status_nib
+    metode: sama_persis
+    nilai_wajib: aktif
+    pesan: "NIB tidak aktif."
+
+kbli_pangan_yang_diterima:               # contoh untuk mock; lengkapi sesuai KBLI 2020
+  - "10710"   # roti & kue
+  - "10771"   # kecap
+  - "10772"   # bumbu masak & penyedap
+  - "10779"   # produk masak lainnya
+  - "10792"   # kue basah
+  - "10793"   # makanan dari kedele & kacang
+  - "10794"   # kerupuk, keripik, peyek
+  - "10750"   # makanan siap saji
+  - "10131"   # pengolahan daging (bakso, dll.)
+  - "10211"   # pengolahan ikan
+  - "11040"   # minuman ringan
+  - "56102"   # rumah/warung makan

@@ -1,0 +1,537 @@
+# Kepkaban BPJPH No. 146 Tahun 2025 — kutipan Bab I–IV (halaman 1–10)
+
+Sumber: https://cmsbl.halal.go.id/uploads/146_2025_Kep_Ka_BPJPH_Petunjuk_Teknis_Layanan_Permohonan_Sertifikasi_Halal_atas_Produk_yang_Tidak_Wajib_546bcae1d3.pdf (diunduh 10 Sep 2026; 177 halaman, Lampiran II = rincian jenis produk).
+Judul: Petunjuk Teknis Layanan Sertifikasi Halal bagi Pelaku Usaha Mikro dan Kecil yang Didasarkan atas Pernyataan Halal Pelaku Usaha Mikro dan Kecil.
+Dipakai sebagai dasar rules/eligibility.yaml (kolom 'butir'). Teks di bawah hasil ekstraksi otomatis; rujuk PDF asli untuk kutipan resmi.
+
+
+## Halaman 1
+
+KEPUTUSAN KEPALA BADAN PENYELENGGARA JAMINAN PRODUK HALAL
+REPUBLIK INDONESIA
+NOMOR  146  TAHUN 2025
+TENTANG
+PETUNJUK TEKNIS LAYANAN SERTIFIKASI HALAL BAGI PELAKU USAHA
+MIKRO DAN KECIL YANG DIDASARKAN ATAS PERNYATAAN HALAL PELAKU
+USAHA MIKRO DAN KECIL
+DENGAN RAHMAT TUHAN YANG MAHA ESA
+KEPALA BADAN PENYELENGGARA JAMINAN PRODUK HALAL
+REPUBLIK INDONESIA,
+Menimbang
+: bahwa dalam rangka melaksanakan layanan sertifikasi halal
+bagi pelaku usaha mikro dan kecil yang didasarkan atas
+pernyataan halal pelaku usaha mikro dan kecil, maka perlu
+menetapkan
+Keputusan
+Kepala
+Badan
+Penyelenggara
+Jaminan Produk Halal tentang Petunjuk Teknis Layanan
+Sertifikasi Halal bagi Pelaku Usaha Mikro dan Kecil yang
+Didasarkan atas Pernyataan Halal Pelaku Usaha Mikro dan
+Kecil;
+Mengingat
+: 1. Undang-Undang Nomor 33 Tahun 2014 tentang Jaminan
+Produk Halal (Lembaran Negara Republik Indonesia
+Tahun 20l4 Nomor 295, Tambahan Lembaran Negara
+Republik Indonesia Nomor 5604) sebagaimana telah
+beberapa kali diubah terakhir dengan Undang-Undang
+Nomor 6 Tahun 2023 tentang Penetapan Peraturan
+Pemerintah Pengganti Undang-Undang Nomor 2 Tahun
+2022 tentang Cipta Kerja Menjadi Undang-Undang
+(lembaran Negara Republik Indonesia Tahun 2023 Nomor
+41, Tambahan Lembaran Negara Republik Indonesia
+Nomor 6856);
+2. Peraturan Pemerintah Nomor 42 Tahun 2024 tentang
+Penyelenggaraan
+Bidang
+Jaminan
+Produk
+(Lembaran Negara Republik Indonesia Tahun 2024 Nomor
+229 Tambahan Lembaran Negara Republik Indonesia
+Nomor 6998);
+3. Peraturan Presiden Nomor 153 Tahun 2024 tentang Badan
+Penyelenggara Jaminan Produk Halal (Lembaran Negara
+Republik Indonesia Tahun 2024 Nomor 349);
+4. Peraturan Badan Penyelenggara Jaminan Produk Halal
+Nomor 1 Tahun 2024 tentang Organisasi dan Tata Kerja
+Badan Penyelenggara Jaminan Produk Halal (Berita
+Negara Republik Indonesia Tahun 2024 Nomor 933);
+
+## Halaman 2
+
+MEMUTUSKAN:
+Menetapkan
+: KEPUTUSAN KEPALA BADAN PENYELENGGARA JAMINAN
+PRODUK HALAL TENTANG PETUNJUK TEKNIS SERTIFIKASI
+HALAL BAGI PELAKU USAHA MIKRO DAN KECIL YANG
+DIDASARKAN ATAS PERNYATAAN HALAL PELAKU USAHA
+MIKRO DAN KECIL.
+KESATU
+: Menetapkan Petunjuk Teknis Sertifikasi Halal Bagi Pelaku
+Usaha Mikro Dan Kecil Yang Didasarkan Atas Pernyataan
+Halal Pelaku Usaha  Mikro Dan Kecil sebagaimana tercantum
+dalam Lampiran I, Lampiran II, dan Lampiran III yang
+merupakan bagian tidak terpisahkan dari Keputusan ini.
+KEDUA
+: Pada saat Keputusan ini mulai berlaku, Keputusan Kepala
+Badan Penyelenggara Jaminan Produk Halal Nomor 150
+Tahun 2022 tentang Petunjuk Teknis Pendamping Proses
+Produk Halal Dalam Penentuan Kewajiban Bersertifikat Halal
+Bagi Pelaku Usaha Mikro Dan Kecil Yang Didasarkan Atas
+Pernyataan Pelaku Usaha dan Keputusan Kepala Badan
+Penyelenggara Jaminan Produk Halal Nomor 22 Tahun 2023
+tentang
+Perubahan
+Atas
+Keputusan
+Kepala
+Badan
+Penyelenggara Jaminan Produk Halal Nomor 150 Tahun 2022
+Tentang Petunjuk Teknis Pendamping Proses Produk Halal
+Dalam Penentuan Kewajiban Bersertifikat Halal Bagi Pelaku
+Usaha Mikro Dan Kecil Yang Didasarkan Atas Pernyataan
+Pelaku Usaha, dicabut dan dinyatakan tidak berlaku.
+KETIGA
+: Keputusan ini mulai berlaku pada tanggal ditetapkan.
+Ditetapkan di Jakarta
+pada tanggal
+KEPALA BADAN
+PENYELENGGARA JAMINAN PRODUK HALAL
+REPUBLIK INDONESIA,
+AHMAD HAIKAL HASAN
+
+## Halaman 3
+
+LAMPIRAN I
+KEPUTUSAN KEPALA BADAN PENYELENGGARA JAMINAN
+PRODUK HALAL REPUBLIK INDONESIA
+NOMOR  146  TAHUN 2025
+TENTANG
+PETUNJUK TEKNIS SERTIFIKASI HALAL BAGI PELAKU
+USAHA MIKRO DAN KECIL YANG DIDASARKAN ATAS
+PERNYATAAN HALAL PELAKU USAHA
+MIKRO DAN KECIL
+PETUNJUK TEKNIS SERTIFIKASI HALAL BAGI PELAKU USAHA MIKRO DAN
+KECIL YANG DIDASARKAN ATAS PERNYATAAN HALAL PELAKU USAHA
+MIKRO DAN KECIL
+BAB I
+PENDAHULUAN
+A. Latar Belakang
+Undang-Undang
+Dasar
+Negara
+Republik
+Indonesia
+Tahun
+1945
+mengamanatkan negara menjamin kemerdekaan tiap-tiap penduduk untuk
+memeluk agamanya masing-masing dan untuk beribadah menurut
+agamanya dan kepercayaannya itu. Untuk menjamin setiap pemeluk agama
+beribadah dan menjalankan ajaran agamanya, negara berkewajiban
+memberikan pelindungan dan jaminan tentang kehalalan Produk yang
+dikonsumsi dan digunakan masyarakat. Jaminan mengenai Produk Halal
+hendaknya dilakukan sesuai dengan asas pelindungan, keadilan, kepastian
+hukum, akuntabilitas dan transparansi, efektivitas dan efisiensi, serta
+profesionalitas. Oleh karena itu, jaminan penyelenggaraan Produk Halal
+bertujuan
+memberikan
+kenyamanan,
+keamanan,
+keselamatan,
+dan
+kepastian ketersediaan Produk Halal bagi masyarakat dalam mengonsumsi
+dan menggunakan Produk, serta meningkatkan nilai tambah bagi Pelaku
+Usaha untuk memproduksi dan menjual Produk Halal.
+Sertifikasi halal merupakan upaya penting dalam menjamin kehalalan
+produk yang beredar di masyarakat, khususnya di negara dengan mayoritas
+penduduk muslim seperti Indonesia. Sebagai salah satu aspek penting dalam
+pengelolaan usaha, sertifikat halal tidak hanya memberikan jaminan kepada
+konsumen tetapi juga meningkatkan daya saing produk, khususnya bagi
+pelaku usaha mikro dan kecil (UMK).
+Pelaku UMK memiliki peran strategis dalam mendukung pertumbuhan
+ekonomi nasional. Namun, mereka sering kali menghadapi berbagai
+tantangan untuk mendapatkan sertifikat halal, seperti keterbatasan biaya,
+pengetahuan, dan akses ke layanan sertifikasi. Untuk mengatasi kendala
+tersebut, pemerintah melalui Undang-Undang Nomor 33  Tahun  2014
+tentang  Jaminan Produk Halal sebagaimana telah beberapa kali diubah
+dengan Undang-Undang Nomor 6 tahun 2023 tentang Penetapan Pemerintah
+Pengganti Undang-undang Nomor 2 Tahun 2022 tentang Cipta Kerja Menjadi
+Undang-Undang. Dalam Pasal 48 Point 2 disebutkan:
+1. Untuk Pelaku Usaha mikro dan kecil, kewajiban bersertifikat halal
+sebagaimana dimaksud dalam Pasal 4 didasarkan atas pernyataan halal
+Pelaku Usaha mikro dan kecil.
+2. Pernyataan halal Pelaku Usaha mikro dan kecil sebagaimana dimaksud
+pada ayat (1) dilakukan berdasarkan standar halal yang ditetapkan oleh
+BPJPH.
+
+## Halaman 4
+
+Manfaat Sertifikat Halal Bagi Pelaku Usaha Mikro dan Kecil adalah:
+1. Memberikan kepastian hukum dan kepercayaan konsumen. Sertifikat
+halal menjadi bukti bahwa produk telah melalui penilaian sesuai standar
+halal, sehingga memberikan kepastian hukum dan meningkatkan
+kepercayaan konsumen.
+2. Meningkatkan daya saing. Produk yang bersertifikat halal lebih mudah
+diterima di pasar domestik dan internasional, terutama di negara-negara
+dengan populasi muslim yang besar.
+3. Kemudahan pelaku usaha untuk dapat mengakses pasar. Banyak
+platform perdagangan, baik online maupun offline yang mewajibkan
+sertifikat halal sebagai syarat untuk menjual produk.
+Dengan adanya kemudahan sertifikasi halal melalui skema self declare,
+pelaku usaha mikro dan kecil (UMK) diharapkan dapat lebih mudah
+meningkatkan kualitas produk sekaligus memenuhi kebutuhan pasar yang
+semakin sadar akan pentingnya konsumsi produk halal.
+B. Maksud Dan Tujuan
+Pedoman ini bermaksud menjelaskan syarat, kriteria, dan prosedur yang
+harus dipenuhi oleh pelaku usaha mikro dan kecil dalam mengajukan
+sertifikasi halal. Pedoman ini juga dimaksudkan bagi Pendamping Proses
+Produk Halal (Pendamping PPH) sebagai pedoman memverifikasi pernyataan
+halal pelaku usaha yang berupa akad/ikrar.
+Tujuan pedoman ini memberikan kemudahan pelaku usaha untuk
+mendapatkan layanan serttifikasi halal dan mendorong transparansi dan
+akuntabilitas pelaku usaha dalam memastikan standar halal terpenuhi,
+serta dapat  meningkatkan kepercayaan konsumen terhadap produk halal di
+Indonesia.
+C. Ruang Lingkup
+Ruang Lingkup Pedoman ini ditujukan kepada:
+Pelaku Usaha Mikro dan Kecil dengan jenis layanan makanan dan minuman
+yang dapat mengajukan sertifikasi halal dengan skema self declare, Lembaga
+Pendamping PPH, dan Pendamping PPH.
+BAB II
+SERTIFIKASI HALAL MIKRO DAN KECIL DIDASARKAN ATAS PERNYATAAN
+HALAL PELAKU USAHA
+A. Kriteria Bagi Pelaku Usaha Mikro Dan Kecil Didasarkan Atas Pernyataan
+Halal Pelaku Usaha
+Kriteria Pelaku Usaha Mikro dan Kecil yang dapat mengajukan sertifikasi
+halal dengan skema self declare sebagai berikut:
+1. Memiliki Nomor Induk Berusaha (NIB) dengan skala usaha mikro dan
+kecil.
+2. Produk menggunakan bahan yang sudah dipastikan kehalalannya.
+3. Proses produksi yang dipastikan kehalalannya dan sederhana.
+4. Tidak menggunakan bahan dan PPH yang bersinggungan dengan bahan
+haram.
+5. Memiliki hasil penjualan tahunan paling banyak Rp15.000.000.000,00
+(lima belas miliar rupiah) yang dibuktikan dengan pernyataan mandiri.
+
+## Halaman 5
+
+6. Paling banyak memiliki 1 (satu) fasilitas produksi dan 1 (satu)  outlet
+lokasi.
+7. Memiliki lokasi, tempat, dan alat Proses Produk Halal (PPH) yang
+terpisah dengan lokasi, tempat dan alat proses produk tidak halal.
+8. Produk yang dihasilkan berupa barang sebagaimana rincian jenis
+produk dalam Lampiran Keputusan ini.
+9. Bahan untuk produk makanan atau minuman yang digunakan sudah
+dipastikan kehalalannya, seperti minyak goreng, kecap, garam, dan lain-
+lain.
+10. Tidak menggunakan bahan berbahaya sesuai peraturan perundang-
+undangan yang berlaku.
+11. Telah diverifikasi kehalalannya oleh Pendamping PPH.
+12. Produk yang disertifikasi halal tidak mengandung unsur hewan hasil
+sembelihan, kecuali berasal dari produsen atau rumah potong
+hewan/rumah potong unggas yang sudah bersertifikat halal.
+13. Dalam hal bahan berupa daging giling maka harus melalui jasa
+penggilingan yang telah bersertifikat halal atau digiling sendiri dengan
+tetap memenuhi kriteria kehalalan produk.
+14. Menggunakan peralatan produksi dengan teknologi sederhana atau
+dilakukan secara manual dan/atau semi otomatis (usaha rumahan
+bukan usaha pabrik).
+15. Proses pengawetan produk sederhana dan tidak menggunakan
+kombinasi lebih dari 1 (satu) metode pengawetan.
+16. Bersedia melengkapi dokumen pengajuan sertifikasi halal dengan
+mekanisme pernyataan halal secara online melalui SIHALAL, yaitu:
+a. Surat permohonan pendaftaran sertifikasi halal;
+b. Surat pernyataan bagi pendaftaran sertifikasi halal self declare
+mandiri;
+c. Akad/ikrar berisi pernyataan kehalalan produk dan bahan yang
+digunakan dalam proses produk halal.
+d. Memiliki Penyelia Halal;
+e. Daftar bahan yang digunakan;
+f.
+Proses pengolahan produk halal;
+g. Nama dan foto produk; dan
+h. Manual SJPH.
+B. Penyelia Halal
+1. Pelaku Usaha menetapkan penyelia halal bagi usahanya dan harus
+memenuhi persyaratan:
+a. Beragama Islam; dan
+b. Memiliki wawasan luas dan memahami syariat tentang kehalalan.
+2. Dalam hal pelaku usaha mikro dan kecil dengan pernyataan halal,
+Penyelia Halalnya dapat berasal dari pelaku usaha yang bersangkutan,
+persyaratan
+sertifikat
+pelatihan
+dan/atau
+sertifikat
+kompetensi
+dikecualikan.
+3. Penyelia halal memiliki tugas :
+a. Mengawasi PPH;
+b. Menentukan tindakan perbaikan dan pencegahan;
+c. Mengoordinasikan PPH; dan
+d. Mendampingi pendamping PPH pada saat verifikasi dan validasi.
+4. Dalam melaksanakan tugasnya penyelia halal juga bertanggungjawab:
+a. Menerapkan SJPH;
+b. Menyiapkan bahan dan PPH untuk dilakukan verifikasi dan validasi
+oleh pendamping PPH;
+
+## Halaman 6
+
+c. Menunjukkan bukti serta memberikan keterangan yang benar
+selama proses verifikasi dan validasi oleh pendamping PPH; dan
+d. Melakukan pembinaan JPH.
+BAB III
+PENGAJUAN SERTIFIKASI HALAL
+A. Pengajuan Permohonan Sertifikasi Halal
+Pelaku Usaha mengajukan permohonan Sertilikat Halal secara tertulis
+dalam bahasa Indonesia kepada BPJPH melalui sistem elektronik
+terintegrasi.
+Permohonan Sertifikat Halal sebagaimana dimaksud harus dilengkapi
+dengan dokumen:
+1. Data Pelaku Usaha dengan melampirkan Nomor Induk Berusaha (NIB);
+2. Jenis produk yang masuk dalam kategori self declare selain warung
+tegal, warung sunda, dan sejenisnya maksimal 10 (sepuluh) nama
+produk termasuk varian produknya;
+3. Jenis produk yang masuk dalam kategori self declare untuk warung
+tegal, warung sunda, warmindo, dan sejenisnya maksimal 30 (tiga puluh)
+menu;
+4. Nama Produk;
+5. Foto Produk;
+6. Daftar Produk, daftar bahan yang digunakan, daftar menu, dan/atau
+daftar harga; dan
+7. Penjelasan rinci terkait pengolahan Produk (proses produksi halal).
+B. Bahan
+Bahan yang digunakan dalam pendaftaran sertifikasi halal merupakan
+Bahan halal yang dibuktikan dengan Sertifikat Halal. Dikecualikan bahan
+bersertifikasi halal bagi bahan:
+a. Berasal dari alam berupa tumbuhan dan bahan tambang tanpa melalui
+proses pengolahan;
+b. Dikategorikan tidak berisiko mengandung Bahan yang diharamkan;
+dan/atau
+c. Tidak tergolong berbahaya serta tidak bersinggungan dengan Bahan
+haram.
+C. Jenis Produk
+Jenis Produk yang dapat diajukan sertifikasi halal melalui skema self declare
+hanya untuk jenis layanan makanan dan minuman. Rincian jenis produk
+terdapat dalam Lampiran II.
+D. Produk Dan Nama Produk
+Produk yang diajukan dalam pengajuan sertifikasi halal harus memenuhi
+kriteria sebagai berikut:
+1. Produk tidak menggunakan nama dan/atau simbol-simbol kekufuran,
+kemaksiatan, dan/atau melanggar kesusilaan;
+2. Produk tidak menggunakan nama benda/hewan yang diharamkan,
+kecuali:
+a. Yang telah mentradisi (‘urf) yang dipastikan tidak mengandung
+bahan yang diharamkan;
+
+## Halaman 7
+
+b. Yang menurut pandangan umum tidak ada kekhawatiran adanya
+penafsiran kebolehan mengkonsumsi hewan yang diharamkan
+tersebut; dan
+c. Yang mempunyai makna lain yang relevan dan secara empirik telah
+digunakan secara umum.
+3. Produk tidak berbentuk babi dan anjing dengan berbagai desainnya;
+4. Produk tidak menggunakan kemasan bergambar babi dan anjing sebagai
+fokus utama;
+5. Produk tidak memiliki rasa/aroma (flavour) unsur benda atau hewan
+yang diharamkan;
+6. Produk tidak menggunakan kemasan yang berbentuk dan/atau
+bergambar erotis dan porno; dan
+7. Nama
+produk
+tidak
+bertentangan
+dengan
+syariat
+Islam
+atau
+bertentangan dengan etika dan kepatutan yang berlaku dan berkembang
+di masyarakat.
+E. Proses Produksi Halal
+Proses produk halal oleh pelaku usaha mikro dan kecil merujuk pada
+serangkaian langkah yang dilakukan untuk memastikan bahwa suatu
+produk memenuhi standar halal sesuai dengan prinsip syariat Islam.
+Berikut adalah tahapan umum dalam proses produk halal. Proses produksi
+wajib memperhatikan:
+a. Pemrosesan Halal: Proses produksi harus terpisah dari bahan atau
+produk haram untuk menghindari kontaminasi.
+b. Kebersihan dan Sanitasi: Lingkungan produksi harus bersih dan tidak
+tercemar oleh najis atau bahan haram.
+c. Peralatan Produksi: Semua peralatan yang digunakan harus bebas dari
+kontaminasi bahan haram atau najis.
+d. Pemilihan bahan baku: Semua bahan harus berasal dari sumber yang
+halal (memiliki sertifikat halal) dan daging hewan yang disembelih sesuai
+syariat atau bahan-bahan non-hewani yang tidak najis atau haram,
+Tidak menggunakan bahan yang mengandung unsur haram, seperti
+babi, alkohol, atau derivatnya yang dilarang.
+e. Komitmen menjaga kehalalan produk: Produsen wajib menjalani
+pengawasan berkala untuk memastikan kepatuhan terhadap standar
+halal yang telah ditetapkan dalam SJPH.
+BAB IV
+PELAKSANAAN VERIFIKASI DAN VALIDASI
+A. Lembaga Pendamping Proses Produk Halal
+1. Melakukan pembinaan dan evaluasi kinerja pendamping PPH.
+2. Melakukan peningkatan kompetensi Pendamping PPH.
+3. Melakukan verifikasi kelengkapan dokumen terhadap pengajuan
+sertifikasi halal skema self declare yang pembiayaannya berasal dari
+pembiayaan Pelaku Usaha mikro dan kecil yang bersangkutan.
+B. Pendamping Proses Produk Halal
+1. Melakukan verifikasi dan validasi terhadap pengajuan permohonan
+sertifikasi halal di lokasi usaha dan/atau lokasi produksi pelaku usaha
+dengan rincian:
+a. Memeriksa kesesuaian dan kelengkapan dokumen akad/ikar, yang
+
+## Halaman 8
+
+dibuktikan dengan dokumen akad/ikrar;
+b. Memeriksa kesesuaian merek/nama, simbol, bentuk, dan kemasan
+produk sesuai dengan ketentuan SJPH, yang dibuktikan dengan foto
+produk;
+c. Memeriksa kesesuaian daftar bahan dengan dokumen dan sertifikat
+halal yang diinput, yang dibuktikan dengan dokumen daftar bahan
+dan sertifikat halal;
+d. Memeriksa kesesuaian skema Proses Produk Halal (PPH) dengan
+narasi yang diinput, yang dibuktikan dengan skema PPH dalam
+bentuk narasi PPH secara singkat dan jelas; dan
+e. Memeriksa Manual SJPH sesuai dengan format atau template yang
+telah ditetapkan, yang dibuktikan dengan dokumen Manual SJPH.
+2. Bukti verifikasi ke lokasi produksi dan/atau lokasi usaha dibuktikan
+dengan mengunggah bukti foto hasil pendampingan dalam aplikasi
+SIHALAL.
+3. Pelaku usaha yang dinyatakan memenuhi kriteria, Pendamping PPH
+memberikan
+rekomendasi
+hasil
+verifikasi
+dan
+validasi
+dan
+menyampaikannya kepada BPJPH melalui aplikasi SIHALAL.
+4. Menjaga kerahasiaan data dan informasi yang disampaikan pelaku
+usaha selama dan setelah proses produk halal dilaksanakan.
+5. Melaksanakan tugas pendampingan PPH secara benar, jelas dan jujur
+serta menjaga kode etik dan melaksanakan pakta integritas.
+6. Memastikan pelaku usaha tidak melakukan pengajuan sertifikasi halal
+dengan melakukan pemecahan jenis produk.
+7. Pendamping PPH yang melakukan pelanggaran atas verifikasi dan
+validasi, maka BPJPH dapat membekukan nomor registrasinya dan
+dapat dilakukan pembinaan oleh Lembaga Pendamping PPH. Sebagai
+contoh:
+a. Jumlah bahan yang digunakan dalam produk tidak lengkap (hanya
+mencantumkan air bersih, sabun cuci, dan kemasan);
+b. Proses produksi tidak lengkap;
+c. Foto produk tidak sesuai;
+d. Sengaja meminta pelaku usaha memecah jenis produk;
+e. Membuat pengajuan fiktif; atau
+f. Hal-hal lain yang tidak sesuai dengan peraturan perundang-
+undangan yang berlaku.
+C. Badan Penyelenggaraan Jaminan Produk Halal
+1. Melakukan verifikasi atas rekomendasi hasil verifikasi dan validasi
+pendamping PPH.
+2. Verifikasi dilakukan terhadap kesesusian:
+a. Kriteria pelaku usaha mikro dan kecil;
+b. Bahan yang digunakan;
+c. Pemilihan jenis produk;
+d. Proses produk halal; dan
+e. Produk (merek/nama, simbol, bentuk, dan kemasan).
+D. Komite Fatwa Produk Halal
+1. Dalam melaksanakan tugas Komite Fatwa Produk Halal berpedoman pada
+ketentuan:
+a. Fatwa halal;
+b. Ketentuan kriteria sistem jaminan produk halal; dan
+c. Ketentuan
+peraturan
+perundang-undangan
+mengenai
+penyelenggaraan jaminan produk halal.
+
+## Halaman 9
+
+2. Dalam pelaksanaan tugasnya Komite Fatwa Produk Halal:
+a. Menerima hasil pendampingan proses produk halal yang telah
+terverifikasi oleh BPJPH;
+b. Melakukan sidang fatwa untuk menetapkan kehalalan produk;
+c. Melakukan sidang fatwa secara daring melalui SIHALAL dan/atau
+luring;
+d. Sidang penetapan fatwa produk halal didasarkan data/dokumen
+pelaku usaha yang diinput ke dalam SIHALAL paling sedikit meliputi:
+1) Bahan;
+2) Produk;
+3) Proses produk halal; dan
+4) Bukti verifikasi dan validasi pendamping PPH.
+e. Penetapan kehalalan produk dilakukan oleh Komite Fatwa Produk
+Halal melalui sistem elektronik yang terintegrasi dengan SIHALAL
+paling lama 1 (satu) hari kerja.
+3. Komite Fatwa Produk Halal menyampaikan berita acara sidang fatwa
+kepada BPJPH melalui SIHALAL.
+E. Penerbitan Sertifikat Halal
+1. BPJPH menerima berita acara sidang fatwa yang telah ditandatangani
+oleh ketua Komite Fatwa Produk Halal
+2. BPJPH menerbitkan Sertifikat Halal dalam jangka waktu paling lama 1
+(satu) hari sejak keputusan penetapan kehalalan Produk dari Komite
+Fatwa Produk Halal diterima oleh BPJPH.
+3. Dalam hal Komite Fatwa Produk Halal menetapkan ketidakhalalan
+Produk, BPJPH mengeluarkan surat keterangan tidak halal dalam jangka
+waktu paling lama 1 (satu)
+hari
+sejak
+keputusan penetapan
+ketidakhalalan Produk diterima oleh BPJPH.
+BAB V
+PEMBIAYAAN
+Biaya sertifikasi halal pelaku usaha mikro dan kecil dengan pernyataan halal
+pelaku usaha mikro dan kecil pembiayaannya dibebankan pada fasilitasi dari
+BPJPH atau pihak lain. Dalam hal pelaku usaha mikro dan kecil memiliki
+kepentingan mendesak untuk mengajukan sertifikasi halal, pembiayaan
+sertifikasi halal dapat berasal dari pembiayaan pelaku usaha mikro dan kecil
+yang bersangkutan yang dibuktikan dengan surat pernyataan.
+BAB VI
+PENUTUP
+Pedoman  Layanan Sertifikasi Halal bagi Pelaku Usaha Mikro dan Kecil yang
+Didasarkan Atas Pernyataan Halal Pelaku Usaha Mikro dan Kecil ditetapkan
+sebagai panduan dalam melaksanakan tugas dan fungsi dalam pelaksanaan
+sertifikasi halal bagi BPJPH, Komite Fatwa Produk Halal, Lembaga Pendamping
+PPH, Pendamping PPH, Pelaku Usaha, serta pihak lain yang membutuhkan.
+KEPALA BADAN
+PENYELENGGARA JAMINAN PRODUK HALAL
+REPUBLIK INDONESIA,
+AHMAD HAIKAL HASAN
+
+## Halaman 10
+
+LAMPIRAN II
+KEPUTUSAN KEPALA BADAN PENYELENGGARA JAMINAN PRODUK HALAL
+REPUBLIK INDONESIA
+NOMOR  146  TAHUN 2025
+TENTANG
+PETUNJUK TEKNIS LAYANAN SERTIFIKASI HALAL BAGI PELAKU USAHA
+MIKRO DAN KECIL YANG DIDASARKAN ATAS PERNYATAAN HALAL PELAKU
+USAHA  MIKRO DAN KECIL
+A.
+Makanan
+Jenis Produk
+Klasifikasi Produk
+Rincian Jenis Produk
+1
+Susu dan Analognya
+1.1
+Makanan Pencuci Mulut Berbahan Dasar
+Susu
+a.
+Es Krim Susu (Dairy Ice Cream)
+Es krim susu (Dairy Ice Cream) adalah
+produk beku yang diperoleh dari susu
+atau produk susu atau campurannya,
+tanpa penambahan lemak selain lemak
+susu, dengan atau tanpa penambahan
+bahan pangan lain
+b.
+Es Krim
+Es krim adalah produk beku yang
+diperoleh dari susu atau produk susu
+atau campurannya yang sebagian lemak
+susu diganti dengan lemak nabati, dengan
+atau tanpa penambahan bahan pangan
+lain.

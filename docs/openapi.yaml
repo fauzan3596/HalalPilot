@@ -1,0 +1,302 @@
+openapi: 3.0.3
+info:
+  title: HalalPilot Orchestration API
+  version: 0.1.0
+  description: |
+    Kontrak antara skill OpenClaw `halalpilot` (pemanggil) dan layanan Express+SQLite (pelaksana).
+    Prinsip: agent memutuskan bahasa & alur percakapan; API memutuskan hukum (rules/*.yaml), status, dan jadwal.
+    Semua endpoint di 127.0.0.1:3000, header `Authorization: Bearer ${HALALPILOT_API_TOKEN}`.
+    Endpoint yang mengubah state menerima `Idempotency-Key` (disarankan skill mengisi `<aksi>:<umk>:<hash payload>`).
+servers:
+  - url: http://127.0.0.1:3000/api/v1
+security:
+  - bearer: []
+components:
+  securitySchemes:
+    bearer: { type: http, scheme: bearer }
+  schemas:
+    Actor:
+      type: object
+      properties:
+        telegram_id: { type: string }
+        role: { type: string, enum: [umk, pendamping, admin, tidak_terdaftar] }
+        display_name: { type: string }
+        umk: { $ref: '#/components/schemas/UmkSummary', nullable: true }
+    UmkSummary:
+      type: object
+      properties:
+        id: { type: integer }
+        kode: { type: string, example: UMK-017 }
+        nama_usaha: { type: string }
+        status: { type: string }
+        skor_kesiapan: { type: integer }
+        jalur_terakhir: { type: string, nullable: true }
+        dokumen_kurang: { type: array, items: { type: string } }
+    Ingredient:
+      type: object
+      properties:
+        nama_asli: { type: string }
+        nama_normal: { type: string, nullable: true }
+        kelas: { type: string, enum: [dikecualikan_A, dikecualikan_B, dikecualikan_C, positif, kritis, tidak_dikenal] }
+        rule_id: { type: string }
+        butuh_sertifikat_pemasok: { type: boolean }
+        dikonfirmasi_umk: { type: boolean }
+    Decision:
+      type: object
+      properties:
+        jalur: { type: string, enum: [SELF_DECLARE_SIAP, SELF_DECLARE_KURANG_DOKUMEN, REGULER, TIDAK_LAYAK] }
+        skor_kesiapan: { type: integer }
+        alasan:
+          type: array
+          items:
+            type: object
+            properties:
+              rule_id: { type: string }
+              hasil: { type: string, enum: [lolos, gagal, butuh_dokumen] }
+              pesan_umk: { type: string }
+        dokumen_diminta: { type: array, items: { type: string } }
+        rules_version: { type: string }
+    Error:
+      type: object
+      properties: { error: { type: string }, detail: { type: string } }
+paths:
+  /whoami:
+    get:
+      summary: Siapa yang sedang bicara (dipanggil skill di awal setiap percakapan)
+      parameters: [{ name: telegram_id, in: query, required: true, schema: { type: string } }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Actor' } } } }
+
+  /umk:
+    # GET mengembalikan per UMK: id, kode, nama_usaha, status, jalur, skor_kesiapan, dokumen_kurang, dokumen_total, dokumen_diterima, eskalasi, produk, last_activity_at, hari_diam, consent (untuk papan dashboard)
+    get:
+      summary: Daftar UMK satu koperasi untuk papan dashboard/pendamping (status, skor, jalur, dokumen kurang, eskalasi). Bukan untuk aktor UMK.
+      parameters: [{ name: koperasi_id, in: query, schema: { type: integer, default: 1 } }]
+      responses: { '200': { description: "{koperasi_id, umk:[{id,kode,nama_usaha,status,jalur,skor_kesiapan,dokumen_kurang,eskalasi,produk,updated_at}]}" } }
+    post:
+      summary: Daftarkan UMK baru (intake awal) + catat consent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [telegram_id, nama_usaha, consent]
+              properties:
+                telegram_id: { type: string }
+                nama_usaha: { type: string }
+                nib: { type: string, nullable: true }
+                consent: { type: boolean, description: "UMK menyetujui pemrosesan data usaha untuk penyiapan berkas halal" }
+      responses:
+        '201': { description: Dibuat, content: { application/json: { schema: { $ref: '#/components/schemas/UmkSummary' } } } }
+  /umk/{id}:
+    get:
+      summary: Ringkasan UMK, produk, dokumen kurang, keputusan terakhir
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      responses: { '200': { description: OK } }
+    patch:
+      summary: Lengkapi profil usaha (NIB, KBLI, alamat, omzet, fasilitas, peralatan, penyelia)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      requestBody: { content: { application/json: { schema: { type: object } } } }
+      responses: { '200': { description: OK } }
+    delete:
+      summary: Hapus seluruh data UMK (hak subjek data, UU PDP) — mengembalikan bukti penghapusan
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      responses: { '200': { description: "{deleted:true, hash_bukti}" } }
+
+  /umk/{id}/products:
+    post:
+      summary: Tambah produk
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nama]
+              properties:
+                nama: { type: string }
+                jenis: { type: string }
+                kbli: { type: string, nullable: true }
+      responses: { '201': { description: Dibuat } }
+
+  /products/{pid}:
+    patch:
+      summary: Ubah atribut produk dari keterangan UMK (cerita proses produksi, jumlah teknik pengawetan, giling sendiri, jenis). Menyimpan lalu mengevaluasi ulang otomatis.
+      parameters: [{ name: pid, in: path, required: true, schema: { type: integer } }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proses_ringkas: { type: string, minLength: 20, maxLength: 1000 }
+                teknik_pengawetan_count: { type: integer, minimum: 0, maximum: 5 }
+                giling_sendiri: { type: integer, enum: [0, 1] }
+                jenis: { type: string }
+      responses: { '200': { description: "{product_id, ...field, decision}" } }
+  /products/{pid}/media:
+    post:
+      summary: Simpan foto (label/proses) dari inbound OpenClaw; mengembalikan media_id
+      parameters: [{ name: pid, in: path, required: true, schema: { type: integer } }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [kind, source_path]
+              properties:
+                kind: { type: string, enum: [label, proses, sertifikat_pemasok] }
+                source_path: { type: string, description: "path file media inbound di ~/.openclaw (disalin, di-hash)" }
+      responses: { '201': { description: "{media_id, sha256, dokumen_diterima, chase_dibatalkan}. kind=label → FOTO_PRODUK diterima; kind=proses → PROSES diterima (otomatis, sisa pengejaran dokumen itu dibatalkan)" } }
+
+  /products/{pid}/ingredients:
+    put:
+      summary: |
+        Simpan daftar bahan hasil ekstraksi vision (oleh agent) ATAU hasil koreksi UMK.
+        API menormalisasi & mengklasifikasi tiap bahan (rules/ingredients.yaml). Belum memutuskan jalur.
+      parameters: [{ name: pid, in: path, required: true, schema: { type: integer } }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [bahan, sumber]
+              properties:
+                bahan: { type: array, items: { type: string }, example: ["tepung terigu", "margarin", "perisa vanila", "telur"] }
+                sumber: { type: string, enum: [vision, umk_koreksi] }
+                dikonfirmasi_umk: { type: boolean, default: false }
+      responses:
+        '200':
+          description: Klasifikasi per bahan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ingredients: { type: array, items: { $ref: '#/components/schemas/Ingredient' } }
+                  ringkasan: { type: string, example: "4 bahan: 1 dikecualikan, 1 positif, 2 kritis (butuh sertifikat pemasok)" }
+                  perlu_konfirmasi: { type: boolean }
+
+  /products/{pid}/extract:
+    post:
+      summary: |
+        FALLBACK V1: ekstraksi bahan dari foto label oleh API (memanggil OpenRouter vision langsung).
+        Dipakai hanya jika imageModel OpenClaw tidak menerima foto Telegram.
+      parameters: [{ name: pid, in: path, required: true, schema: { type: integer } }]
+      requestBody: { content: { application/json: { schema: { type: object, properties: { media_id: { type: integer } } } } } }
+      responses: { '200': { description: "{bahan[], proses_ringkas, confidence}" } }
+
+  /umk/{id}/evaluate:
+    post:
+      summary: Jalankan mesin keputusan (rules/eligibility.yaml + oss-check.yaml). Membuat baris decision & document_req.
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Decision' } } } }
+
+  /umk/{id}/documents/{kode}:
+    put:
+      summary: Terima dokumen (media_id) atau tandai dihasilkan; membatalkan chase_task terkait
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }
+        - { name: kode, in: path, required: true, schema: { type: string } }
+      requestBody: { content: { application/json: { schema: { type: object, properties: { media_id: { type: integer }, catatan: { type: string } } } } } }
+      responses: { '200': { description: OK } }
+
+  /umk/{id}/supplier-certs:
+    post:
+      summary: Daftarkan sertifikat pemasok; API memeriksa ke registry mock (valid / kedaluwarsa / tidak ditemukan)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nama_pemasok, nomor_sertifikat]
+              properties:
+                nama_pemasok: { type: string }
+                nomor_sertifikat: { type: string }
+                berlaku_sampai: { type: string, format: date, nullable: true }
+                media_id: { type: integer, nullable: true }
+                untuk_bahan: { type: array, items: { type: string } }
+      responses: { '201': { description: "{id, status}" } }
+
+  /umk/{id}/chase/request:
+    post:
+      summary: Mulai pengejaran untuk dokumen yang kurang (membuat chase_task tahap 1–4 sesuai chase-policy.yaml)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      requestBody: { content: { application/json: { schema: { type: object, properties: { dokumen: { type: array, items: { type: string } } } } } } }
+      responses: { '201': { description: "{tasks_created}" } }
+  /chase/{task_id}/sent:
+    post:
+      summary: Skill menandai pengingat sudah terkirim (dipanggil agent setelah mengirim pesan)
+      parameters: [{ name: task_id, in: path, required: true, schema: { type: integer } }]
+      responses: { '200': { description: OK } }
+  /chase/due:
+    get:
+      summary: (internal scheduler) Daftar chase_task jatuh tempo, menghormati jam tenang & batas harian
+      responses: { '200': { description: OK } }
+  /chase/sweep:
+    post:
+      summary: |
+        Sapuan pengejaran (dipanggil automation OpenClaw 09:00/15:00 atau node-cron). Untuk setiap task jatuh tempo:
+        POST ${OPENCLAW}/hooks/agent {agentId:"halalpilot", sessionMode:"isolated", deliver:true, channel:"telegram", to:<telegram_id>, message:"[CHASE] ..."}
+        dengan Idempotency-Key = chase_task.idempotency_key. Menghormati jam tenang & maks 2 pesan/UMK/hari.
+      responses: { '200': { description: "{dispatched, skipped_quiet_hours, skipped_daily_cap}" } }
+
+  /umk/{id}/dossier:
+    post:
+      summary: Susun dossier PDF + Manual SJPH dari data terkini; status → menunggu_review; memberi tahu pendamping via /hooks/agent
+      parameters: [{ name: id, in: path, required: true, schema: { type: string }, description: "id numerik UMK atau kode UMK-xxx" }]
+      responses: { '201': { description: "{dossier_id, versi, pdf_path, sha256, url_dashboard}" } }
+  /dossier/{did}/pdf:
+    get:
+      summary: Unduh/lihat PDF dossier (inline). Aktor UMK hanya untuk dossier miliknya.
+      parameters: [{ name: did, in: path, required: true, schema: { type: integer } }]
+      responses: { '200': { description: application/pdf }, '404': { description: dossier/file tidak ada } }
+  /dossier/{did}/review:
+    post:
+      summary: Pendamping menyetujui atau mengembalikan (dipanggil skill saat pendamping membalas "setuju UMK-017" / "kembalikan UMK-017 <alasan>")
+      parameters: [{ name: did, in: path, required: true, schema: { type: integer } }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [aksi, pendamping_telegram_id]
+              properties:
+                aksi: { type: string, enum: [setuju, kembalikan] }
+                catatan: { type: string }
+                pendamping_telegram_id: { type: string }
+      responses:
+        '200': { description: "setuju → umk.status=siap_unggah; kembalikan → status=dikembalikan + chase ke UMK" }
+        '403': { description: Bukan pendamping koperasi ini }
+
+  /mock/oss/{nib}:
+    get:
+      summary: Record OSS sintetis
+      parameters: [{ name: nib, in: path, required: true, schema: { type: string } }]
+      responses: { '200': { description: "{nama, alamat, kbli[], skala, status_nib}" } }
+  /mock/sehati/quota:
+    get:
+      summary: Kuota SEHATI sintetis per provinsi
+      responses: { '200': { description: "[{provinsi, kuota_total, kuota_terpakai, sisa}]" } }
+  /mock/sihalal/submit:
+    post:
+      summary: Simulasi pengajuan (hanya jika dossier disetujui). Mengembalikan nomor simulasi; ~20% dikembalikan dengan alasan acak dari daftar penyebab umum
+      requestBody: { content: { application/json: { schema: { type: object, properties: { dossier_id: { type: integer } } } } } }
+      responses: { '200': { description: "{nomor_simulasi, status, alasan}" } }
+
+  /portfolio/{koperasi_id}/summary:
+    # + laju {sisa_umk, dibutuhkan_per_hari, aktual_7hari_per_hari, aktual_7hari} dan antrean_review [{dossier_id, versi, umk_id, kode, nama_usaha, skor_kesiapan, rules_version}]
+    get:
+      summary: Angka untuk digest harian & dashboard (v_portfolio + 5 UMK paling mendesak + eskalasi terbuka)
+      parameters: [{ name: koperasi_id, in: path, required: true, schema: { type: integer } }]
+      responses: { '200': { description: OK } }
+
+  /events:
+    get:
+      summary: Audit log (untuk dashboard "apa yang agent lakukan hari ini")
+      parameters:
+        - { name: umk_id, in: query, schema: { type: integer } }
+        - { name: since, in: query, schema: { type: string, format: date-time } }
+      responses: { '200': { description: OK } }

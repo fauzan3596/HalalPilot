@@ -1,0 +1,21 @@
+[Unit]
+Description=HalalPilot orchestrator (Express + SQLite)
+After=network.target
+
+[Service]
+User=halalpilot
+Group=halalpilot
+EnvironmentFile=/etc/halalpilot/env
+WorkingDirectory=/opt/halalpilot
+ExecStart=/usr/bin/node src/server.js
+Restart=always
+RestartSec=3
+MemoryMax=600M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/halalpilot
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

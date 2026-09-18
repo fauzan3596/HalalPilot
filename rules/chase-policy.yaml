@@ -1,0 +1,59 @@
+# Kebijakan pengejaran dokumen & eskalasi. Dieksekusi oleh scheduler Express → POST /hooks/agent → agent menulis pesan → Telegram.
+version: "2026-09-02.1"
+
+jam_tenang:                 # tidak mengirim pengingat di rentang ini (WIB)
+  mulai: "21:00"
+  selesai: "07:00"
+  tz: Asia/Jakarta
+
+tahapan:                    # dihitung dari saat dokumen pertama kali diminta (document_req.status='diminta')
+  - tahap: 1
+    setelah_jam: 24
+    target: umk
+    nada: ramah
+    template: "Halo {{umk.nama_usaha}}, untuk {{produk}} saya masih menunggu {{dokumen}}. Bisa dikirim hari ini? Cukup foto yang jelas."
+  - tahap: 2
+    setelah_jam: 72
+    target: umk
+    nada: tegas_sopan
+    template: "Pengingat kedua: {{dokumen}} belum saya terima. Tenggat wajib halal 17 Oktober, tersisa {{hari_tersisa}} hari. Kalau ada kesulitan, balas 'bantu' dan saya jelaskan langkahnya."
+  - tahap: 3
+    setelah_jam: 168
+    target: umk
+    nada: mendesak
+    template: "Ini pengingat terakhir dari saya sebelum saya laporkan ke pendamping: {{dokumen}} untuk {{produk}} masih kurang."
+  - tahap: 4
+    setelah_jam: 240
+    target: pendamping
+    nada: laporan
+    template: "Eskalasi: {{umk.nama_usaha}} ({{umk.kode}}) belum mengirim {{dokumen}} setelah 3 pengingat (10 hari). Skor kesiapan {{skor}}. Saran: hubungi langsung atau tandai 'ditunda'."
+
+batas:
+  maks_pengingat_per_dokumen: 3
+  maks_pesan_per_umk_per_hari: 2        # gabungkan beberapa dokumen dalam satu pesan
+  gabungkan_dokumen: true
+
+kejadian_yang_membatalkan:              # chase_task → 'selesai' / 'dibatalkan'
+  - document_req.status in ['diterima','dihasilkan']
+  - umk.status in ['siap_unggah','dihapus']
+  - pendamping menandai 'ditunda'
+
+pengejaran_pemasok:                     # jika UMK memberi kontak pemasok (Telegram id fiktif), agent boleh menghubungi pemasok langsung
+  diizinkan: true
+  syarat: "umk memberi persetujuan eksplisit dalam percakapan ('boleh hubungi pemasok saya')"
+  template: "Halo {{pemasok}}, saya membantu {{umk.nama_usaha}} menyiapkan sertifikasi halal. Boleh minta salinan sertifikat halal untuk {{bahan}}? Nomor sertifikat dan masa berlaku sudah cukup."
+
+pengiriman:
+  via: "POST /hooks/agent"
+  payload:
+    agentId: halalpilot
+    sessionMode: isolated
+    deliver: true
+    channel: telegram
+    to: "{{target.telegram_id}}"
+    message: |
+      [CHASE] Kirim pengingat tahap {{tahap}} ke {{target.role}} {{target.display_name}}.
+      Konteks: {{konteks_json}}
+      Gunakan template nada '{{nada}}' dari kebijakan, sesuaikan bahasanya, jangan menambah janji apa pun.
+      Setelah terkirim, panggil skill halalpilot: mark_chase_sent {{chase_task.id}}.
+  idempotency_key: "chase:{{umk.id}}:{{document_kode}}:{{tahap}}"

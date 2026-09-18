@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><title>Arsitektur HalalPilot</title>
+<style>
+  html,body{margin:0;background:#f6f7f4}
+  body{width:1600px;height:900px;font-family:"Segoe UI",Inter,Arial,sans-serif;color:#141d18}
+  .t{font-size:15px}.s{font-size:13px;fill:#4b5a51}.m{font-family:Consolas,"Cascadia Mono",monospace;font-size:12.5px;fill:#4b5a51}
+  .box{fill:#fff;stroke:#c9d0cb;stroke-width:1.5;rx:14}
+  .vps{fill:#eef2ee;stroke:#8aa394;stroke-width:2;stroke-dasharray:8 6;rx:22}
+  .agent{fill:#e6efe9;stroke:#2f6b4a;stroke-width:2;rx:14}
+  .api{fill:#fff8ec;stroke:#c08a2e;stroke-width:2;rx:14}
+  .mock{fill:#fbeeee;stroke:#a33232;stroke-width:1.5;stroke-dasharray:5 4;rx:12}
+  .h{font-weight:600;font-size:17px}.h2{font-weight:600;font-size:15px}
+  .arrow{stroke:#2b3a31;stroke-width:2;fill:none;marker-end:url(#a)}
+  .arrow2{stroke:#a33232;stroke-width:2;fill:none;marker-end:url(#b);stroke-dasharray:6 5}
+  .lbl{font-size:12.5px;fill:#2b3a31;font-weight:600}
+</style></head><body>
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b3a31"/></marker>
+  <marker id="b" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a33232"/></marker>
+</defs>
+<text x="40" y="52" class="h" style="font-size:24px">Arsitektur HalalPilot</text>
+<text x="40" y="80" class="s" style="font-size:15px">Model memutuskan bahasa. Kode memutuskan hukum, status, dan jadwal. Semua di satu VPS 4 vCPU / 4 GB.</text>
+
+<!-- Pengguna Telegram -->
+<rect x="40" y="130" width="250" height="90" class="box"/>
+<text x="165" y="165" text-anchor="middle" class="h2">UMK anggota koperasi</text>
+<text x="165" y="190" text-anchor="middle" class="s">Telegram: foto label, cerita proses,</text>
+<text x="165" y="207" text-anchor="middle" class="s">sertifikat pemasok, "benar"</text>
+
+<rect x="40" y="250" width="250" height="90" class="box"/>
+<text x="165" y="285" text-anchor="middle" class="h2">Pendamping (P3H) koperasi</text>
+<text x="165" y="310" text-anchor="middle" class="s">Telegram: status, setuju, kembalikan,</text>
+<text x="165" y="327" text-anchor="middle" class="s">ajukan; menerima eskalasi & digest</text>
+
+<rect x="40" y="370" width="250" height="70" class="box"/>
+<text x="165" y="400" text-anchor="middle" class="h2">Dashboard baca-saja</text>
+<text x="165" y="423" text-anchor="middle" class="s">via SSH tunnel, token API</text>
+
+<!-- VPS -->
+<rect x="360" y="115" width="1200" height="720" class="vps"/>
+<text x="385" y="150" class="h">VPS AI Hosting IDwebhost (CloudBaik) · Ubuntu 24.04 · 4 vCPU · 3,8 GiB · 19 GB</text>
+<text x="385" y="172" class="s">Hanya port SSH terbuka. Gateway dan API mendengarkan di 127.0.0.1. Terpakai ±1,4 GB RAM saat semua hidup.</text>
+
+<!-- Gateway -->
+<rect x="385" y="200" width="495" height="290" class="agent"/>
+<text x="405" y="230" class="h2">OpenClaw Gateway 2026.8.2 · systemd halalpilot-gateway · :18790</text>
+<text x="405" y="258" class="t">• Kanal Telegram (long polling, allowlist akun)</text>
+<text x="405" y="282" class="t">• Agen <tspan class="m">halalpilot</tspan>: AGENTS.md + skill kustom <tspan class="m">halalpilot</tspan></text>
+<text x="405" y="306" class="t">• Tools: exec (skrip skill) + message saja; fs/web/tts/automation ditolak</text>
+<text x="405" y="330" class="t">• Automations cron: digest 07.00 · sweep 09.00 & 15.00 · kuota 6 jam</text>
+<text x="405" y="354" class="t">• Hooks <tspan class="m">/hooks/agent</tspan>: menerima kejadian dari penjadwal</text>
+<text x="405" y="378" class="t">• Model teks & vision di cloud (OpenRouter); tanpa model lokal</text>
+<rect x="405" y="400" width="455" height="70" class="box"/>
+<text x="425" y="427" class="h2">Skill halalpilot → <tspan class="m">node scripts/api.mjs &lt;perintah&gt;</tspan></text>
+<text x="425" y="452" class="s">whoami · save_media · set_ingredients · evaluate · request_chase · build_dossier · review · mock_submit …</text>
+
+<!-- API -->
+<rect x="990" y="200" width="540" height="290" class="api"/>
+<text x="1010" y="230" class="h2">Orchestrator Node/Express · systemd halalpilot-api · :3000</text>
+<text x="1010" y="258" class="t">• Mesin aturan deterministik: 18 aturan E01–E18 (Kepkaban 146/2025)</text>
+<text x="1010" y="282" class="t">• Kamus bahan KMA 1360/2021: 509 sinonim, kelas dikecualikan/positif/kritis</text>
+<text x="1010" y="306" class="t">• Penjadwal pengejaran: H+1, H+3, H+7, eskalasi H+10 · jam tenang · idempoten</text>
+<text x="1010" y="330" class="t">• Pembuat dossier PDF (pdf-lib) + Manual SJPH + hash SHA-256</text>
+<text x="1010" y="354" class="t">• Audit: setiap keputusan membawa <tspan class="m">rules_version</tspan> dan alasan per aturan</text>
+<rect x="1010" y="380" width="235" height="90" class="box"/>
+<text x="1127" y="410" text-anchor="middle" class="h2">SQLite (WAL)</text>
+<text x="1127" y="433" text-anchor="middle" class="s">120 UMK · dokumen · keputusan</text>
+<text x="1127" y="451" text-anchor="middle" class="s">chase_task · event_log</text>
+<rect x="1262" y="380" width="250" height="90" class="mock"/>
+<text x="1387" y="410" text-anchor="middle" class="h2" fill="#a33232">Mock berlabel "simulasi"</text>
+<text x="1387" y="433" text-anchor="middle" class="s">OSS (NIB/KBLI) · SEHATI (kuota)</text>
+<text x="1387" y="451" text-anchor="middle" class="s">SiHalal (pengajuan) · registry pemasok</text>
+
+<!-- Rules files -->
+<rect x="990" y="520" width="540" height="120" class="box"/>
+<text x="1010" y="548" class="h2">rules/*.yaml · sumber kebenaran aturan, bisa dibaca pendamping</text>
+<text x="1010" y="574" class="m">eligibility.yaml  2026-09-10.1   ingredients.yaml  2026-09-10.3</text>
+<text x="1010" y="596" class="m">chase-policy.yaml 2026-09-02.1   oss-check.yaml    2026-09-02.1</text>
+<text x="1010" y="622" class="s">Ubah aturan di sini, bukan di kode. Versi berubah → keputusan lama tetap tertelusur.</text>
+
+<!-- Alur -->
+<rect x="385" y="520" width="520" height="290" class="box"/>
+<text x="405" y="548" class="h2">Alur satu UMK (dari video)</text>
+<text x="405" y="576" class="t">1. Foto label → model membaca komposisi → UMK konfirmasi "benar"</text>
+<text x="405" y="600" class="t">2. evaluate → jalur + skor + alasan per aturan (E11: margarin kritis)</text>
+<text x="405" y="624" class="t">3. Dokumen kurang → tugas pengejaran dibuat, pengingat via hooks</text>
+<text x="405" y="648" class="t">4. Cerita proses + sertifikat pemasok → skor 100 → dossier PDF otomatis</text>
+<text x="405" y="672" class="t">5. Pendamping: setuju / kembalikan (siklus pengejaran baru)</text>
+<text x="405" y="696" class="t">6. ajukan → SiHalal simulasi → nomor SIM-… (bukan pengajuan resmi)</text>
+<text x="405" y="720" class="t">7. UMK diam 10 hari → agen berhenti mengejar, lapor pendamping</text>
+<text x="405" y="760" class="s">Agen tidak pernah menaikkan/menurunkan jalur. Ia memanggil mesin aturan dan menjelaskan hasilnya.</text>
+<text x="405" y="790" class="s">Latensi terukur di VPS: sekitar 1 menit per giliran (thinking "low").</text>
+
+<!-- Panah -->
+<path d="M290 175 L385 240" class="arrow"/>
+<path d="M290 295 L385 300" class="arrow"/>
+<path d="M290 405 L345 405 L345 505 L1000 505 L1000 492" class="arrow" style="stroke-dasharray:4 4"/>
+<path d="M880 300 L990 300" class="arrow"/><text x="935" y="288" text-anchor="middle" class="lbl">HTTP Bearer</text>
+<path d="M990 335 L880 335" class="arrow"/><text x="935" y="358" text-anchor="middle" class="lbl">hooks</text>
+<path d="M1127 470 L1127 520" class="arrow"/>
+<path d="M1387 470 L1387 520" class="arrow2"/>
+</svg>
+</body></html>

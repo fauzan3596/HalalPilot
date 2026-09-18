@@ -1,0 +1,208 @@
+# Mesin keputusan jalur sertifikasi halal UMK.
+# Dasar: Keputusan Kepala BPJPH No. 146/2025 (juknis self-declare UMK), PP 42/2024, UU 33/2014.
+# STATUS: DIVERIFIKASI terhadap teks asli Kepkaban BPJPH No. 146/2025 (Bab II A butir 1-16, Bab III A-E) pada 10 Sep 2026.
+# Kutipan teks: docs/regulasi/kepkaban-146-2025-bab-i-iv.txt. Kolom `butir` merujuk nomor kriteria resmi.
+version: "2026-09-10.1"
+sumber:
+  - id: KEPKABAN_146_2025
+    judul: Petunjuk Teknis Layanan Sertifikasi Halal bagi Pelaku UMK Berdasarkan Pernyataan Pelaku Usaha
+  - id: KMA_1360_2021
+    judul: Bahan yang Dikecualikan dari Kewajiban Bersertifikat Halal
+  - id: PP_42_2024
+    judul: Penyelenggaraan Bidang Jaminan Produk Halal (penahapan, sanksi)
+
+# Hasil akhir yang mungkin, diurutkan dari yang paling ketat.
+outcomes:
+  TIDAK_LAYAK:                # tidak bisa disertifikasi lewat jalur mana pun tanpa perubahan produk
+    label: Tidak layak diajukan
+  REGULER:                    # layak halal, tetapi harus lewat LPH (pemeriksaan), bukan self-declare
+    label: Jalur reguler (LPH)
+  SELF_DECLARE_KURANG_DOKUMEN:
+    label: Layak self-declare, dokumen belum lengkap
+  SELF_DECLARE_SIAP:
+    label: Siap unggah self-declare
+
+# Setiap rule mengevaluasi field dari tabel umk/product/ingredient/document_req.
+# efek: BLOCK_<outcome> memaksa hasil minimal seburuk outcome itu; NEED_DOC menambah dokumen wajib.
+rules:
+  - id: E01_NIB_UMK
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.1"
+    deskripsi: Memiliki NIB dengan skala usaha mikro atau kecil.
+    when: "umk.nib == null || !(umk.skala in ['mikro','kecil'])"
+    efek: BLOCK_REGULER
+    pesan_umk: "Self-declare hanya untuk usaha mikro/kecil dengan NIB. NIB belum ada atau skala usaha bukan UMK."
+    bobot_skor: 15
+
+  - id: E02_OMZET
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.5"
+    deskripsi: Omzet tahunan paling banyak Rp15 miliar (pernyataan mandiri).
+    when: "umk.omzet_tahunan > 15000000000"
+    efek: BLOCK_REGULER
+    pesan_umk: "Omzet tahunan melebihi batas UMK untuk self-declare."
+    bobot_skor: 5
+
+  - id: E03_SATU_FASILITAS
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.6"
+    deskripsi: Maksimal satu fasilitas produksi dan satu outlet.
+    when: "umk.jumlah_fasilitas_produksi > 1 || umk.jumlah_outlet > 1"
+    efek: BLOCK_REGULER
+    pesan_umk: "Self-declare hanya untuk satu lokasi produksi dan satu outlet."
+    bobot_skor: 5
+
+  - id: E04_PERALATAN_SEDERHANA
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.14"
+    deskripsi: Peralatan manual/semi-otomatis (usaha rumahan), bukan pabrik.
+    when: "umk.peralatan == 'otomatis_pabrik'"
+    efek: BLOCK_REGULER
+    pesan_umk: "Proses produksi berteknologi pabrik harus lewat jalur reguler."
+    bobot_skor: 5
+
+  - id: E05_FASILITAS_TERPISAH
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.4 & A.7"
+    deskripsi: Fasilitas dan peralatan terpisah dari produksi non-halal; tidak bersinggungan bahan haram.
+    when: "umk.fasilitas_terpisah_nonhalal == 0"
+    efek: BLOCK_TIDAK_LAYAK
+    pesan_umk: "Fasilitas masih dipakai bersama produk non-halal. Pisahkan dulu sebelum diajukan."
+    bobot_skor: 10
+
+  - id: E06_BAHAN_BERBAHAYA
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.10"
+    deskripsi: Tidak menggunakan bahan berbahaya menurut peraturan.
+    when: "product.bahan_berbahaya == 1"
+    efek: BLOCK_TIDAK_LAYAK
+    pesan_umk: "Produk mengandung bahan berbahaya dan tidak dapat diajukan."
+    bobot_skor: 10
+
+  - id: E07_PRODUK_BARANG
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.8 & Bab III C (Lampiran II)"
+    deskripsi: Produk berupa barang (bukan jasa).
+    when: "product.jenis == 'jasa'"
+    efek: BLOCK_REGULER
+    bobot_skor: 5
+
+  - id: E08_PENGAWETAN_MAKS_SATU
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.15"
+    deskripsi: Teknik pengawetan sederhana, maksimal satu teknik.
+    when: "product.teknik_pengawetan_count > 1"
+    efek: BLOCK_REGULER
+    pesan_umk: "Lebih dari satu teknik pengawetan → jalur reguler."
+    bobot_skor: 5
+
+  - id: E09_SEMBELIHAN_DARI_RPH_HALAL
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.12"
+    deskripsi: Bahan hasil sembelihan hanya dari produsen/RPH/RPU bersertifikat halal.
+    when: "product.mengandung_hewan_sembelihan == 1 && !ingredients.any(i => i.kelas=='kritis' && i.nama_normal in ['daging_sapi','daging_ayam','daging_kambing','jeroan','tulang','kulit'] && i.supplier_cert.status=='valid')"
+    efek: NEED_DOC
+    dokumen: "SERT_PEMASOK:RPH"
+    pesan_umk: "Produk mengandung daging. Kirim sertifikat halal RPH/pemasok daging. Tanpa itu belum bisa self-declare."
+    bobot_skor: 15
+
+  - id: E10_DAGING_GILING
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.13"
+    deskripsi: Daging giling dari jasa penggilingan bersertifikat halal atau digiling sendiri.
+    when: "product.daging_giling == 1 && !documents.has('SERT_PEMASOK:GILING') && !product.giling_sendiri"
+    efek: NEED_DOC
+    dokumen: "SERT_PEMASOK:GILING"
+    bobot_skor: 5
+
+  - id: E11_BAHAN_KRITIS_TERDOKUMENTASI
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.2, A.9 & Bab III B"
+    deskripsi: Setiap bahan kelas 'kritis' harus punya sertifikat pemasok valid; kelas 'tidak_dikenal' harus dikonfirmasi.
+    when: "ingredients.any(i => i.kelas=='kritis' && (i.supplier_cert == null || i.supplier_cert.status != 'valid'))"
+    efek: NEED_DOC
+    dokumen: "SERT_PEMASOK:<per bahan>"
+    pesan_umk: "Bahan berikut perlu sertifikat halal pemasok: {{daftar_bahan_kritis_tanpa_sertifikat}}."
+    bobot_skor: 20
+
+  - id: E12_BAHAN_TIDAK_DIKENAL
+    deskripsi: Bahan yang tidak ada di kamus harus dikonfirmasi UMK dan ditandai pendamping.
+    when: "ingredients.any(i => i.kelas=='tidak_dikenal')"
+    efek: NEED_DOC
+    dokumen: "KONFIRMASI_BAHAN"
+    pesan_umk: "Saya belum mengenali bahan: {{daftar_tidak_dikenal}}. Apa nama dagang/merek dan pemasoknya?"
+    bobot_skor: 5
+
+  - id: E13_DOKUMEN_WAJIB
+    sumber: KEPKABAN_146_2025
+    butir: "Bab II A.16 a-h & Bab III A"
+    deskripsi: Dokumen wajib self-declare lengkap.
+    # Bab II A.16: a. surat permohonan, b. surat pernyataan, c. akad/ikrar, d. penyelia halal, e. daftar bahan, f. proses pengolahan, g. nama & foto produk, h. Manual SJPH
+    dokumen_wajib: [NIB, PERMOHONAN, PERNYATAAN_HALAL, IKRAR, PENYELIA, DAFTAR_BAHAN, PROSES, FOTO_PRODUK, MANUAL_SJPH]
+    # PERMOHONAN, PERNYATAAN_HALAL, IKRAR, MANUAL_SJPH, DAFTAR_BAHAN dihasilkan sistem (ditandai otomatis saat evaluasi);
+    # yang harus dari UMK: NIB, PENYELIA (nama), FOTO_PRODUK (foto), PROSES (cerita singkat proses produksi).
+    when: "documents.missingAny(rule.dokumen_wajib)"
+    efek: NEED_DOC
+    pesan_umk: "Masih perlu dari Anda: {{daftar_dokumen_umk}}. Surat permohonan, pernyataan, ikrar, daftar bahan, dan Manual SJPH disusun otomatis oleh sistem."
+    bobot_skor: 20
+
+  - id: E14_KONFIRMASI_EKSTRAKSI
+    deskripsi: Daftar bahan hasil vision harus dikonfirmasi UMK sebelum dipakai memutuskan.
+    when: "ingredients.any(i => i.dikonfirmasi_umk == 0)"
+    efek: NEED_DOC
+    dokumen: "KONFIRMASI_BAHAN"
+    bobot_skor: 0
+
+  - id: E15_OSS_KONSISTEN
+    deskripsi: Nama usaha, alamat, KBLI konsisten dengan data NIB (lihat oss-check.yaml).
+    when: "oss.mismatch.length > 0"
+    efek: NEED_DOC
+    dokumen: "PERBAIKAN_OSS"
+    pesan_umk: "Data usaha berbeda dengan NIB: {{oss.mismatch}}. Ini penyebab penolakan paling sering."
+    bobot_skor: 10
+
+  - id: E16_MAKS_PRODUK
+    sumber: KEPKABAN_146_2025
+    butir: "Bab III A.2-3"
+    deskripsi: Maksimal 10 nama produk (termasuk varian) per pengajuan; warung tegal/sunda/warmindo maksimal 30 menu.
+    when: "products.length > (umk.jenis_usaha == 'warung' ? 30 : 10)"
+    efek: NEED_DOC
+    dokumen: "PEMBAGIAN_PENGAJUAN"
+    pesan_umk: "Jumlah produk melebihi batas satu pengajuan self-declare (10 nama produk; warung 30 menu). Pendamping akan membagi menjadi beberapa pengajuan."
+    bobot_skor: 5
+
+  - id: E17_NAMA_PRODUK_SESUAI
+    sumber: KEPKABAN_146_2025
+    butir: "Bab III D.1-7"
+    deskripsi: Nama/jenis produk tidak memakai nama benda/hewan haram, simbol kekufuran/kemaksiatan, bentuk/kemasan babi-anjing, rasa unsur haram, atau unsur erotis.
+    kata_terlarang: [babi, anjing, bacon, ham, lard, wine, rum, bir, beer, sake, arak, vodka, whisky, whiskey, tuak, ciu, porno, erotis, seks]
+    when: "products.any(p => tokens(p.nama + ' ' + p.jenis).some(t => rule.kata_terlarang.includes(t)))"
+    efek: BLOCK_TIDAK_LAYAK
+    pesan_umk: "Nama/jenis produk memuat unsur yang tidak diperbolehkan ({{kata}}). Ubah nama produk sebelum diajukan (Kepkaban 146/2025 Bab III D)."
+    bobot_skor: 10
+
+  - id: E18_DAFTAR_BAHAN_WAJAR
+    sumber: KEPKABAN_146_2025
+    butir: "Bab IV B.7.a"
+    deskripsi: Daftar bahan harus lengkap dan masuk akal (bukan hanya air/garam/es/kemasan); daftar tidak lengkap adalah pelanggaran verifikasi P3H.
+    when: "ingredients.length > 0 && (ingredients.length < 2 || ingredients.every(i => ['air','garam','es_batu','kemasan'].includes(i.nama_normal)))"
+    efek: NEED_DOC
+    dokumen: "KONFIRMASI_BAHAN"
+    pesan_umk: "Daftar bahan terlalu singkat untuk produk ini. Sebutkan semua bahan yang benar-benar dipakai, termasuk bumbu, minyak, dan bahan tambahan."
+    bobot_skor: 5
+
+# Skor kesiapan = 100 - Σ bobot rule yang gagal (min 0). Outcome = efek terburuk yang aktif;
+# jika hanya NEED_DOC aktif → SELF_DECLARE_KURANG_DOKUMEN; jika tidak ada yang aktif → SELF_DECLARE_SIAP.
+scoring:
+  base: 100
+  floor: 0
+
+# Manual SJPH (Sistem Jaminan Produk Halal) — lima kriteria yang diisi otomatis dari data.
+manual_sjph:
+  kriteria:
+    - komitmen_dan_tanggung_jawab      # kebijakan halal, penyelia halal, pelatihan
+    - bahan                             # daftar bahan + status/sertifikat
+    - proses_produk_halal               # alur proses, fasilitas, pengawetan
+    - produk                            # nama, foto, jenis
+    - pemantauan_dan_evaluasi           # audit internal, kaji ulang
+  catatan: "Template teks per kriteria di Express (templates/manual-sjph.md). Isi otomatis, pendamping menyunting."

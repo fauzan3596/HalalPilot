@@ -1,0 +1,100 @@
+// ~/.openclaw/openclaw.json5 — HalalPilot
+// Divalidasi gateway OpenClaw 2026.8.2 di WSL (4 Sep 2026): file dibaca dari ~/.openclaw/openclaw.json; gateway.mode wajib;
+// tools.exec.allow & agents.entries.*.sandbox DITOLAK (sudah dihapus); bindings, heartbeat, per-agent tools DITERIMA.
+// Plugin telegram harus di-enable; llama-cpp & perplexity dinonaktifkan. Jangan `openclaw update` selama lomba.
+{
+  gateway: {
+    mode: "local",                          // wajib di 2026.8.x; tanpa ini gateway menolak start
+    port: ${GATEWAY_PORT},                   // WSL 18789; VPS lomba 18790 (18789 dipakai gateway prainstal panitia)
+    bind: "loopback",                       // hanya 127.0.0.1; UI diakses via SSH tunnel
+    auth: { mode: "token", token: "${GATEWAY_TOKEN}" },
+  },
+
+  agents: {
+    defaults: {
+      model: {
+        primary: "${DEFAULT_MODEL}",        // isi dari balasan panitia (info@cloudbaik.com)
+        fallbacks: [
+          "openrouter/deepseek/deepseek-v3.2",
+          "openrouter/z-ai/glm-5.2:free",
+        ],
+      },
+      imageModel: "${IMAGE_MODEL}",   // foto label & proses
+      // Jangan kirim teks antara/rencana model sebelum tool call sebagai pesan (10 Sep: DeepSeek "berpikir keras" → tampil di Telegram)
+      blockStreamingDefault: "off",
+      // Latensi (10 Sep, VPS): thinking=medium → 1–3 menit per giliran (3–5 panggilan model). "low" cukup untuk alur skill ini.
+      thinkingDefault: "low",
+      heartbeat: { every: "0m" },                              // DIMATIKAN (10 Sep): heartbeat mengirim ke "target terakhir" (bisa akun pengganti); digest/sweep/kuota dijalankan automations.sh
+    },
+    entries: {
+      halalpilot: {
+        workspace: "${OPENCLAW_WORKSPACE}",                // berisi AGENTS.md, HEARTBEAT.md, skills/
+        skills: ["halalpilot"],                                // hanya skill kustom ini
+        tools: {                                                // per-agent tools (pola resmi docs tool-policy, 9 Sep 2026)
+          // `allow` hanya MEMPERSEMPIT profil dasar; tidak bisa memberi tool di luar profil. Profil "minimal" atau tanpa profil
+          // + allow [exec,message] → "No callable tools remain". Jadi: profil "coding" (memuat group:runtime → exec),
+          // tambah `message` via alsoAllow, lalu tolak grup yang tidak dibutuhkan.
+          profile: "coding",
+          alsoAllow: ["message"],
+          // ask_user ditolak: agent harus bertindak lewat skill (whoami dulu), bukan menyodorkan menu pilihan
+          deny: ["group:fs", "group:web", "group:ui", "group:media", "group:automation", "nodes", "process", "code_execution", "ask_user", "secrets", "tts"],
+          // tts ditolak (10 Sep): pengingat pernah terkirim sebagai pesan suara; demo butuh teks yang terbaca di layar
+        },
+      },
+    },
+  },
+
+  // Rutekan seluruh akun Telegram ke agent halalpilot (multi-agent bindings; diterima validator)
+  bindings: [
+    { match: { channel: "telegram" }, agentId: "halalpilot" },
+  ],
+
+  channels: {
+    telegram: {
+      // Tanpa streaming parsial & tanpa penanda "Exec" per tool call: hanya jawaban akhir yang tampil (rapi untuk demo)
+      streaming: { mode: "off", preview: { toolProgress: false }, progress: { toolProgress: false } },
+      accounts: {
+        default: {
+          botToken: "${TELEGRAM_BOT_TOKEN}",
+          dmPolicy: "allowlist",              // demo: hanya ID Telegram fiktif yang didaftarkan
+          allowFrom: [
+            "telegram:${TG_UMK_1}", "telegram:${TG_UMK_2}", "telegram:${TG_UMK_3}",
+            "telegram:${TG_PENDAMPING}",
+          ],
+        },
+      },
+      capabilities: { inlineButtons: "allowlist" },
+      mediaMaxMb: 10,
+    },
+  },
+
+  hooks: {
+    enabled: true,
+    token: "${HOOKS_TOKEN}",
+    path: "/hooks",
+    allowedAgentIds: ["halalpilot"],
+    allowRequestSessionKey: false,
+  },
+
+  skills: {
+    entries: {
+      halalpilot: {
+        enabled: true,
+        env: {
+          HALALPILOT_API_URL: "http://127.0.0.1:3000/api/v1",
+          HALALPILOT_API_TOKEN: "${HALALPILOT_API_TOKEN}",
+          OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}",        // hanya untuk fallback extract (V1)
+        },
+      },
+    },
+  },
+
+  // memory.search.provider "local" (embedding GGUF via plugin llama-cpp) sengaja tidak dipakai: butuh consent plugin + RAM (V6).
+  // talk-voice dimatikan (10 Sep): plugin suara aktif otomatis dan pernah mengirim pengingat sebagai voice note; demo butuh teks.
+  plugins: { entries: { "llama-cpp": { enabled: false }, perplexity: { enabled: false }, "talk-voice": { enabled: false } } },
+
+  // TTS inti dimatikan (10 Sep): meski plugin talk-voice mati, inti masih mengirim balasan sebagai voice note (telegram sendVoice)
+  // bila model menyisipkan penanda suara (auto bawaan "tagged"). Skema: tts.enabled, tts.auto ∈ off|always|inbound|tagged.
+  tts: { enabled: false, auto: "off" },
+
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Papan portofolio sertifikasi halal self-declare untuk UMK anggota koperasi — HalalPilot (demo, data fiktif).">
+<title>HalalPilot — Papan Portofolio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c5f49'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='ui-monospace,monospace' font-weight='700' font-size='26' fill='%23fff'%3EHP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<a class="skip" href="#view">Langsung ke isi</a>
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">HP</span>
+    <div><h1>HalalPilot</h1><div class="sub" id="kop">Koperasi …</div></div>
+  </div>
+  <div class="countdown" id="countdown" title="Tenggat wajib halal makanan-minuman UMK (PP 42/2024)"><span class="num">–</span><span class="lbl">hari ke 17 Okt 2026</span></div>
+  <nav class="tabs" aria-label="Halaman">
+    <a href="#/papan" data-tab="papan">Papan</a>
+    <a href="#/audit" data-tab="audit">Audit</a>
+    <a href="#/kuota" data-tab="kuota">Kuota</a>
+  </nav>
+  <div class="meta" aria-live="polite"><span id="sys" class="chip-sys"><i class="dot"></i>menyambung…</span><a id="rules" class="chip-rules" href="#/audit" title="Versi aturan yang dipakai mesin keputusan">Aturan –</a><button id="logout" class="ghost" title="Ganti token API">token</button></div>
+</header>
+<div class="simband" role="note"><span class="simdot" aria-hidden="true"></span><b>Mode simulasi.</b> OSS, SEHATI, dan SiHalal di dashboard ini adalah tiruan; tidak ada pengajuan yang benar-benar dikirim ke BPJPH. HalalPilot menyiapkan berkas, tidak menerbitkan sertifikat.</div>
+
+<section id="token-gate" class="gate" hidden aria-modal="true" role="dialog" aria-labelledby="gate-title">
+  <div class="card">
+    <h2 id="gate-title">Token API</h2>
+    <p>Dashboard ini baca-saja. Masukkan <code>HALALPILOT_API_TOKEN</code>; token disimpan di sessionStorage browser ini saja.</p>
+    <form id="token-form"><input id="token-input" type="password" placeholder="token 48 karakter" autocomplete="off" aria-label="Token API"><button type="submit" class="primary">Masuk</button></form>
+    <p class="err" id="token-err" role="alert"></p>
+  </div>
+</section>
+
+<main id="view" tabindex="-1"></main>
+<footer>Entitas, UMK, produk, dan angka di halaman ini fiktif untuk demo. Tidak ada data pribadi (KTP, HP, rekening) yang disimpan. Keputusan halal sepenuhnya milik BPJPH dan pendamping (P3H).</footer>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
