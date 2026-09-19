@@ -1,4 +1,5 @@
 import raw from "../public/timeline.json";
+import { REPLIES } from "./replies";
 import { CHAPTERS, SCORE } from "./theme";
 
 export type Caption = { t0: number; t1: number; text: string; src?: string | null; mp3: string | null; d: number };
@@ -48,16 +49,17 @@ export const narrationSpans = (): [number, number][] => {
   return out;
 };
 
-/** Frame absolut untuk efek suara: whoosh di awal tiap adegan/kartu bab, pop di kartu bab, ding saat skor mencapai 100. */
-export const sfxCues = (): { whoosh: number[]; pop: number[]; ding: number[] } => {
-  const whoosh: number[] = [], pop: number[] = [], ding: number[] = [];
+/** Frame absolut untuk efek suara: whoosh di awal tiap adegan/kartu bab, pop di kartu bab, ding saat skor mencapai 100, pop lembut saat balasan agen muncul. */
+export const sfxCues = (): { whoosh: number[]; pop: number[]; ding: number[]; reply: number[] } => {
+  const whoosh: number[] = [], pop: number[] = [], ding: number[] = [], reply: number[] = [];
   for (const it of layout().items) {
     if (it.kind === "scene") {
       whoosh.push(it.start + 2);
+      for (const r of REPLIES[it.scene.id] ?? []) reply.push(it.start + f(r.t));
       for (const ev of SCORE[it.scene.id] ?? []) if (ev.to === 100) ding.push(it.start + f(it.scene.captions[ev.cap].t0) + f(1.2));
     }
     if (it.kind === "chapter" || it.kind === "stats") pop.push(it.start + 4);
     if (it.kind === "closer") whoosh.push(it.start + 2);
   }
-  return { whoosh, pop, ding };
+  return { whoosh, pop, ding, reply };
 };

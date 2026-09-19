@@ -1,39 +1,29 @@
 import React from "react";
 import { Audio, Video } from "@remotion/media";
-import { AbsoluteFill, Easing, Freeze, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Freeze, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { ArchInset, ChaseStrip, RoleBadge, ScoreBadge } from "./extras";
 import { RulesInset } from "./extras2";
 import { ARTICLES, ArticleCard } from "./extras3";
-import { ARCH, CHASE, HIGHLIGHT, ROLE, SCORE, ZOOM, ZOOM_POINT } from "./theme";
+import { ARCH, C, CHASE, FONT, ROLE, SCORE } from "./theme";
 import { f, Scene as SceneT } from "./timeline";
 import { Caption, Progress, SceneTitle, Watermark } from "./ui";
-
-const ease = Easing.bezier(0.16, 1, 0.3, 1);
+import { buildWindows, zoomAt, zoomOverlap } from "./zoom";
 
 /**
  * Satu adegan: video potongan (sudah 1080p, sudah berisi frame beku), narasi per kalimat pada waktunya,
- * caption beranimasi, judul adegan, zoom + sorotan ke area pesan untuk kalimat kunci,
- * lencana peran, lencana skor, garis waktu pengejaran, sisipan diagram arsitektur.
+ * caption beranimasi, judul adegan, zoom + sorotan ke tiap balasan agen saat gelembungnya muncul (src/zoom.ts),
+ * lencana peran, lencana skor, garis waktu pengejaran, sisipan diagram arsitektur / aturan / artikel.
  */
 export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = ({ scene, index, total }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
   const vlenF = f(scene.vlen);
-  const zoomIdx = ZOOM[scene.id] ?? [];
-  const point = ZOOM_POINT[scene.id] ?? ZOOM_POINT.default;
-  const rect = HIGHLIGHT[scene.id] ?? HIGHLIGHT.default;
   const capStarts = scene.captions.map((c) => f(c.t0));
-
-  // skala zoom: naik 0.7 s di awal kalimat kunci, tahan, turun 0.7 s menjelang akhirnya
-  let scale = 1;
-  for (const i of zoomIdx) {
-    const c = scene.captions[i];
-    if (!c) continue;
-    const a = f(c.t0), b = f(c.t1);
-    const s = interpolate(frame, [a, a + 0.7 * fps, b - 0.7 * fps, b], [1, 1.22, 1.22, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-    if (s > scale) scale = s;
-  }
-  const k = (scale - 1) / 0.22;
+  const wins = React.useMemo(() => buildWindows(scene), [scene]);
+  const z = zoomAt(frame, wins);
+  const scale = z?.scale ?? 1;
+  const origin = z?.origin ?? { x: 0, y: 1 };
+  const k = z?.k ?? 0;
+  const rect = z?.rect;
 
   const media = <Video src={staticFile(`seg/${scene.cat}`)} muted style={{ width: 1920, height: 1080 }} />;
   const chase = CHASE[scene.id];
@@ -41,7 +31,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
 
   return (
     <AbsoluteFill style={{ background: "#0b100d" }}>
-      <AbsoluteFill style={{ scale: String(scale), transformOrigin: `${point.x * 100}% ${point.y * 100}%` }}>
+      <AbsoluteFill style={{ scale: String(scale), transformOrigin: `${origin.x * 100}% ${origin.y * 100}%` }}>
         {/* video berjalan sampai vlen, lalu frame terakhir ditahan bila narasi lebih panjang */}
         <Sequence durationInFrames={vlenF} name="video">{media}</Sequence>
         {f(scene.len) > vlenF ? (
@@ -49,9 +39,18 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
             <Freeze frame={vlenF - 1}>{media}</Freeze>
           </Sequence>
         ) : null}
-        {/* sorotan: area pesan terbaru tetap terang, sekitarnya diredupkan, bingkai kuning tipis; ikut terskala bersama video */}
-        <div style={{ position: "absolute", left: rect.x, top: rect.y, width: rect.w, height: rect.h, borderRadius: 18, pointerEvents: "none",
-          boxShadow: `0 0 0 4000px rgba(0,0,0,${0.5 * k})`, border: `3px solid rgba(224,168,74,${k})` }} />
+        {/* sorotan: gelembung balasan tetap terang, sekitarnya diredupkan, bingkai kuning tipis; ikut terskala bersama video */}
+        {rect ? (
+          <>
+            <div style={{ position: "absolute", left: rect.x - 10, top: rect.y - 8, width: rect.w + 20, height: rect.h + 16, borderRadius: 18, pointerEvents: "none",
+              boxShadow: `0 0 0 4000px rgba(0,0,0,${0.5 * k})`, border: `3px solid rgba(224,168,74,${k})` }} />
+            {/* label di atas kotak; bila kotak tinggi (mendekati lencana peran di kiri atas), label pindah ke bawah kotak */}
+            <div style={{ position: "absolute", left: rect.x - 10, top: rect.y < 420 ? rect.y + rect.h + 14 : rect.y - 50, padding: "5px 14px", borderRadius: 999, background: `rgba(224,168,74,${0.95 * k})`, color: "#1a1408",
+              fontFamily: FONT, fontWeight: 700, fontSize: 21, letterSpacing: 0.5, whiteSpace: "nowrap", opacity: k }}>
+              {z?.label}
+            </div>
+          </>
+        ) : null}
       </AbsoluteFill>
 
       {scene.captions.map((c, i) => (
@@ -62,7 +61,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
             </Sequence>
           ) : null}
           <Sequence from={f(c.t0)} durationInFrames={Math.max(1, f(c.t1) - f(c.t0))} name={`caption-${i}`}>
-            <Caption text={c.text} src={c.src} side={zoomIdx.includes(i) ? "right" : "center"} />
+            <Caption text={c.text} src={c.src} side={zoomOverlap(c.t0, c.t1, wins) > 0.4 ? "right" : "center"} />
           </Sequence>
         </React.Fragment>
       ))}
@@ -78,6 +77,8 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
       {ROLE[scene.id] ? <RoleBadge spans={ROLE[scene.id]} capStarts={capStarts} /> : null}
       <Progress index={index} total={total} />
       <Watermark />
+      {/* warna latar sorotan mengikuti tema */}
+      <span style={{ display: "none", color: C.amber }} />
     </AbsoluteFill>
   );
 };

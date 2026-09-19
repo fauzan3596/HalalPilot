@@ -74,6 +74,9 @@ export const Demo: React.FC = () => {
       {cues.ding.map((fr, i) => (
         <Sequence key={`d${i}`} from={fr} name="sfx-ding"><Audio src={staticFile("sfx/ding.wav")} volume={SFX.ding} /></Sequence>
       ))}
+      {cues.reply.map((fr, i) => (
+        <Sequence key={`r${i}`} from={fr} name="sfx-balasan"><Audio src={staticFile("sfx/pop.wav")} volume={SFX.reply} /></Sequence>
+      ))}
     </>
   );
 };

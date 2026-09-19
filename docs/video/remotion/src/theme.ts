@@ -21,16 +21,20 @@ await Promise.all([
   loadFont({ family: FONT, url: staticFile("segoeuil.ttf"), weight: "300" }),
 ]);
 
-// Kalimat mana yang mendapat zoom ke area pesan (adegan → indeks caption). "Sedang": 10 peristiwa kunci.
+// Zoom MANUAL per kalimat (adegan → indeks caption) hanya untuk layar non-Telegram. Zoom ke balasan agen di Telegram
+// otomatis: tiap gelembung balasan yang terdeteksi (public/replies.json, dari docs/video/deteksi-balasan.mjs) membuka zoom
+// saat muncul dan menahannya sampai narasi penjelasnya selesai (lihat src/zoom.ts).
 export const ZOOM: Record<string, number[]> = {
-  "03": [3, 4],   // daftar bahan tiba, hasil evaluasi
-  "04": [3],      // sertifikat valid → skor 100 + dossier
-  "06": [1],      // pengingat pertama tiba
-  "07": [0],      // pesan eskalasi di chat
-  "08": [2],      // kembalikan
-  "09": [4, 6],   // berkas v2 tersimpan, ajukan → SIM
-  "10": [1],      // digest tiba
   "11": [0],      // hpdemo status (terminal penuh) → zoom ringan ke kiri bawah
+};
+
+// Label kecil di atas kotak sorotan saat zoom balasan.
+export const REPLY_LABEL: Record<string, string> = {
+  default: "Balasan agen",
+  "06": "Pengingat otomatis",
+  "07": "Eskalasi otomatis",
+  "10": "Digest pagi otomatis",
+  "11": "Keluaran hpdemo status",
 };
 
 // Titik fokus zoom per adegan (fraksi lebar/tinggi). Pesan Telegram terbaru selalu muncul di kiri BAWAH, jadi zoom berlabuh di sana.
@@ -56,7 +60,7 @@ export const ROLE: Record<string, RoleSpan[]> = {
   "07": [{ text: "Operator · terminal VPS", kind: "operator" }, { cap: 1, text: "Pendamping koperasi", kind: "pendamping" }],
   "07b": [{ text: "Pendamping koperasi", kind: "pendamping" }],
   "08": [{ text: "Pendamping koperasi", kind: "pendamping" }],
-  "09": [{ text: "UMK · Dapur Bu Ratih", kind: "umk" }, { cap: 4, text: "Pendamping koperasi", kind: "pendamping" }],
+  "09": [{ text: "UMK · Dapur Bu Ratih", kind: "umk" }, { cap: 5, text: "Pendamping koperasi", kind: "pendamping" }],
   "10": [{ text: "Pendamping koperasi", kind: "pendamping" }],
   "11": [{ text: "Operator · terminal VPS", kind: "operator" }],
 };
@@ -73,7 +77,7 @@ export const SCORE: Record<string, ScoreEvent[]> = {
 // ---- v7: garis waktu pengejaran (H+1, H+3, H+7, eskalasi H+10). `lit` awal + langkah yang menyala saat caption ke-n mulai.
 export const CHASE: Record<string, { lit: number; steps: { cap: number; lit: number }[] }> = {
   "06": { lit: 0, steps: [{ cap: 1, lit: 1 }, { cap: 2, lit: 2 }] },
-  "07": { lit: 2, steps: [{ cap: 0, lit: 4 }] },   // pesan eskalasi sudah tampil: H+7 dan H+10 menyala
+  "07": { lit: 2, steps: [{ cap: 0, lit: 3 }, { cap: 1, lit: 4 }] },   // c0 sweep ke hari ke-10 (H+7 terkirim), c1 pesan eskalasi tampil (H+10)
   "07b": { lit: 4, steps: [] },
 };
 
@@ -91,4 +95,4 @@ export const CHAPTERS: Record<string, { title: string; sub: string }> = {
 
 // ---- v7: audio
 export const MUSIC = { base: 0.2, duck: 0.07, fade: 0.5 };   // volume musik normal / saat narasi, waktu peralihan (detik)
-export const SFX = { whoosh: 0.35, ding: 0.5, pop: 0.35 };
+export const SFX = { whoosh: 0.35, ding: 0.5, pop: 0.35, reply: 0.2 };   // reply = pop lembut saat balasan agen muncul

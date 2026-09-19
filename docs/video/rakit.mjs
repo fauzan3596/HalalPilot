@@ -42,16 +42,16 @@ const SCENES = [
     { at: 50, t: "Tiga automations OpenClaw: digest pukul tujuh pagi, sapuan pengejaran pukul sembilan dan tiga sore, cek kuota tiap enam jam. Kolom Last menunjukkan semuanya berjalan sesuai jadwal." } ] },
   { id: "03", clip: "161523", judul: "3 · Intake: foto label → daftar bahan → keputusan beralasan", padAfter: 1.8, captions: [
     { at: 15, t: "Akun demo berperan sebagai UMK Dapur Bu Ratih. Sesi percakapan baru dimulai; dashboard koperasi ada di kanan." },
-    { at: 62.5, t: "UMK menyapa. Agen mengenali perannya lewat whoami, lalu menyebut berkas yang masih kurang tanpa ditanya." },
+    { at: 54.0, t: "UMK menyapa. Agen mengenali perannya lewat whoami, lalu menyebut berkas yang masih kurang tanpa ditanya." },
     { at: 78, t: "UMK cukup memotret label. Agen membaca komposisi, lalu meminta konfirmasi daftar bahan." },
-    { at: 128.5, t: "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis.", src: "KMA 1360/2021 · lampiran 182 halaman, dibaca 10 September 2026" },
-    { at: 183, t: "Yang menentukan jalur bukan modelnya, melainkan mesin aturan dari Kepkaban BPJPH 146 tahun 2025: margarin bahan kritis, jadi sertifikat pemasoknya wajib. Skor kesiapan 60 dari 100.", src: "Kepkaban BPJPH 146/2025 · aturan E11, Bab II A.2, A.9 & Bab III B" },
+    { at: 128.2, t: "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis.", src: "KMA 1360/2021 · lampiran 182 halaman, dibaca 10 September 2026" },
+    { at: 178.0, t: "Yang menentukan jalur bukan modelnya, melainkan mesin aturan dari Kepkaban BPJPH 146 tahun 2025: margarin bahan kritis, jadi sertifikat pemasoknya wajib. Skor kesiapan 60 dari 100.", src: "Kepkaban BPJPH 146/2025 · aturan E11, Bab II A.2, A.9 & Bab III B" },
     { at: 202, t: "Yang diminta hanya dokumen yang harus dari UMK. Surat permohonan, pernyataan, ikrar, dan Manual SJPH disusun sistem." } ] },
   { id: "04", clip: "161840", judul: "4 · Cerita proses & sertifikat pemasok → dossier otomatis", padAfter: 1.8, captions: [
     { at: 5.5, t: "UMK menceritakan cara membuat nastar dengan bahasanya sendiri." },
-    { at: 37.5, t: "Cerita proses tersimpan apa adanya. Skor naik ke 80. Tinggal sertifikat pemasok margarin." },
+    { at: 36.9, t: "Cerita proses tersimpan apa adanya. Skor naik ke 80. Tinggal sertifikat pemasok margarin." },
     { at: 62, t: "UMK menyebut nama pemasok dan nomor sertifikatnya." },
-    { at: 89, t: "Nomor sertifikat dicek ke registry, di sini simulasi. Skor 100: agen langsung menyusun berkas self-declare untuk ditinjau pendamping." } ] },
+    { at: 88.6, t: "Nomor sertifikat dicek ke registry, di sini simulasi. Skor 100: agen langsung menyusun berkas self-declare untuk ditinjau pendamping." } ] },
   { id: "05", clip: "161958", end: 42, judul: "5 · Dossier PDF v1 dari server", padAfter: 2.0, captions: [
     { at: 1, t: "Berkas PDF versi satu diambil dari server dengan scp untuk dilihat." },
     { at: 13, t: "PDF diunduh ke laptop lalu dibuka di penampil." },
@@ -59,31 +59,32 @@ const SCENES = [
     { at: 37, t: "Setiap versi punya sidik jari SHA-256 dan versi aturan yang dipakai." } ] },
   { id: "06", clip: "162420", judul: "6 · Pengejaran otomatis UMK-042 (waktu dimajukan)", padAfter: 1.8, captions: [
     { at: 16, t: "Sambal Mak Ijah: bahannya aman, tetapi KBLI di NIB tidak cocok dan foto label belum ada. Skor 70." },
-    { at: 37, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.", src: "rules/chase-policy.yaml v2026-09-02.1" },
-    { at: 77, t: "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode." } ] },
+    { at: 36.3, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.", src: "rules/chase-policy.yaml v2026-09-02.1" },
+    { at: 76.6, t: "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode." } ] },
   { id: "07", clip: "162541", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
-    { at: 5, t: "Pesan ketiga di chat bukan pengingat lagi, melainkan laporan eskalasi: Sambal Mak Ijah belum mengirim dokumen setelah tiga pengingat, skor 70, dengan saran tindakan untuk pendamping.", src: "rules/chase-policy.yaml tahap 4 · setelah 240 jam" },
-    { at: 10.5, t: "Operator mengalihkan akun demo ke peran pendamping dan memastikan tugas eskalasi tahap empat tercatat di server." },
+    { at: 5, t: "Operator memajukan waktu dengan perintah sweep sampai hari ke-10, mengalihkan akun demo ke peran pendamping, lalu memastikan tugas eskalasi tahap empat tercatat di server." },
+    { at: 34.3, t: "Pesan ketiga di chat bukan pengingat lagi, melainkan laporan eskalasi: Sambal Mak Ijah belum mengirim dokumen setelah tiga pengingat, skor 70, dengan saran tindakan untuk pendamping.", src: "rules/chase-policy.yaml tahap 4 · setelah 240 jam" },
     { at: 40.5, t: "Pendamping tahu persis siapa yang perlu ditelepon, dan kenapa." } ] },
   { id: "07b", clip: "162629", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
     { at: 1, t: "Dashboard koperasi mencatat eskalasi terbuka untuk Sambal Mak Ijah." } ] },
   { id: "08", clip: "163241", judul: "8 · Review pendamping: ringkasan & kembalikan berkas", padAfter: 1.8, captions: [
     { at: 7, t: "Dashboard koperasi: 18 dari 120 UMK siap unggah, laju di bawah kebutuhan, papan diurutkan dari yang paling mendesak." },
-    { at: 97, t: "Pendamping bertanya status dan menerima ringkasan: total UMK, siap unggah, menunggu review, eskalasi terbuka. Semua dari data, bukan karangan model." },
-    { at: 304.5, t: "Pendamping tetap pemegang keputusan. Satu kalimat 'kembalikan' cukup: alasannya diteruskan ke UMK, keputusan baru dicatat, pengejaran dimulai lagi." },
+    { at: 96.6, t: "Pendamping bertanya status dan menerima ringkasan: total UMK, siap unggah, menunggu review, eskalasi terbuka. Semua dari data, bukan karangan model." },
+    { at: 303.8, t: "Pendamping tetap pemegang keputusan. Satu kalimat 'kembalikan' cukup: alasannya diteruskan ke UMK, keputusan baru dicatat, pengejaran dimulai lagi." },
     { at: 312, t: "Di dashboard, UMK-017 turun ke status dikembalikan dengan skor 80, lengkap dengan jejak keputusannya." } ] },
   { id: "09", clip: "170107", end: 432, judul: "9 · Foto ulang → berkas v2 → setuju → ajukan (simulasi)", padAfter: 1.8, captions: [
     { at: 26, t: "Kembali ke terminal VPS. Akun demo dialihkan lagi ke peran UMK Dapur Bu Ratih, dan tugas pengejarannya ikut berpindah." },
     { at: 55.5, t: "UMK mengirim foto label yang lebih jelas." },
-    { at: 135, t: "Foto produk diterima, permintaan dokumen tertutup otomatis, dan daftar bahan dikonfirmasi ulang." },
-    { at: 180, t: "Daftar bahan dikonfirmasi. Skor kembali 100 dan semua dokumen wajib lengkap." },
-    { at: 269.5, t: "Berkas versi dua tersimpan sebagai PDF dan dikirim ke pendamping untuk diperiksa. Akun kini berganti peran menjadi pendamping." },
-    { at: 342.5, t: "Pendamping menyetujui lewat Telegram. Status berubah menjadi siap unggah." },
-    { at: 398.5, t: "Perintah 'ajukan' mengirim ke SiHalal simulasi dan mendapat nomor SIM. Ini bukan pengajuan resmi ke BPJPH." },
+    { at: 129.7, t: "Foto produk diterima, permintaan dokumen tertutup otomatis, dan daftar bahan dikonfirmasi ulang." },
+    { at: 179.5, t: "Daftar bahan dikonfirmasi. Skor kembali 100 dan semua dokumen wajib lengkap." },
+    { at: 236.6, t: "Berkas versi dua tersimpan sebagai PDF dan dikirim ke pendamping untuk diperiksa." },
+    { at: 269.5, t: "Akun demo kini berganti peran menjadi pendamping." },
+    { at: 335.1, t: "Pendamping menyetujui lewat Telegram. Status berubah menjadi siap unggah." },
+    { at: 381.8, t: "Perintah 'ajukan' mengirim ke SiHalal simulasi dan mendapat nomor SIM. Ini bukan pengajuan resmi ke BPJPH." },
     { at: 420, t: "HalalPilot menyiapkan berkas; keputusan halal tetap di BPJPH dan pendamping." } ] },
   { id: "10", clip: "170250", judul: "10 · Digest pagi & dashboard portofolio", padAfter: 1.8, captions: [
     { at: 9, t: "Di dashboard, UMK-017 kini selesai. Papan menunjukkan 19 dari 120 UMK siap unggah." },
-    { at: 40.5, t: "Setiap pagi pukul tujuh, pendamping menerima ringkasan seperti ini dari automations OpenClaw, tanpa membuka aplikasi apa pun." } ] },
+    { at: 40.0, t: "Setiap pagi pukul tujuh, pendamping menerima ringkasan seperti ini dari automations OpenClaw, tanpa membuka aplikasi apa pun." } ] },
   { id: "11", clip: "170535", fixed: [[0, 14, 1]], judul: "11 · Yang berjalan di server: dua unit systemd, 1,4 GB RAM", padAfter: 2.0, captions: [
     { at: 0.5, t: "Hanya port SSH yang terbuka. Gateway dan API di loopback. RAM terpakai 1.397 megabyte dari 3.915 saat semuanya hidup.", src: "hpdemo status di VPS lomba, 10 September 2026 16:54 WIB" },
     { at: 8, t: "Empat batas yang kami pegang: menyiapkan bukan menerbitkan; portal pemerintah di sini simulasi; tanpa data pribadi; dan semuanya muat di satu VPS kecil." } ] },
@@ -97,7 +98,7 @@ const OPENER = { id: "00-pembuka", min: 7, narasi: "HalalPilot: agen OpenClaw ya
   ["HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK", 32, FONT, 0.80],
   ["Berjalan di VPS AI Hosting IDwebhost · demo AI HackFest 2026", 28, FONT, 0.88],
 ] };
-const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan, 509 sinonim bahan, 85 uji otomatis, satu VPS 4 gigabyte.", items: [
+const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan, 498 sinonim bahan, 86 uji otomatis, satu VPS 4 gigabyte.", items: [
   ["Hasil demo dalam angka", 64, FONTB, 0.12],
 ] };
 const CLOSER = { id: "99-penutup", min: 9, narasi: "Model memutuskan bahasa. Kode memutuskan hukum. HalalPilot menyiapkan berkas; keputusan halal tetap milik BPJPH dan pendamping. Kode dan aturannya terbuka.", items: [

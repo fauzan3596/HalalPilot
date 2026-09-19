@@ -60,8 +60,8 @@ export const StatsCard: React.FC = () => {
     { n: 1, label: "UMK dari foto label sampai berkas siap", sub: "intake → evaluasi → dossier PDF" },
     { n: 4, label: "pengingat & eskalasi otomatis", sub: "H+1, H+3, H+7, lalu pendamping" },
     { n: 18, label: "aturan kelayakan deterministik", sub: "Kepkaban BPJPH 146/2025 · KMA 1360/2021" },
-    { n: 509, label: "sinonim bahan di kamus", sub: "124 dikecualikan · 24 positif · 33 kritis" },
-    { n: 85, label: "uji otomatis hijau", sub: "+ 87 skenario penerimaan tertulis" },
+    { n: 498, label: "sinonim bahan di kamus", sub: "124 dikecualikan · 24 positif · 33 kritis" },
+    { n: 86, label: "uji otomatis hijau", sub: "+ 86 skenario penerimaan tertulis" },
     { n: 4, label: "RAM, satu VPS kecil", sub: "terpakai 1,4 GB saat semuanya hidup", suffix: " GB" },
   ];
   return (
