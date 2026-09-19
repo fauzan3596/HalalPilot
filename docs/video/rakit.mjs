@@ -62,10 +62,11 @@ const SCENES = [
     { at: 37, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.", src: "rules/chase-policy.yaml v2026-09-02.1" },
     { at: 77, t: "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode." } ] },
   { id: "07", clip: "162541", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
-    { at: 5, t: "Di rekaman ini pengingat ketiga tidak ditunggu: operator menandainya sudah terkirim tanpa respons, lalu mengalihkan akun ke peran pendamping." },
-    { at: 40.5, t: "Eskalasi tiba di pendamping: nama UMK, dokumen yang kurang, skor, dan saran tindakan. Pendamping tahu persis siapa yang perlu ditelepon." } ] },
+    { at: 5, t: "Pesan ketiga di chat bukan pengingat lagi, melainkan laporan eskalasi: Sambal Mak Ijah belum mengirim dokumen setelah tiga pengingat, skor 70, dengan saran tindakan untuk pendamping.", src: "rules/chase-policy.yaml tahap 4 · setelah 240 jam" },
+    { at: 10.5, t: "Operator mengalihkan akun demo ke peran pendamping dan memastikan tugas eskalasi tahap empat tercatat di server." },
+    { at: 40.5, t: "Pendamping tahu persis siapa yang perlu ditelepon, dan kenapa." } ] },
   { id: "07b", clip: "162629", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
-    { at: 1, t: "Dashboard mencatat eskalasi terbuka untuk Sambal Mak Ijah." } ] },
+    { at: 1, t: "Dashboard koperasi mencatat eskalasi terbuka untuk Sambal Mak Ijah." } ] },
   { id: "08", clip: "163241", judul: "8 · Review pendamping: ringkasan & kembalikan berkas", padAfter: 1.8, captions: [
     { at: 7, t: "Dashboard koperasi: 18 dari 120 UMK siap unggah, laju di bawah kebutuhan, papan diurutkan dari yang paling mendesak." },
     { at: 97, t: "Pendamping bertanya status dan menerima ringkasan: total UMK, siap unggah, menunggu review, eskalasi terbuka. Semua dari data, bukan karangan model." },
