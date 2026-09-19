@@ -73,7 +73,7 @@ export const SCORE: Record<string, ScoreEvent[]> = {
 // ---- v7: garis waktu pengejaran (H+1, H+3, H+7, eskalasi H+10). `lit` awal + langkah yang menyala saat caption ke-n mulai.
 export const CHASE: Record<string, { lit: number; steps: { cap: number; lit: number }[] }> = {
   "06": { lit: 0, steps: [{ cap: 1, lit: 1 }, { cap: 2, lit: 2 }] },
-  "07": { lit: 3, steps: [{ cap: 1, lit: 4 }] },
+  "07": { lit: 2, steps: [{ cap: 0, lit: 3 }, { cap: 1, lit: 4 }] },   // mark-sent menandai pengingat ke-3, lalu eskalasi
   "07b": { lit: 4, steps: [] },
 };
 
@@ -85,7 +85,7 @@ export const ARCH: Record<string, { fromCap: number; autoCap: number }> = {
 // ---- v7: kartu bab sebelum adegan tertentu (2 detik).
 export const CHAPTERS: Record<string, { title: string; sub: string }> = {
   "03": { title: "Alur UMK", sub: "Dari foto label sampai berkas siap ditinjau" },
-  "07": { title: "Sisi pendamping", sub: "Eskalasi, review, persetujuan, pengajuan" },
+  "07": { title: "Dari pengejaran ke pendamping", sub: "Pengingat ketiga, eskalasi, review, persetujuan" },
   "11": { title: "Batas & yang berjalan di server", sub: "Menyiapkan, bukan menerbitkan" },
 };
 

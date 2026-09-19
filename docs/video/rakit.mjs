@@ -62,7 +62,7 @@ const SCENES = [
     { at: 37, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.", src: "rules/chase-policy.yaml v2026-09-02.1" },
     { at: 77, t: "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode." } ] },
   { id: "07", clip: "162541", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
-    { at: 5, t: "Setelah tiga pengingat tanpa respons, agen berhenti mengejar UMK. Akun kini berperan sebagai pendamping." },
+    { at: 5, t: "Di rekaman ini pengingat ketiga tidak ditunggu: operator menandainya sudah terkirim tanpa respons, lalu mengalihkan akun ke peran pendamping." },
     { at: 40.5, t: "Eskalasi tiba di pendamping: nama UMK, dokumen yang kurang, skor, dan saran tindakan. Pendamping tahu persis siapa yang perlu ditelepon." } ] },
   { id: "07b", clip: "162629", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
     { at: 1, t: "Dashboard mencatat eskalasi terbuka untuk Sambal Mak Ijah." } ] },
