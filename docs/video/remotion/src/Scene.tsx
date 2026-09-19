@@ -1,7 +1,8 @@
 import React from "react";
 import { Audio, Video } from "@remotion/media";
 import { AbsoluteFill, Easing, Freeze, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { HIGHLIGHT, ZOOM, ZOOM_POINT } from "./theme";
+import { ArchInset, ChaseStrip, RoleBadge, ScoreBadge } from "./extras";
+import { ARCH, CHASE, HIGHLIGHT, ROLE, SCORE, ZOOM, ZOOM_POINT } from "./theme";
 import { f, Scene as SceneT } from "./timeline";
 import { Caption, Progress, SceneTitle, Watermark } from "./ui";
 
@@ -9,7 +10,8 @@ const ease = Easing.bezier(0.16, 1, 0.3, 1);
 
 /**
  * Satu adegan: video potongan (sudah 1080p, sudah berisi frame beku), narasi per kalimat pada waktunya,
- * caption beranimasi, judul adegan, zoom lembut ke area pesan untuk kalimat kunci.
+ * caption beranimasi, judul adegan, zoom + sorotan ke area pesan untuk kalimat kunci,
+ * lencana peran, lencana skor, garis waktu pengejaran, sisipan diagram arsitektur.
  */
 export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = ({ scene, index, total }) => {
   const frame = useCurrentFrame();
@@ -18,6 +20,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
   const zoomIdx = ZOOM[scene.id] ?? [];
   const point = ZOOM_POINT[scene.id] ?? ZOOM_POINT.default;
   const rect = HIGHLIGHT[scene.id] ?? HIGHLIGHT.default;
+  const capStarts = scene.captions.map((c) => f(c.t0));
 
   // skala zoom: naik 0.7 s di awal kalimat kunci, tahan, turun 0.7 s menjelang akhirnya
   let scale = 1;
@@ -28,8 +31,11 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
     const s = interpolate(frame, [a, a + 0.7 * fps, b - 0.7 * fps, b], [1, 1.22, 1.22, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
     if (s > scale) scale = s;
   }
+  const k = (scale - 1) / 0.22;
 
   const media = <Video src={staticFile(`seg/${scene.cat}`)} muted style={{ width: 1920, height: 1080 }} />;
+  const chase = CHASE[scene.id];
+  const arch = ARCH[scene.id];
 
   return (
     <AbsoluteFill style={{ background: "#0b100d" }}>
@@ -43,7 +49,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
         ) : null}
         {/* sorotan: area pesan terbaru tetap terang, sekitarnya diredupkan, bingkai kuning tipis; ikut terskala bersama video */}
         <div style={{ position: "absolute", left: rect.x, top: rect.y, width: rect.w, height: rect.h, borderRadius: 18, pointerEvents: "none",
-          boxShadow: `0 0 0 4000px rgba(0,0,0,${(0.5 * (scale - 1)) / 0.22})`, border: `3px solid rgba(224,168,74,${(scale - 1) / 0.22})` }} />
+          boxShadow: `0 0 0 4000px rgba(0,0,0,${0.5 * k})`, border: `3px solid rgba(224,168,74,${k})` }} />
       </AbsoluteFill>
 
       {scene.captions.map((c, i) => (
@@ -59,7 +65,12 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
         </React.Fragment>
       ))}
 
+      {arch ? <ArchInset from={capStarts[arch.fromCap]} autoAt={capStarts[arch.autoCap]} /> : null}
+      {chase ? <ChaseStrip litAt={(fr) => chase.steps.reduce((lit, s) => (fr >= capStarts[s.cap] ? Math.max(lit, s.lit) : lit), chase.lit)} /> : null}
+      {(SCORE[scene.id] ?? []).map((ev, i) => <ScoreBadge key={i} at={capStarts[ev.cap]} from={ev.from} to={ev.to} />)}
+
       <SceneTitle text={scene.judul} index={index} total={total} />
+      {ROLE[scene.id] ? <RoleBadge spans={ROLE[scene.id]} capStarts={capStarts} /> : null}
       <Progress index={index} total={total} />
       <Watermark />
     </AbsoluteFill>
