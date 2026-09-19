@@ -142,7 +142,7 @@ const outLen = (segs) => segs.reduce((t, s) => t + segLen(s), 0);
 function srcToOut(segs, s) {
   let t = 0;
   for (const g of segs) {
-    if (Array.isArray(g)) { if (s <= g[1]) return t + Math.max(0, s - g[0]) / g[2]; t += segLen(g); }
+    if (Array.isArray(g)) { if (s < g[1] - 1e-6) return t + Math.max(0, s - g[0]) / g[2]; t += segLen(g); }
     else { if (s >= g.hold - 1e-6) t += g.d; else return t; }
   }
   return t;
