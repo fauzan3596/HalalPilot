@@ -54,6 +54,7 @@ const SCENES = [
     { at: 89, t: "Nomor sertifikat dicek ke registry, di sini simulasi. Skor 100: agen langsung menyusun berkas self-declare untuk ditinjau pendamping." } ] },
   { id: "05", clip: "161958", end: 42, judul: "5 · Dossier PDF v1 dari server", padAfter: 2.0, captions: [
     { at: 1, t: "Berkas PDF versi satu diambil dari server dengan scp untuk dilihat." },
+    { at: 13, t: "PDF diunduh ke laptop lalu dibuka di penampil." },
     { at: 29, t: "Isinya: permohonan, pernyataan, ikrar, daftar bahan dengan kelasnya, ringkasan proses, foto label, dan draf Manual SJPH." },
     { at: 37, t: "Setiap versi punya sidik jari SHA-256 dan versi aturan yang dipakai." } ] },
   { id: "06", clip: "162420", judul: "6 · Pengejaran otomatis UMK-042 (waktu dimajukan)", padAfter: 1.8, captions: [
@@ -71,7 +72,8 @@ const SCENES = [
     { at: 304.5, t: "Pendamping tetap pemegang keputusan. Satu kalimat 'kembalikan' cukup: alasannya diteruskan ke UMK, keputusan baru dicatat, pengejaran dimulai lagi." },
     { at: 312, t: "Di dashboard, UMK-017 turun ke status dikembalikan dengan skor 80, lengkap dengan jejak keputusannya." } ] },
   { id: "09", clip: "170107", end: 432, judul: "9 · Foto ulang → berkas v2 → setuju → ajukan (simulasi)", padAfter: 1.8, captions: [
-    { at: 55.5, t: "Akun kembali berperan sebagai UMK dan mengirim foto label yang lebih jelas." },
+    { at: 26, t: "Kembali ke terminal VPS. Akun demo dialihkan lagi ke peran UMK Dapur Bu Ratih, dan tugas pengejarannya ikut berpindah." },
+    { at: 55.5, t: "UMK mengirim foto label yang lebih jelas." },
     { at: 135, t: "Foto produk diterima, permintaan dokumen tertutup otomatis, dan daftar bahan dikonfirmasi ulang." },
     { at: 180, t: "Daftar bahan dikonfirmasi. Skor kembali 100 dan semua dokumen wajib lengkap." },
     { at: 269.5, t: "Berkas versi dua tersimpan sebagai PDF dan dikirim ke pendamping untuk diperiksa. Akun kini berganti peran menjadi pendamping." },
