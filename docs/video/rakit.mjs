@@ -41,6 +41,7 @@ const SCENES = [
     { at: 36, t: "OpenClaw menjadi agen dan kanal Telegram. Layanan kecil Node dan SQLite memegang aturan. Model membaca dan berbicara; kode memutuskan hukum." },
     { at: 50, t: "Tiga automations OpenClaw: digest pukul tujuh pagi, sapuan pengejaran pukul sembilan dan tiga sore, cek kuota tiap enam jam. Kolom Last menunjukkan semuanya berjalan sesuai jadwal." } ] },
   { id: "03", clip: "161523", judul: "3 · Intake: foto label → daftar bahan → keputusan beralasan", padAfter: 1.8, captions: [
+    { at: 15, t: "Akun demo berperan sebagai UMK Dapur Bu Ratih. Sesi percakapan baru dimulai; dashboard koperasi ada di kanan." },
     { at: 62.5, t: "UMK menyapa. Agen mengenali perannya lewat whoami, lalu menyebut berkas yang masih kurang tanpa ditanya." },
     { at: 78, t: "UMK cukup memotret label. Agen membaca komposisi, lalu meminta konfirmasi daftar bahan." },
     { at: 128.5, t: "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis." },
@@ -72,7 +73,8 @@ const SCENES = [
   { id: "09", clip: "170107", end: 432, judul: "9 · Foto ulang → berkas v2 → setuju → ajukan (simulasi)", padAfter: 1.8, captions: [
     { at: 55.5, t: "Akun kembali berperan sebagai UMK dan mengirim foto label yang lebih jelas." },
     { at: 135, t: "Foto produk diterima, permintaan dokumen tertutup otomatis, dan daftar bahan dikonfirmasi ulang." },
-    { at: 180, t: "Skor kembali 100. Berkas versi dua disusun untuk pendamping." },
+    { at: 180, t: "Daftar bahan dikonfirmasi. Skor kembali 100 dan semua dokumen wajib lengkap." },
+    { at: 269.5, t: "Berkas versi dua tersimpan sebagai PDF dan dikirim ke pendamping untuk diperiksa. Akun kini berganti peran menjadi pendamping." },
     { at: 342.5, t: "Pendamping menyetujui lewat Telegram. Status berubah menjadi siap unggah." },
     { at: 398.5, t: "Perintah 'ajukan' mengirim ke SiHalal simulasi dan mendapat nomor SIM. Ini bukan pengajuan resmi ke BPJPH." },
     { at: 420, t: "HalalPilot menyiapkan berkas; keputusan halal tetap di BPJPH dan pendamping." } ] },
