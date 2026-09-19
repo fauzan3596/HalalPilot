@@ -25,12 +25,12 @@ Sumber angka: INDEF mengutip Bappenas (Republika, 21 Agustus 2026); PP 42/2024 p
 Bab:
 0:00 Pembuka: 4% dan tenggat 17 Oktober
 0:10 Masalah 120 UMK
-0:48 Lingkungan: VPS AI Hosting, OpenClaw
-1:28 Intake: foto label → keputusan beralasan
+0:47 Lingkungan: VPS AI Hosting, OpenClaw
+1:26 Intake: foto label → keputusan beralasan
 2:48 Cerita proses & sertifikat pemasok → dossier
 3:36 Dossier PDF v1
 4:13 Pengejaran otomatis
-4:58 Eskalasi ke pendamping
+4:56 Eskalasi ke pendamping
 5:35 Review pendamping
 6:38 Foto ulang → berkas v2 → setuju → ajukan (simulasi)
 8:27 Digest pagi & dashboard
