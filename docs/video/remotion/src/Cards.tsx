@@ -44,7 +44,7 @@ export const Opener: React.FC = () => {
         {pct.toFixed(pct < 4 ? 1 : 0)}
         <span style={{ color: C.amber }}>%</span>
       </div>
-      <Line text="pelaku usaha yang produknya bersertifikat halal" size={46} y={0.43} at={20} />
+      <Line text="Pelaku usaha yang produknya bersertifikat halal" size={46} y={0.43} at={20} />
       <Line text="INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" size={28} y={0.51} at={28} color={C.muted} />
       {/* garis pemisah */}
       <div style={{ position: "absolute", left: "50%", top: 0.6 * 1080, height: 3, background: C.accent, translate: "-50% 0",
@@ -55,7 +55,7 @@ export const Opener: React.FC = () => {
       <div style={{ position: "absolute", left: 0, right: 0, top: 0.85 * 1080, display: "flex", justifyContent: "center", alignItems: "center", gap: 28,
         opacity: interpolate(frame, [95, 115], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
         <Img src={staticFile("halalpilot-logo.svg")} style={{ height: 56 }} />
-        <span style={{ fontFamily: FONT, color: C.muted, fontSize: 26 }}>berjalan di VPS AI Hosting</span>
+        <span style={{ fontFamily: FONT, color: C.muted, fontSize: 26 }}>Berjalan di VPS AI Hosting</span>
         <Img src={staticFile("idwebhost-logo-negative.svg")} style={{ height: 40 }} />
         <span style={{ fontFamily: FONT, color: C.muted, fontSize: 26 }}>· demo AI HackFest 2026</span>
       </div>
