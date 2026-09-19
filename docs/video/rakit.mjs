@@ -169,7 +169,8 @@ let total = 0; const list = [];
 function audioGraph(narr, firstIdx) {
   const ins = narr.map((n) => `-i "${n.mp3}"`).join(" ") + ` -f lavfi -i anullsrc=r=48000:cl=stereo`;
   const parts = narr.map((n, i) => `[${firstIdx + i}:a]aresample=48000,adelay=${Math.round(n.t * 1000)}|${Math.round(n.t * 1000)}[n${i}]`).join(";");
-  const mix = narr.map((_, i) => `[n${i}]`).join("") + `[${firstIdx + narr.length}:a]amix=inputs=${narr.length + 1}:normalize=0:duration=first[aout]`;
+  // anullsrc (tak berhingga) HARUS jadi input pertama: duration=first mengikuti input pertama; bila narasi pertama yang di depan, audio berhenti setelah kalimat pertama
+  const mix = `[${firstIdx + narr.length}:a]` + narr.map((_, i) => `[n${i}]`).join("") + `amix=inputs=${narr.length + 1}:normalize=0:duration=first[aout]`;
   return { ins, filter: (parts ? parts + ";" : "") + mix };
 }
 
@@ -180,7 +181,7 @@ function card(c) {
   const logoIn = hasLogo ? `-i "${LOGO}"` : ""; const aFirst = hasLogo ? 2 : 1;
   const ag = audioGraph(n.mp3 ? [{ mp3: n.mp3, t: 0.8 }] : [], aFirst);
   const vchain = `[0:v]${dt},fade=t=in:st=0:d=0.6,fade=t=out:st=${(seconds - 0.6).toFixed(2)}:d=0.6[b];` + (hasLogo ? `[1:v]scale=-1:56[l];[b][l]overlay=W-w-40:H-h-40[vout]` : `[b]${WM_TXT}[vout]`);
-  const out = `${c.id}-${hash(c.narasi + seconds)}.mp4`;
+  const out = `${c.id}-${hash(c.narasi + seconds + ag.filter)}.mp4`;
   lines.push(`echo "== ${c.id} (${seconds.toFixed(1)} s)"; [ -s "${out}" ] || ffmpeg -v error -y -f lavfi -i color=c=0x141d18:s=1920x1080:d=${seconds.toFixed(2)}:r=30 ${logoIn} ${ag.ins} -filter_complex "${vchain};${ag.filter}" -map "[vout]" -map "[aout]" -t ${seconds.toFixed(2)} ${VID} "${out}"`);
   total += seconds; list.push(out);
 }
@@ -226,7 +227,7 @@ for (const sc of SCENES) {
   const logoIn = hasLogo ? `-i "${LOGO}"` : ""; const aFirst = hasLogo ? 2 : 1;
   const ag = audioGraph(narr, aFirst);
   const vout = hasLogo ? `[base];[1:v]scale=-1:56[logo];[base][logo]overlay=W-w-40:H-h-40[vout]` : `[base];[base]${WM_TXT}[vout]`;
-  const out = `${sc.id}-${hash(catName + chain + JSON.stringify(narr))}.mp4`;
+  const out = `${sc.id}-${hash(catName + chain + ag.filter)}.mp4`;
   lines.push(`echo "== adegan ${sc.id} (${sc.clip}) → video ${vlen.toFixed(1)} s, narasi ${need.toFixed(1)} s, keluar ${len.toFixed(1)} s"`);
   lines.push(`[ -s "${out}" ] || ffmpeg -v error -y -i "${catName}" ${logoIn} ${ag.ins} -filter_complex "${chain}${vout};${ag.filter}" -map "[vout]" -map "[aout]" -t ${len.toFixed(2)} ${VID} "${out}"`);
   total += len; list.push(out);
