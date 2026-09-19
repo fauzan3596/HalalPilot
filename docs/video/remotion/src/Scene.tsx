@@ -2,6 +2,7 @@ import React from "react";
 import { Audio, Video } from "@remotion/media";
 import { AbsoluteFill, Easing, Freeze, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { ArchInset, ChaseStrip, RoleBadge, ScoreBadge } from "./extras";
+import { RulesInset } from "./extras2";
 import { ARCH, CHASE, HIGHLIGHT, ROLE, SCORE, ZOOM, ZOOM_POINT } from "./theme";
 import { f, Scene as SceneT } from "./timeline";
 import { Caption, Progress, SceneTitle, Watermark } from "./ui";
@@ -60,11 +61,12 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
             </Sequence>
           ) : null}
           <Sequence from={f(c.t0)} durationInFrames={Math.max(1, f(c.t1) - f(c.t0))} name={`caption-${i}`}>
-            <Caption text={c.text} side={zoomIdx.includes(i) ? "right" : "center"} />
+            <Caption text={c.text} src={c.src} side={zoomIdx.includes(i) ? "right" : "center"} />
           </Sequence>
         </React.Fragment>
       ))}
 
+      {scene.id === "03" && capStarts[4] !== undefined ? <RulesInset from={capStarts[4]} /> : null}
       {arch ? <ArchInset from={capStarts[arch.fromCap]} autoAt={capStarts[arch.autoCap]} /> : null}
       {chase ? <ChaseStrip litAt={(fr) => chase.steps.reduce((lit, s) => (fr >= capStarts[s.cap] ? Math.max(lit, s.lit) : lit), chase.lit)} /> : null}
       {(SCORE[scene.id] ?? []).map((ev, i) => <ScoreBadge key={i} at={capStarts[ev.cap]} from={ev.from} to={ev.to} />)}

@@ -6,6 +6,7 @@ import { slide } from "@remotion/transitions/slide";
 import { interpolate, Sequence, staticFile } from "remotion";
 import { Closer, Opener } from "./Cards";
 import { ChapterCard } from "./extras";
+import { StatsCard } from "./extras2";
 import { Scene } from "./Scene";
 import { CHAPTERS, MUSIC, SFX } from "./theme";
 import { FPS, layout, narrationSpans, sfxCues, TRANSITION } from "./timeline";
@@ -48,6 +49,10 @@ export const Demo: React.FC = () => {
             ) : it.kind === "scene" ? (
               <TransitionSeries.Sequence durationInFrames={it.dur} name={`Adegan ${it.scene.id}`}>
                 <Scene scene={it.scene} index={indexOf(it.scene.id)} total={total} />
+              </TransitionSeries.Sequence>
+            ) : it.kind === "stats" ? (
+              <TransitionSeries.Sequence durationInFrames={it.dur} name="Hasil dalam angka">
+                <StatsCard />
               </TransitionSeries.Sequence>
             ) : null}
           </React.Fragment>

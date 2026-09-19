@@ -28,7 +28,7 @@ export const ZOOM: Record<string, number[]> = {
   "06": [1],      // pengingat pertama tiba
   "07": [1],      // eskalasi tiba
   "08": [2],      // kembalikan
-  "09": [3, 5],   // berkas v2 tersimpan, ajukan → SIM
+  "09": [4, 6],   // berkas v2 tersimpan, ajukan → SIM
   "10": [1],      // digest tiba
   "11": [0],      // hpdemo status (terminal penuh) → zoom ringan ke kiri bawah
 };
@@ -56,7 +56,7 @@ export const ROLE: Record<string, RoleSpan[]> = {
   "07": [{ text: "Operator · terminal VPS", kind: "operator" }, { cap: 1, text: "Pendamping koperasi", kind: "pendamping" }],
   "07b": [{ text: "Pendamping koperasi", kind: "pendamping" }],
   "08": [{ text: "Pendamping koperasi", kind: "pendamping" }],
-  "09": [{ text: "UMK · Dapur Bu Ratih", kind: "umk" }, { cap: 3, text: "Pendamping koperasi", kind: "pendamping" }],
+  "09": [{ text: "UMK · Dapur Bu Ratih", kind: "umk" }, { cap: 4, text: "Pendamping koperasi", kind: "pendamping" }],
   "10": [{ text: "Pendamping koperasi", kind: "pendamping" }],
   "11": [{ text: "Operator · terminal VPS", kind: "operator" }],
 };
@@ -64,10 +64,10 @@ export const ROLE: Record<string, RoleSpan[]> = {
 // ---- v7: lencana skor kesiapan yang berjalan naik saat caption ke-n mulai.
 export type ScoreEvent = { cap: number; from: number; to: number };
 export const SCORE: Record<string, ScoreEvent[]> = {
-  "03": [{ cap: 3, from: 0, to: 60 }],
+  "03": [{ cap: 4, from: 0, to: 60 }],   // c4 = hasil evaluasi (skor 60)
   "04": [{ cap: 1, from: 60, to: 80 }, { cap: 3, from: 80, to: 100 }],
   "06": [{ cap: 0, from: 0, to: 70 }],
-  "09": [{ cap: 2, from: 80, to: 100 }],
+  "09": [{ cap: 3, from: 80, to: 100 }],  // c3 = skor kembali 100
 };
 
 // ---- v7: garis waktu pengejaran (H+1, H+3, H+7, eskalasi H+10). `lit` awal + langkah yang menyala saat caption ke-n mulai.

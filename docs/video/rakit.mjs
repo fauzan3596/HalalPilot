@@ -32,9 +32,9 @@ const FINAL = "HalalPilot-demo-v3.mp4";
 // captions: { at: detik sumber peristiwa, t: kalimat narasi (dibakar sebagai teks dan disintesis) }
 const SCENES = [
   { id: "01", clip: "142912", end: 42, judul: "1 · Masalah: 120 UMK, 38 hari, berkas tidak lengkap", padAfter: 1.2, captions: [
-    { at: 0.5, t: "Menurut INDEF yang mengutip Bappenas, baru sekitar 4 persen pelaku usaha yang produknya bersertifikat halal." },
-    { at: 10, t: "Per 17 Oktober 2026, makanan dan minuman UMK wajib bersertifikat halal. Kementerian Agama menegaskan tidak ada penundaan." },
-    { at: 20, t: "Kuota gratis 1,35 juta dan 111 ribu pendamping sudah ada. Masalahnya: satu pendamping memegang ratusan UMK, dan berkasnya jarang lengkap." },
+    { at: 0.5, t: "Menurut INDEF yang mengutip Bappenas, baru sekitar 4 persen pelaku usaha yang produknya bersertifikat halal.", src: "INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" },
+    { at: 10, t: "Per 17 Oktober 2026, makanan dan minuman UMK wajib bersertifikat halal. Kementerian Agama menegaskan tidak ada penundaan.", src: "PP 42/2024 pasal 160 · Kemenag, rakor Kemenko PMK 12 Agustus 2026 (Republika, 1 September 2026)" },
+    { at: 20, src: "BPJPH, 2 Januari 2026", t: "Kuota gratis 1,35 juta dan 111 ribu pendamping sudah ada. Masalahnya: satu pendamping memegang ratusan UMK, dan berkasnya jarang lengkap." },
     { at: 30, t: "Yang kurang bukan aplikasi untuk mengunggah dokumen, tetapi seseorang yang mengerjakan dan mengejar dokumennya. Itu yang HalalPilot lakukan." } ] },
   { id: "02", clip: "143118", start: 8, thr: 0.5, judul: "2 · Lingkungan: VPS AI Hosting IDwebhost · OpenClaw 2026.8.2", padAfter: 1.6, captions: [
     { at: 8.5, t: "Semua berjalan di satu VPS AI Hosting IDwebhost: 4 vCPU, 4 gigabyte RAM, Ubuntu 24.04." },
@@ -44,8 +44,8 @@ const SCENES = [
     { at: 15, t: "Akun demo berperan sebagai UMK Dapur Bu Ratih. Sesi percakapan baru dimulai; dashboard koperasi ada di kanan." },
     { at: 62.5, t: "UMK menyapa. Agen mengenali perannya lewat whoami, lalu menyebut berkas yang masih kurang tanpa ditanya." },
     { at: 78, t: "UMK cukup memotret label. Agen membaca komposisi, lalu meminta konfirmasi daftar bahan." },
-    { at: 128.5, t: "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis." },
-    { at: 183, t: "Yang menentukan jalur bukan modelnya, melainkan mesin aturan: margarin bahan kritis, jadi sertifikat pemasoknya wajib. Skor kesiapan 60 dari 100." },
+    { at: 128.5, t: "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis.", src: "KMA 1360/2021 · lampiran 182 halaman, dibaca 10 September 2026" },
+    { at: 183, t: "Yang menentukan jalur bukan modelnya, melainkan mesin aturan dari Kepkaban BPJPH 146 tahun 2025: margarin bahan kritis, jadi sertifikat pemasoknya wajib. Skor kesiapan 60 dari 100.", src: "Kepkaban BPJPH 146/2025 · aturan E11, Bab II A.2, A.9 & Bab III B" },
     { at: 202, t: "Yang diminta hanya dokumen yang harus dari UMK. Surat permohonan, pernyataan, ikrar, dan Manual SJPH disusun sistem." } ] },
   { id: "04", clip: "161840", judul: "4 · Cerita proses & sertifikat pemasok → dossier otomatis", padAfter: 1.8, captions: [
     { at: 5.5, t: "UMK menceritakan cara membuat nastar dengan bahasanya sendiri." },
@@ -59,7 +59,7 @@ const SCENES = [
     { at: 37, t: "Setiap versi punya sidik jari SHA-256 dan versi aturan yang dipakai." } ] },
   { id: "06", clip: "162420", judul: "6 · Pengejaran otomatis UMK-042 (waktu dimajukan)", padAfter: 1.8, captions: [
     { at: 16, t: "Sambal Mak Ijah: bahannya aman, tetapi KBLI di NIB tidak cocok dan foto label belum ada. Skor 70." },
-    { at: 37, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari." },
+    { at: 37, t: "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.", src: "rules/chase-policy.yaml v2026-09-02.1" },
     { at: 77, t: "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode." } ] },
   { id: "07", clip: "162541", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
     { at: 5, t: "Setelah tiga pengingat tanpa respons, agen berhenti mengejar UMK. Akun kini berperan sebagai pendamping." },
@@ -84,7 +84,7 @@ const SCENES = [
     { at: 9, t: "Di dashboard, UMK-017 kini selesai. Papan menunjukkan 19 dari 120 UMK siap unggah." },
     { at: 40.5, t: "Setiap pagi pukul tujuh, pendamping menerima ringkasan seperti ini dari automations OpenClaw, tanpa membuka aplikasi apa pun." } ] },
   { id: "11", clip: "170535", fixed: [[0, 14, 1]], judul: "11 · Yang berjalan di server: dua unit systemd, 1,4 GB RAM", padAfter: 2.0, captions: [
-    { at: 0.5, t: "Hanya port SSH yang terbuka. Gateway dan API di loopback. RAM terpakai 1.397 megabyte dari 3.915 saat semuanya hidup." },
+    { at: 0.5, t: "Hanya port SSH yang terbuka. Gateway dan API di loopback. RAM terpakai 1.397 megabyte dari 3.915 saat semuanya hidup.", src: "hpdemo status di VPS lomba, 10 September 2026 16:54 WIB" },
     { at: 8, t: "Empat batas yang kami pegang: menyiapkan bukan menerbitkan; portal pemerintah di sini simulasi; tanpa data pribadi; dan semuanya muat di satu VPS kecil." } ] },
 ];
 
@@ -95,6 +95,9 @@ const OPENER = { id: "00-pembuka", min: 7, narasi: "HalalPilot: agen OpenClaw ya
   ["17 Oktober 2026: makanan-minuman UMK wajib halal (PP 42/2024)", 40, FONTB, 0.66],
   ["HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK", 32, FONT, 0.80],
   ["Berjalan di VPS AI Hosting IDwebhost · demo AI HackFest 2026", 28, FONT, 0.88],
+] };
+const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan, 509 sinonim bahan, 85 uji otomatis, satu VPS 4 gigabyte.", items: [
+  ["Hasil demo dalam angka", 64, FONTB, 0.12],
 ] };
 const CLOSER = { id: "99-penutup", min: 9, narasi: "Model memutuskan bahasa. Kode memutuskan hukum. HalalPilot menyiapkan berkas; keputusan halal tetap milik BPJPH dan pendamping. Kode dan aturannya terbuka.", items: [
   ["HalalPilot", 84, FONTB, 0.10],
@@ -188,11 +191,12 @@ function card(c) {
   const out = `${c.id}-${hash(c.narasi + seconds + ag.filter)}.mp4`;
   lines.push(`echo "== ${c.id} (${seconds.toFixed(1)} s)"; [ -s "${out}" ] || ffmpeg -v error -y -f lavfi -i color=c=0x141d18:s=1920x1080:d=${seconds.toFixed(2)}:r=30 ${logoIn} ${ag.ins} -filter_complex "${vchain};${ag.filter}" -map "[vout]" -map "[aout]" -t ${seconds.toFixed(2)} ${VID} "${out}"`);
   total += seconds; list.push(out);
-  TL[c.id === "00-pembuka" ? "opener" : "closer"] = { id: c.id, seconds, narasi: c.narasi, mp3: n.mp3 ? n.mp3.replace("tts/", "") : null, d: n.d, items: c.items.map(([t, size, , y]) => ({ t, size, y })) };
+  TL[{ "00-pembuka": "opener", "98-hasil": "hasil", "99-penutup": "closer" }[c.id]] = { id: c.id, seconds, narasi: c.narasi, mp3: n.mp3 ? n.mp3.replace("tts/", "") : null, d: n.d, items: c.items.map(([t, size, , y]) => ({ t, size, y })) };
 }
 
-const laporan = []; const TL = { fps: 30, opener: null, closer: null, scenes: [] };
+const laporan = []; const TL = { fps: 30, opener: null, hasil: null, closer: null, scenes: [] };
 card(OPENER);
+card(HASIL);
 for (const sc of SCENES) {
   const segs = segments(sc);
   // 1) narasi + jadwal: mulai saat peristiwa tampil; bila narasi sebelumnya belum selesai, bekukan video sebelum peristiwa
@@ -235,7 +239,7 @@ for (const sc of SCENES) {
   lines.push(`echo "== adegan ${sc.id} (${sc.clip}) → video ${vlen.toFixed(1)} s, narasi ${need.toFixed(1)} s, keluar ${len.toFixed(1)} s"`);
   lines.push(`[ -s "${out}" ] || ffmpeg -v error -y -i "${catName}" ${logoIn} ${ag.ins} -filter_complex "${chain}${vout};${ag.filter}" -map "[vout]" -map "[aout]" -t ${len.toFixed(2)} ${VID} "${out}"`);
   total += len; list.push(out);
-  TL.scenes.push({ id: sc.id, judul: sc.judul, cat: catName.replace("seg/", ""), vlen, len, captions: capFiles.map((c, i) => ({ t0: c.t0, t1: c.t1, text: sc.captions[i].t, mp3: narr[i] ? narr[i].mp3.replace("tts/", "") : null, d: c.t1 - c.t0 - 0.25 })) });
+  TL.scenes.push({ id: sc.id, judul: sc.judul, cat: catName.replace("seg/", ""), vlen, len, captions: capFiles.map((c, i) => ({ t0: c.t0, t1: c.t1, text: sc.captions[i].t, src: sc.captions[i].src ?? null, mp3: narr[i] ? narr[i].mp3.replace("tts/", "") : null, d: c.t1 - c.t0 - 0.25 })) });
   laporan.push({ id: sc.id, video_s: Math.round(vlen), narasi_s: Math.round(need), keluar_s: Math.round(len), beku: segs.filter((g) => !Array.isArray(g)).map((g) => `${g.hold}s+${g.d.toFixed(1)}`) });
 }
 

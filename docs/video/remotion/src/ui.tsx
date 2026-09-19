@@ -76,7 +76,7 @@ const highlight = (text: string) => {
 };
 
 /** Caption narasi: naik dari bawah, keluar dengan memudar. Durasi = panjang Sequence pembungkusnya. */
-export const Caption: React.FC<{ text: string; side?: "center" | "right" }> = ({ text, side = "center" }) => {
+export const Caption: React.FC<{ text: string; src?: string | null; side?: "center" | "right" }> = ({ text, src, side = "center" }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   return (
@@ -108,6 +108,7 @@ export const Caption: React.FC<{ text: string; side?: "center" | "right" }> = ({
         }}
       >
         {highlight(text)}
+        {src ? <div style={{ marginTop: 8, fontSize: side === "right" ? 17 : 19, color: C.muted, fontStyle: "italic" }}>Sumber: {src}</div> : null}
       </div>
     </div>
   );
