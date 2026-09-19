@@ -4,19 +4,20 @@ import { Easing, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVid
 import { C, FONT } from "./theme";
 import { timeline } from "./timeline";
 import { DarkBackdrop, Watermark } from "./ui";
+import { ARTICLES, ArticleCard } from "./extras3";
 
 const ease = Easing.bezier(0.16, 1, 0.3, 1);
 
-const Line: React.FC<{ text: string; size: number; y: number; at: number; weight?: number; color?: string }> = ({ text, size, y, at, weight = 400, color = C.ink }) => {
+const Line: React.FC<{ text: string; size: number; y: number; at: number; weight?: number; color?: string; left?: number; right?: number; align?: "center" | "left" }> = ({ text, size, y, at, weight = 400, color = C.ink, left = 0, right = 0, align = "center" }) => {
   const frame = useCurrentFrame();
   return (
     <div
       style={{
         position: "absolute",
-        left: 0,
-        right: 0,
+        left,
+        right,
         top: y * 1080,
-        textAlign: "center",
+        textAlign: align,
         fontFamily: FONT,
         fontSize: size,
         fontWeight: weight,
@@ -38,19 +39,20 @@ export const Opener: React.FC = () => {
   return (
     <DarkBackdrop>
       {o.mp3 ? <Sequence from={Math.round(0.8 * fps)}><Audio src={staticFile(`tts/${o.mp3}`)} /></Sequence> : null}
-      {/* angka 4% menghitung naik */}
-      <div style={{ position: "absolute", left: 0, right: 0, top: 0.1 * 1080, textAlign: "center", fontFamily: FONT, fontWeight: 700, fontSize: 210, color: C.ink, letterSpacing: -6,
+      {/* kolom kiri: angka 4% menghitung naik + baris teks */}
+      <div style={{ position: "absolute", left: 80, width: 880, top: 0.12 * 1080, fontFamily: FONT, fontWeight: 700, fontSize: 200, color: C.ink, letterSpacing: -6, lineHeight: 1,
         scale: String(interpolate(frame, [0, 30], [0.85, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease })) }}>
         {pct.toFixed(pct < 4 ? 1 : 0)}
         <span style={{ color: C.amber }}>%</span>
       </div>
-      <Line text="Pelaku usaha yang produknya bersertifikat halal" size={46} y={0.43} at={20} />
-      <Line text="INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" size={28} y={0.51} at={28} color={C.muted} />
-      {/* garis pemisah */}
-      <div style={{ position: "absolute", left: "50%", top: 0.6 * 1080, height: 3, background: C.accent, translate: "-50% 0",
-        width: interpolate(frame, [40, 70], [0, 520], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease }) }} />
-      <Line text="17 Oktober 2026: makanan-minuman UMK wajib halal (PP 42/2024)" size={40} y={0.64} at={46} weight={700} />
-      <Line text="HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK" size={32} y={0.76} at={70} />
+      <Line text="Pelaku usaha yang produknya bersertifikat halal" size={40} y={0.34} at={20} left={80} right={980} align="left" />
+      <Line text="INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" size={24} y={0.40} at={28} color={C.muted} left={80} right={980} align="left" />
+      <div style={{ position: "absolute", left: 80, top: 0.48 * 1080, height: 3, background: C.accent,
+        width: interpolate(frame, [40, 70], [0, 420], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease }) }} />
+      <Line text="17 Oktober 2026: makanan-minuman UMK wajib halal (PP 42/2024)" size={34} y={0.52} at={46} weight={700} left={80} right={980} align="left" />
+      <Line text="HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK" size={26} y={0.62} at={70} left={80} right={980} align="left" />
+      {/* kolom kanan: kartu artikel sumber */}
+      <ArticleCard a={ARTICLES.republika4} from={26} x={1000} y={90} w={860} h={700} />
       {/* logo */}
       <div style={{ position: "absolute", left: 0, right: 0, top: 0.85 * 1080, display: "flex", justifyContent: "center", alignItems: "center", gap: 28,
         opacity: interpolate(frame, [95, 115], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
