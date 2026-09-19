@@ -1,7 +1,7 @@
 import React from "react";
 import { Audio, Video } from "@remotion/media";
 import { AbsoluteFill, Easing, Freeze, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { ZOOM, ZOOM_POINT } from "./theme";
+import { HIGHLIGHT, ZOOM, ZOOM_POINT } from "./theme";
 import { f, Scene as SceneT } from "./timeline";
 import { Caption, Progress, SceneTitle, Watermark } from "./ui";
 
@@ -17,6 +17,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
   const vlenF = f(scene.vlen);
   const zoomIdx = ZOOM[scene.id] ?? [];
   const point = ZOOM_POINT[scene.id] ?? ZOOM_POINT.default;
+  const rect = HIGHLIGHT[scene.id] ?? HIGHLIGHT.default;
 
   // skala zoom: naik 0.7 s di awal kalimat kunci, tahan, turun 0.7 s menjelang akhirnya
   let scale = 1;
@@ -40,10 +41,10 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
             <Freeze frame={vlenF - 1}>{media}</Freeze>
           </Sequence>
         ) : null}
+        {/* sorotan: area pesan terbaru tetap terang, sekitarnya diredupkan, bingkai kuning tipis; ikut terskala bersama video */}
+        <div style={{ position: "absolute", left: rect.x, top: rect.y, width: rect.w, height: rect.h, borderRadius: 18, pointerEvents: "none",
+          boxShadow: `0 0 0 4000px rgba(0,0,0,${(0.5 * (scale - 1)) / 0.22})`, border: `3px solid rgba(224,168,74,${(scale - 1) / 0.22})` }} />
       </AbsoluteFill>
-
-      {/* vignette tipis saat zoom supaya tepi tidak keras */}
-      <AbsoluteFill style={{ pointerEvents: "none", opacity: (scale - 1) * 2.5, background: "radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%)" }} />
 
       {scene.captions.map((c, i) => (
         <React.Fragment key={i}>
@@ -53,7 +54,7 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
             </Sequence>
           ) : null}
           <Sequence from={f(c.t0)} durationInFrames={Math.max(1, f(c.t1) - f(c.t0))} name={`caption-${i}`}>
-            <Caption text={c.text} />
+            <Caption text={c.text} side={zoomIdx.includes(i) ? "right" : "center"} />
           </Sequence>
         </React.Fragment>
       ))}

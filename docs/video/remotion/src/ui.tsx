@@ -76,32 +76,32 @@ const highlight = (text: string) => {
 };
 
 /** Caption narasi: naik dari bawah, keluar dengan memudar. Durasi = panjang Sequence pembungkusnya. */
-export const Caption: React.FC<{ text: string }> = ({ text }) => {
+export const Caption: React.FC<{ text: string; side?: "center" | "right" }> = ({ text, side = "center" }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   return (
     <div
       style={{
         position: "absolute",
-        left: 0,
-        right: 0,
-        bottom: 64,
+        left: side === "right" ? 1040 : 0,
+        right: side === "right" ? 40 : 0,
+        bottom: side === "right" ? 140 : 64,
         display: "flex",
-        justifyContent: "center",
+        justifyContent: side === "right" ? "flex-end" : "center",
         opacity: interpolate(frame, [0, 8, durationInFrames - 8, durationInFrames], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
         translate: interpolate(frame, [0, 14], ["0px 26px", "0px 0px"], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease }),
       }}
     >
       <div
         style={{
-          maxWidth: 1360,
+          maxWidth: side === "right" ? 840 : 1360,
           padding: "16px 28px",
           borderRadius: 14,
           background: C.box,
           borderLeft: `6px solid ${C.accent}`,
           color: C.ink,
           fontFamily: FONT,
-          fontSize: 36,
+          fontSize: side === "right" ? 32 : 36,
           lineHeight: 1.35,
           textAlign: "left",
           boxShadow: "0 10px 40px rgba(0,0,0,0.35)",

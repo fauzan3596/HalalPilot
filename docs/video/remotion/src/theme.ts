@@ -33,8 +33,14 @@ export const ZOOM: Record<string, number[]> = {
   "11": [0],      // hpdemo status (terminal penuh) → zoom ringan ke kiri bawah
 };
 
-// Titik fokus zoom per adegan (fraksi lebar/tinggi). Telegram ada di paruh kiri layar.
+// Titik fokus zoom per adegan (fraksi lebar/tinggi). Pesan Telegram terbaru selalu muncul di kiri BAWAH, jadi zoom berlabuh di sana.
 export const ZOOM_POINT: Record<string, { x: number; y: number }> = {
-  default: { x: 0.08, y: 0.62 },
-  "11": { x: 0.08, y: 0.85 },
+  default: { x: 0.04, y: 0.97 },
+  "11": { x: 0.04, y: 0.97 },
+};
+
+// Area yang disorot saat zoom (px pada bingkai 1920×1080, sebelum diskalakan): sekitarnya diredupkan, tepinya diberi bingkai.
+export const HIGHLIGHT: Record<string, { x: number; y: number; w: number; h: number }> = {
+  default: { x: 0, y: 590, w: 1062, h: 490 },    // paruh kiri bawah = pesan Telegram terbaru
+  "11": { x: 0, y: 660, w: 1160, h: 420 },        // keluaran hpdemo status di terminal
 };
