@@ -31,8 +31,11 @@ const style = {
   img: 'style="max-width:100%;height:auto;display:block;margin:18px auto;border:1px solid #dde3df;border-radius:8px"',
   blockquote: 'style="border-left:4px solid #2f6b4a;margin:16px 0;padding:6px 16px;color:#4b5a51"',
 };
+// Tautan yang teksnya URL mentah (referensi) boleh patah di mana saja agar tidak meluber ke kanan
+const urlLinkRe = /<a href="(https?:\/\/[^"]+)">\1<\/a>/g;
 function styled(h, base) {
   return h
+    .replace(urlLinkRe, (m, url) => `<a href="${url}" style="overflow-wrap:anywhere;word-break:break-all">${url}</a>`)
     .replace(/<table>/g, `<table ${style.table}>`)
     .replace(/<th>/g, `<th ${style.th}>`).replace(/<th align="[a-z]+">/g, `<th ${style.th}>`)
     .replace(/<td>/g, `<td ${style.td}>`).replace(/<td align="[a-z]+">/g, `<td ${style.td}>`)
@@ -41,14 +44,16 @@ function styled(h, base) {
     .replace(/<blockquote>/g, `<blockquote ${style.blockquote}>`);
 }
 
-// Ringkasan pembuka → blockquote agar terlihat seperti abstrak
-const withAbstract = styled(html, imgBase).replace(/<p><strong>Ringkasan\.<\/strong>([\s\S]*?)<\/p>/, `<blockquote ${style.blockquote}><p><strong>Ringkasan.</strong>$1</p></blockquote>`);
+// Abstrak/Ringkasan pembuka → blockquote agar terlihat seperti abstrak paper
+const abstractRe = /<p><strong>(Abstrak|Ringkasan)\.<\/strong>([\s\S]*?)<\/p>/;
+const asAbstract = (h) => h.replace(abstractRe, `<blockquote ${style.blockquote}><p><strong>$1.</strong>$2</p></blockquote>`);
+const withAbstract = asAbstract(styled(html, imgBase));
 writeFileSync(join(here, "blogspot.html"), `<!-- Judul pos: ${title} -->\n<!-- Tempel isi di bawah ini ke tab "HTML view" Blogger. Ganti GANTI_AKUN pada URL gambar, atau unggah gambar lewat editor Blogger lalu ganti src. -->\n${withAbstract}`);
 
 const preview = `<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>
-<style>body{margin:0;background:#fafaf8;color:#141d18;font:17px/1.65 Georgia,"Times New Roman",serif}main{max-width:760px;margin:0 auto;padding:40px 20px 80px}h1{font:600 34px/1.2 "Segoe UI",Inter,Arial,sans-serif;letter-spacing:-.02em;margin:0 0 8px}h2{font:600 22px/1.3 "Segoe UI",Inter,Arial,sans-serif;margin:36px 0 10px}.meta{color:#6b7a70;font:14px "Segoe UI",Arial,sans-serif;margin-bottom:28px}a{color:#2f6b4a}code{font:14px Consolas,"Cascadia Mono",monospace;background:#eef2ee;padding:1px 5px;border-radius:4px}pre code{background:none;padding:0;color:inherit;font-size:13.5px}li{margin:4px 0}</style></head>
+<style>body{margin:0;background:#fafaf8;color:#141d18;font:17px/1.65 Georgia,"Times New Roman",serif}main{max-width:760px;margin:0 auto;padding:40px 20px 80px}h1{font:600 34px/1.2 "Segoe UI",Inter,Arial,sans-serif;letter-spacing:-.02em;margin:0 0 8px}h2{font:600 22px/1.3 "Segoe UI",Inter,Arial,sans-serif;margin:36px 0 10px}.meta{color:#6b7a70;font:14px "Segoe UI",Arial,sans-serif;margin-bottom:28px}a{color:#2f6b4a;overflow-wrap:anywhere}code{font:14px Consolas,"Cascadia Mono",monospace;background:#eef2ee;padding:1px 5px;border-radius:4px}pre code{background:none;padding:0;color:inherit;font-size:13.5px}li{margin:4px 0}</style></head>
 <body><main><h1>${title}</h1><div class="meta">Muhammad Fauzan Ramadhan · September 2026 · pratinjau lokal, gambar dari img/</div>
-${styled(html, "img").replace(/<p><strong>Ringkasan\.<\/strong>([\s\S]*?)<\/p>/, `<blockquote ${style.blockquote}><p><strong>Ringkasan.</strong>$1</p></blockquote>`)}
+${asAbstract(styled(html, "img"))}
 </main></body></html>`;
 writeFileSync(join(here, "pratinjau.html"), preview);
 
