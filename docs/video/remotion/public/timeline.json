@@ -1,0 +1,497 @@
+{
+ "fps": 30,
+ "opener": {
+  "id": "00-pembuka",
+  "seconds": 10.096,
+  "narasi": "HalalPilot: agen OpenClaw yang menyiapkan dan mengejar berkas sertifikasi halal untuk koperasi UMK, berjalan di VPS AI Hosting IDwebhost.",
+  "mp3": "00-pembuka-cc199a38.mp3",
+  "d": 8.496,
+  "items": [
+   {
+    "t": "4%",
+    "size": 190,
+    "y": 0.12
+   },
+   {
+    "t": "pelaku usaha yang produknya bersertifikat halal",
+    "size": 46,
+    "y": 0.44
+   },
+   {
+    "t": "INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026",
+    "size": 30,
+    "y": 0.53
+   },
+   {
+    "t": "17 Oktober 2026: makanan-minuman UMK wajib halal (PP 42/2024)",
+    "size": 40,
+    "y": 0.66
+   },
+   {
+    "t": "HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK",
+    "size": 32,
+    "y": 0.8
+   },
+   {
+    "t": "Berjalan di VPS AI Hosting IDwebhost · demo AI HackFest 2026",
+    "size": 28,
+    "y": 0.88
+   }
+  ]
+ },
+ "closer": {
+  "id": "99-penutup",
+  "seconds": 13.696,
+  "narasi": "Model memutuskan bahasa. Kode memutuskan hukum. HalalPilot menyiapkan berkas; keputusan halal tetap milik BPJPH dan pendamping. Kode dan aturannya terbuka.",
+  "mp3": "99-penutup-3b50f129.mp3",
+  "d": 12.096,
+  "items": [
+   {
+    "t": "HalalPilot",
+    "size": 84,
+    "y": 0.1
+   },
+   {
+    "t": "Menyiapkan berkas, bukan menerbitkan sertifikat.",
+    "size": 40,
+    "y": 0.3
+   },
+   {
+    "t": "OSS, SEHATI, SiHalal dalam demo ini simulasi berlabel.",
+    "size": 40,
+    "y": 0.39
+   },
+   {
+    "t": "Tanpa KTP, nomor HP, rekening. Data bisa dihapus.",
+    "size": 40,
+    "y": 0.48
+   },
+   {
+    "t": "Muat di satu VPS AI Hosting IDwebhost 4 vCPU / 4 GB.",
+    "size": 40,
+    "y": 0.57
+   },
+   {
+    "t": "Model memutuskan bahasa. Kode memutuskan hukum.",
+    "size": 44,
+    "y": 0.72
+   },
+   {
+    "t": "Kode, aturan YAML, konfigurasi OpenClaw: terbuka (MIT) · tautan di deskripsi video",
+    "size": 28,
+    "y": 0.86
+   }
+  ]
+ },
+ "scenes": [
+  {
+   "id": "01",
+   "judul": "1 · Masalah: 120 UMK, 38 hari, berkas tidak lengkap",
+   "cat": "01-cat-5438b9a2.mp4",
+   "vlen": 37.944,
+   "len": 37.944,
+   "captions": [
+    {
+     "t0": 0.6,
+     "t1": 6.994,
+     "text": "Menurut INDEF yang mengutip Bappenas, baru sekitar 4 persen pelaku usaha yang produknya bersertifikat halal.",
+     "mp3": "01-c0-3be6c213.mp3",
+     "d": 6.144
+    },
+    {
+     "t0": 8,
+     "t1": 17.298000000000002,
+     "text": "Per 17 Oktober 2026, makanan dan minuman UMK wajib bersertifikat halal. Kementerian Agama menegaskan tidak ada penundaan.",
+     "mp3": "01-c1-7f747418.mp3",
+     "d": 9.048000000000002
+    },
+    {
+     "t0": 17.548000000000002,
+     "t1": 28.094,
+     "text": "Kuota gratis 1,35 juta dan 111 ribu pendamping sudah ada. Masalahnya: satu pendamping memegang ratusan UMK, dan berkasnya jarang lengkap.",
+     "mp3": "01-c2-e8c5b14a.mp3",
+     "d": 10.296
+    },
+    {
+     "t0": 28.344,
+     "t1": 36.778,
+     "text": "Yang kurang bukan aplikasi untuk mengunggah dokumen, tetapi seseorang yang mengerjakan dan mengejar dokumennya. Itu yang HalalPilot lakukan.",
+     "mp3": "01-c3-6606caa.mp3",
+     "d": 8.183999999999997
+    }
+   ]
+  },
+  {
+   "id": "02",
+   "judul": "2 · Lingkungan: VPS AI Hosting IDwebhost · OpenClaw 2026.8.2",
+   "cat": "02-cat-64dc4595.mp4",
+   "vlen": 37.96000000000001,
+   "len": 39.120000000000005,
+   "captions": [
+    {
+     "t0": 0.6,
+     "t1": 8.77,
+     "text": "Semua berjalan di satu VPS AI Hosting IDwebhost: 4 vCPU, 4 gigabyte RAM, Ubuntu 24.04.",
+     "mp3": "02-c0-95ded289.mp3",
+     "d": 7.92
+    },
+    {
+     "t0": 15.560000000000002,
+     "t1": 26.058,
+     "text": "OpenClaw menjadi agen dan kanal Telegram. Layanan kecil Node dan SQLite memegang aturan. Model membaca dan berbicara; kode memutuskan hukum.",
+     "mp3": "02-c1-b3d8f367.mp3",
+     "d": 10.247999999999998
+    },
+    {
+     "t0": 26.760000000000005,
+     "t1": 38.77,
+     "text": "Tiga automations OpenClaw: digest pukul tujuh pagi, sapuan pengejaran pukul sembilan dan tiga sore, cek kuota tiap enam jam. Kolom Last menunjukkan semuanya berjalan sesuai jadwal.",
+     "mp3": "02-c2-40ca31fa.mp3",
+     "d": 11.759999999999998
+    }
+   ]
+  },
+  {
+   "id": "03",
+   "judul": "3 · Intake: foto label → daftar bahan → keputusan beralasan",
+   "cat": "03-cat-cbfd3776.mp4",
+   "vlen": 70.08400000000003,
+   "len": 77.80400000000003,
+   "captions": [
+    {
+     "t0": 5.48,
+     "t1": 13.554,
+     "text": "Akun demo berperan sebagai UMK Dapur Bu Ratih. Sesi percakapan baru dimulai; dashboard koperasi ada di kanan.",
+     "mp3": "03-c0-b1a31ea3.mp3",
+     "d": 7.824
+    },
+    {
+     "t0": 22.84,
+     "t1": 30.146,
+     "text": "UMK menyapa. Agen mengenali perannya lewat whoami, lalu menyebut berkas yang masih kurang tanpa ditanya.",
+     "mp3": "03-c1-755f923b.mp3",
+     "d": 7.056000000000001
+    },
+    {
+     "t0": 35.24,
+     "t1": 42.474000000000004,
+     "text": "UMK cukup memotret label. Agen membaca komposisi, lalu meminta konfirmasi daftar bahan.",
+     "mp3": "03-c2-7061fdf7.mp3",
+     "d": 6.984000000000002
+    },
+    {
+     "t0": 42.724000000000004,
+     "t1": 51.374,
+     "text": "Tiap bahan dipetakan ke KMA 1360 tahun 2021: telur dikecualikan, tepung positif, margarin kritis.",
+     "mp3": "03-c3-b5131478.mp3",
+     "d": 8.399999999999999
+    },
+    {
+     "t0": 52.88400000000004,
+     "t1": 63.52600000000004,
+     "text": "Yang menentukan jalur bukan modelnya, melainkan mesin aturan: margarin bahan kritis, jadi sertifikat pemasoknya wajib. Skor kesiapan 60 dari 100.",
+     "mp3": "03-c4-677fe70e.mp3",
+     "d": 10.391999999999996
+    },
+    {
+     "t0": 68.08400000000003,
+     "t1": 77.45400000000004,
+     "text": "Yang diminta hanya dokumen yang harus dari UMK. Surat permohonan, pernyataan, ikrar, dan Manual SJPH disusun sistem.",
+     "mp3": "03-c5-5951fc20.mp3",
+     "d": 9.120000000000005
+    }
+   ]
+  },
+  {
+   "id": "04",
+   "judul": "4 · Cerita proses & sertifikat pemasok → dossier otomatis",
+   "cat": "04-cat-965b58f0.mp4",
+   "vlen": 48.37199999999999,
+   "len": 48.37199999999999,
+   "captions": [
+    {
+     "t0": 4.4,
+     "t1": 8.61,
+     "text": "UMK menceritakan cara membuat nastar dengan bahasanya sendiri.",
+     "mp3": "04-c0-f9f49385.mp3",
+     "d": 3.959999999999999
+    },
+    {
+     "t0": 18.560000000000002,
+     "t1": 26.562,
+     "text": "Cerita proses tersimpan apa adanya. Skor naik ke 80. Tinggal sertifikat pemasok margarin.",
+     "mp3": "04-c1-eba9443e.mp3",
+     "d": 7.751999999999999
+    },
+    {
+     "t0": 27.919999999999998,
+     "t1": 31.721999999999998,
+     "text": "UMK menyebut nama pemasok dan nomor sertifikatnya.",
+     "mp3": "04-c2-fe99b67d.mp3",
+     "d": 3.5519999999999996
+    },
+    {
+     "t0": 31.971999999999998,
+     "t1": 41.269999999999996,
+     "text": "Nomor sertifikat dicek ke registry, di sini simulasi. Skor 100: agen langsung menyusun berkas self-declare untuk ditinjau pendamping.",
+     "mp3": "04-c3-a4baf930.mp3",
+     "d": 9.047999999999998
+    }
+   ]
+  },
+  {
+   "id": "05",
+   "judul": "5 · Dossier PDF v1 dari server",
+   "cat": "05-cat-f9d4fd2b.mp4",
+   "vlen": 36.004000000000005,
+   "len": 37.18800000000001,
+   "captions": [
+    {
+     "t0": 0.8,
+     "t1": 5.6819999999999995,
+     "text": "Berkas PDF versi satu diambil dari server dengan scp untuk dilihat.",
+     "mp3": "05-c0-81e52e36.mp3",
+     "d": 4.632
+    },
+    {
+     "t0": 10.4,
+     "t1": 14.034,
+     "text": "PDF diunduh ke laptop lalu dibuka di penampil.",
+     "mp3": "05-c1-22f8992a.mp3",
+     "d": 3.3840000000000003
+    },
+    {
+     "t0": 21.64,
+     "t1": 31.754,
+     "text": "Isinya: permohonan, pernyataan, ikrar, daftar bahan dengan kelasnya, ringkasan proses, foto label, dan draf Manual SJPH.",
+     "mp3": "05-c2-b893f3f0.mp3",
+     "d": 9.864
+    },
+    {
+     "t0": 32.004000000000005,
+     "t1": 36.83800000000001,
+     "text": "Setiap versi punya sidik jari SHA-256 dan versi aturan yang dipakai.",
+     "mp3": "05-c3-3f918453.mp3",
+     "d": 4.584000000000003
+    }
+   ]
+  },
+  {
+   "id": "06",
+   "judul": "6 · Pengejaran otomatis UMK-042 (waktu dimajukan)",
+   "cat": "06-cat-9dd64f2c.mp4",
+   "vlen": 43.344,
+   "len": 43.344,
+   "captions": [
+    {
+     "t0": 4.720000000000001,
+     "t1": 13.202,
+     "text": "Sambal Mak Ijah: bahannya aman, tetapi KBLI di NIB tidak cocok dan foto label belum ada. Skor 70.",
+     "mp3": "06-c0-95e46489.mp3",
+     "d": 8.232
+    },
+    {
+     "t0": 13.452,
+     "t1": 23.494,
+     "text": "Pengingat pertama tiba dengan nada ramah. Penjadwal mengatur hari ke-1, ke-3, dan ke-7, menghormati jam tenang dan batas dua pesan per hari.",
+     "mp3": "06-c1-26cebc51.mp3",
+     "d": 9.792
+    },
+    {
+     "t0": 23.744,
+     "t1": 34.626,
+     "text": "Pengingat kedua lebih tegas dan menyebut sisa hari. Di rekaman ini waktu dimajukan dengan perintah sweep. Kalimatnya ditulis model; jadwalnya diputuskan kode.",
+     "mp3": "06-c2-e6cfb43e.mp3",
+     "d": 10.631999999999998
+    }
+   ]
+  },
+  {
+   "id": "07",
+   "judul": "7 · Eskalasi ke pendamping setelah 10 hari diam",
+   "cat": "07-cat-b43eed46.mp4",
+   "vlen": 25.56,
+   "len": 29.6,
+   "captions": [
+    {
+     "t0": 1.6399999999999997,
+     "t1": 9.186,
+     "text": "Setelah tiga pengingat tanpa respons, agen berhenti mengejar UMK. Akun kini berperan sebagai pendamping.",
+     "mp3": "07-c0-bcf394fc.mp3",
+     "d": 7.296
+    },
+    {
+     "t0": 19.16,
+     "t1": 29.25,
+     "text": "Eskalasi tiba di pendamping: nama UMK, dokumen yang kurang, skor, dan saran tindakan. Pendamping tahu persis siapa yang perlu ditelepon.",
+     "mp3": "07-c1-b48d585c.mp3",
+     "d": 9.84
+    }
+   ]
+  },
+  {
+   "id": "07b",
+   "judul": "7 · Eskalasi ke pendamping setelah 10 hari diam",
+   "cat": "07b-cat-afb2455f.mp4",
+   "vlen": 6.4,
+   "len": 6.4,
+   "captions": [
+    {
+     "t0": 0.8,
+     "t1": 5.034,
+     "text": "Dashboard mencatat eskalasi terbuka untuk Sambal Mak Ijah.",
+     "mp3": "07b-c0-69597ca0.mp3",
+     "d": 3.984
+    }
+   ]
+  },
+  {
+   "id": "08",
+   "judul": "8 · Review pendamping: ringkasan & kembalikan berkas",
+   "cat": "08-cat-6028baad.mp4",
+   "vlen": 63.22475000000001,
+   "len": 63.22475000000001,
+   "captions": [
+    {
+     "t0": 5.6,
+     "t1": 14.081999999999999,
+     "text": "Dashboard koperasi: 18 dari 120 UMK siap unggah, laju di bawah kebutuhan, papan diurutkan dari yang paling mendesak.",
+     "mp3": "08-c0-a3781150.mp3",
+     "d": 8.232
+    },
+    {
+     "t0": 26.208749999999995,
+     "t1": 37.330749999999995,
+     "text": "Pendamping bertanya status dan menerima ringkasan: total UMK, siap unggah, menunggu review, eskalasi terbuka. Semua dari data, bukan karangan model.",
+     "mp3": "08-c1-48767993.mp3",
+     "d": 10.872
+    },
+    {
+     "t0": 37.580749999999995,
+     "t1": 48.534749999999995,
+     "text": "Pendamping tetap pemegang keputusan. Satu kalimat 'kembalikan' cukup: alasannya diteruskan ke UMK, keputusan baru dicatat, pengejaran dimulai lagi.",
+     "mp3": "08-c2-d4f591ba.mp3",
+     "d": 10.704
+    },
+    {
+     "t0": 48.784749999999995,
+     "t1": 56.25874999999999,
+     "text": "Di dashboard, UMK-017 turun ke status dikembalikan dengan skor 80, lengkap dengan jejak keputusannya.",
+     "mp3": "08-c3-ac9daccb.mp3",
+     "d": 7.223999999999997
+    }
+   ]
+  },
+  {
+   "id": "09",
+   "judul": "9 · Foto ulang → berkas v2 → setuju → ajukan (simulasi)",
+   "cat": "09-cat-4e30b458.mp4",
+   "vlen": 110.91500000000018,
+   "len": 110.91500000000018,
+   "captions": [
+    {
+     "t0": 9.8,
+     "t1": 18.33,
+     "text": "Kembali ke terminal VPS. Akun demo dialihkan lagi ke peran UMK Dapur Bu Ratih, dan tugas pengejarannya ikut berpindah.",
+     "mp3": "09-c0-652e31a8.mp3",
+     "d": 8.279999999999998
+    },
+    {
+     "t0": 29.959999999999997,
+     "t1": 33.209999999999994,
+     "text": "UMK mengirim foto label yang lebih jelas.",
+     "mp3": "09-c1-48ee184f.mp3",
+     "d": 2.9999999999999964
+    },
+    {
+     "t0": 39.695,
+     "t1": 46.089,
+     "text": "Foto produk diterima, permintaan dokumen tertutup otomatis, dan daftar bahan dikonfirmasi ulang.",
+     "mp3": "09-c2-f177ff5b.mp3",
+     "d": 6.143999999999998
+    },
+    {
+     "t0": 47.05500000000004,
+     "t1": 53.353000000000044,
+     "text": "Daftar bahan dikonfirmasi. Skor kembali 100 dan semua dokumen wajib lengkap.",
+     "mp3": "09-c3-57e4d1a5.mp3",
+     "d": 6.048000000000002
+    },
+    {
+     "t0": 69.13500000000015,
+     "t1": 77.30500000000015,
+     "text": "Berkas versi dua tersimpan sebagai PDF dan dikirim ke pendamping untuk diperiksa. Akun kini berganti peran menjadi pendamping.",
+     "mp3": "09-c4-814959d1.mp3",
+     "d": 7.920000000000002
+    },
+    {
+     "t0": 77.55500000000015,
+     "t1": 83.22900000000016,
+     "text": "Pendamping menyetujui lewat Telegram. Status berubah menjadi siap unggah.",
+     "mp3": "09-c5-a51b7c.mp3",
+     "d": 5.424000000000007
+    },
+    {
+     "t0": 84.11500000000018,
+     "t1": 92.54900000000018,
+     "text": "Perintah 'ajukan' mengirim ke SiHalal simulasi dan mendapat nomor SIM. Ini bukan pengajuan resmi ke BPJPH.",
+     "mp3": "09-c6-12984623.mp3",
+     "d": 8.183999999999997
+    },
+    {
+     "t0": 101.31500000000018,
+     "t1": 106.79700000000018,
+     "text": "HalalPilot menyiapkan berkas; keputusan halal tetap di BPJPH dan pendamping.",
+     "mp3": "09-c7-e9c7c729.mp3",
+     "d": 5.231999999999999
+    }
+   ]
+  },
+  {
+   "id": "10",
+   "judul": "10 · Digest pagi & dashboard portofolio",
+   "cat": "10-cat-54d0a97e.mp4",
+   "vlen": 38.599999999999994,
+   "len": 38.599999999999994,
+   "captions": [
+    {
+     "t0": 1.6399999999999997,
+     "t1": 9.858,
+     "text": "Di dashboard, UMK-017 kini selesai. Papan menunjukkan 19 dari 120 UMK siap unggah.",
+     "mp3": "10-c0-66d5c7be.mp3",
+     "d": 7.968
+    },
+    {
+     "t0": 21.12,
+     "t1": 28.642000000000003,
+     "text": "Setiap pagi pukul tujuh, pendamping menerima ringkasan seperti ini dari automations OpenClaw, tanpa membuka aplikasi apa pun.",
+     "mp3": "10-c1-4909fef9.mp3",
+     "d": 7.272000000000002
+    }
+   ]
+  },
+  {
+   "id": "11",
+   "judul": "11 · Yang berjalan di server: dua unit systemd, 1,4 GB RAM",
+   "cat": "11-cat-48c1ab2e.mp4",
+   "vlen": 18.235999999999997,
+   "len": 22.364,
+   "captions": [
+    {
+     "t0": 0.6,
+     "t1": 11.985999999999999,
+     "text": "Hanya port SSH yang terbuka. Gateway dan API di loopback. RAM terpakai 1.397 megabyte dari 3.915 saat semuanya hidup.",
+     "mp3": "11-c0-99ccf39.mp3",
+     "d": 11.136
+    },
+    {
+     "t0": 12.235999999999999,
+     "t1": 22.014,
+     "text": "Empat batas yang kami pegang: menyiapkan bukan menerbitkan; portal pemerintah di sini simulasi; tanpa data pribadi; dan semuanya muat di satu VPS kecil.",
+     "mp3": "11-c1-197e793d.mp3",
+     "d": 9.528
+    }
+   ]
+  }
+ ]
+}

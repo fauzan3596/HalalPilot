@@ -188,11 +188,11 @@ function card(c) {
   const out = `${c.id}-${hash(c.narasi + seconds + ag.filter)}.mp4`;
   lines.push(`echo "== ${c.id} (${seconds.toFixed(1)} s)"; [ -s "${out}" ] || ffmpeg -v error -y -f lavfi -i color=c=0x141d18:s=1920x1080:d=${seconds.toFixed(2)}:r=30 ${logoIn} ${ag.ins} -filter_complex "${vchain};${ag.filter}" -map "[vout]" -map "[aout]" -t ${seconds.toFixed(2)} ${VID} "${out}"`);
   total += seconds; list.push(out);
+  TL[c.id === "00-pembuka" ? "opener" : "closer"] = { id: c.id, seconds, narasi: c.narasi, mp3: n.mp3 ? n.mp3.replace("tts/", "") : null, d: n.d, items: c.items.map(([t, size, , y]) => ({ t, size, y })) };
 }
 
+const laporan = []; const TL = { fps: 30, opener: null, closer: null, scenes: [] };
 card(OPENER);
-
-const laporan = [];
 for (const sc of SCENES) {
   const segs = segments(sc);
   // 1) narasi + jadwal: mulai saat peristiwa tampil; bila narasi sebelumnya belum selesai, bekukan video sebelum peristiwa
@@ -235,11 +235,18 @@ for (const sc of SCENES) {
   lines.push(`echo "== adegan ${sc.id} (${sc.clip}) → video ${vlen.toFixed(1)} s, narasi ${need.toFixed(1)} s, keluar ${len.toFixed(1)} s"`);
   lines.push(`[ -s "${out}" ] || ffmpeg -v error -y -i "${catName}" ${logoIn} ${ag.ins} -filter_complex "${chain}${vout};${ag.filter}" -map "[vout]" -map "[aout]" -t ${len.toFixed(2)} ${VID} "${out}"`);
   total += len; list.push(out);
+  TL.scenes.push({ id: sc.id, judul: sc.judul, cat: catName.replace("seg/", ""), vlen, len, captions: capFiles.map((c, i) => ({ t0: c.t0, t1: c.t1, text: sc.captions[i].t, mp3: narr[i] ? narr[i].mp3.replace("tts/", "") : null, d: c.t1 - c.t0 - 0.25 })) });
   laporan.push({ id: sc.id, video_s: Math.round(vlen), narasi_s: Math.round(need), keluar_s: Math.round(len), beku: segs.filter((g) => !Array.isArray(g)).map((g) => `${g.hold}s+${g.d.toFixed(1)}`) });
 }
 
 card(CLOSER);
 
+mkdirSync("C:/Users/MuhammadFauzanRamadh/Claude/Lomba/halalpilot/docs/video/remotion/public", { recursive: true });
+writeFileSync("C:/Users/MuhammadFauzanRamadh/Claude/Lomba/halalpilot/docs/video/remotion/public/timeline.json", JSON.stringify(TL, null, 1));
+// timeline untuk komposisi Remotion (docs/video/remotion): sumber video = seg/<cat>, narasi = tts/<mp3>
+const REM_PUB = "C:/Users/MuhammadFauzanRamadh/Claude/Lomba/halalpilot/docs/video/remotion/public";
+mkdirSync(REM_PUB, { recursive: true });
+writeFileSync(join(REM_PUB, "timeline.json"), JSON.stringify(TL, null, 1));
 writeFileSync(join(OUT_WIN, "daftar.txt"), list.map((f) => `file '${f}'`).join("\n") + "\n");
 lines.push(`echo "== gabung"; ffmpeg -v error -y -f concat -safe 0 -i daftar.txt -c copy "${FINAL}"`);
 lines.push(`ffprobe -v error -show_entries format=duration -of csv=p=0 "${FINAL}"`);

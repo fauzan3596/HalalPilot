@@ -13,3 +13,7 @@ docs/h1-evidence/*.env
 *.log
 .DS_Store
 .claude/
+docs/video/remotion/public/seg
+docs/video/remotion/public/tts
+docs/video/remotion/public/*.ttf
+docs/video/remotion/out/
