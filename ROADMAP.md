@@ -99,7 +99,8 @@ Status per 4 September 2026. Centang saat skenario terkait lolos. Kode skenario 
 - [ ] Opsional jika waktu: FR-13 pemasok langsung, FR-22 kuota, WhatsApp via Kapso, embedding lokal
 
 ## M7 — Submisi (11–29 Sep)
-- [ ] Edit video: watermark IDwebhost, lower-third "AI Hosting IDwebhost", tanpa musik, 1080p 16:9, 5–10 menit
+- [x] Edit video v1 (19 Sep): `docs/video/rakit.mjs` → `Videos/HalalPilot-edit/HalalPilot-demo-v1.mp4` 9:21, 1080p30 16:9, potongan otomatis layar diam, caption narasi, kartu pembuka/penutup, watermark teks IDwebhost (logo PNG belum ada), tanpa suara
+- [ ] v2: logo IDwebhost asli, narasi suara (rekam sendiri atau TTS), caption terkunci ke saat pesan muncul, unggah YouTube publik
 - [x] Naskah artikel final `docs/artikel-final.md` (19 Sep; blog dengan struktur bernomor; 4 gambar dari rekaman VPS di `docs/artikel/img/`); anchor "AI Hosting" → idwebhost.com/ai-hosting, "Cloud VPS" → cloudbaik.com
 - [ ] Tayang di Blogspot ≤ 30 Sep, isi URL repo/video, uji terindeks
 - [ ] Umpan balik 3 orang awam; revisi
