@@ -49,3 +49,11 @@ HalalPilot, OpenClaw, AI HackFest 2026, IDwebhost, AI Hosting, sertifikasi halal
 2. Tempel `docs/artikel/blogspot.html` ke Blogger (HTML view), unggah 4 gambar `docs/artikel/img/`, pastikan dua backlink utuh.
 3. Ganti URL artikel di deskripsi YouTube.
 4. Isi form submit IDwebhost (≤ 30 Sep): URL video, URL artikel, URL repo, kategori Business Automation.
+
+## Thumbnail
+
+Pakai `docs/video/thumbnail/thumbnail-e.png` (1280×720, "Agen AI yang ngurus berkas halal UMK", ponsel dengan skor 100/100). Cadangan: `thumbnail-f.png` (pengejaran → eskalasi) dan `thumbnail-g.png` (dari foto label jadi berkas siap; cocok untuk gambar utama artikel). Sumber HTML di folder yang sama, dirender dengan Edge headless:
+
+```powershell
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --window-size=1280,720 --user-data-dir=$env:TEMP\edge-thumb --screenshot=thumbnail-e.png file:///<path>/thumbnail-e.html
+```

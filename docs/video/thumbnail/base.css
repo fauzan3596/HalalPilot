@@ -1,0 +1,43 @@
+/* Dasar bersama thumbnail v2: kanvas 1280×720, huruf Segoe UI Black, kontras keras, kedalaman lewat cahaya + bayangan */
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#0a130e}
+*{box-sizing:border-box}
+.t{position:relative;width:1280px;height:720px;overflow:hidden;font-family:"Segoe UI",Arial,sans-serif;color:#fff;background:#0a130e}
+.bg{position:absolute;inset:0;background:
+   radial-gradient(900px 700px at 78% 45%, rgba(242,177,52,.28) 0%, rgba(242,177,52,0) 60%),
+   radial-gradient(700px 600px at 15% 20%, rgba(63,138,95,.35) 0%, rgba(63,138,95,0) 60%),
+   linear-gradient(160deg,#122318 0%,#0a130e 55%,#050a07 100%)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%)}
+.rays{position:absolute;left:-200px;top:-300px;width:1800px;height:1400px;background:
+   repeating-conic-gradient(from 200deg at 80% 40%, rgba(255,255,255,.035) 0deg 6deg, rgba(255,255,255,0) 6deg 14deg);
+   -webkit-mask-image:radial-gradient(700px 700px at 78% 45%, #000 0%, transparent 100%);mask-image:radial-gradient(700px 700px at 78% 45%, #000 0%, transparent 100%)}
+.h{font-family:"Segoe UI Black","Segoe UI",Arial,sans-serif;font-weight:900;line-height:.92;letter-spacing:-3px;text-transform:uppercase;
+   text-shadow:0 5px 0 #06100a, 0 18px 40px rgba(0,0,0,.65)}
+.h .am{color:#f2b134}.h .rd{color:#ff5a47}.h .gr{color:#4fd67e}
+.kicker{font-family:"Segoe UI Black","Segoe UI",Arial,sans-serif;font-weight:900;color:#f2b134;letter-spacing:0;text-transform:uppercase;
+   text-shadow:0 3px 0 #06100a,0 10px 30px rgba(0,0,0,.6)}
+.sticker{position:absolute;font-family:"Segoe UI Black","Segoe UI",Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:1px;
+   background:#ff3b2e;color:#fff;padding:12px 24px;border-radius:14px;font-size:30px;box-shadow:0 10px 0 #8e1b14,0 24px 40px rgba(0,0,0,.5);border:4px solid #fff}
+.brand{position:absolute;left:60px;bottom:36px;display:flex;align-items:center;gap:18px;font-size:26px;color:#d8e2db;font-weight:600}
+.brand img{height:46px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.5))}
+.brand b{color:#fff;font-size:34px;font-family:"Segoe UI Black","Segoe UI",Arial;font-weight:900;letter-spacing:-1px}
+.host{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.96);color:#0a130e;border-radius:14px;padding:9px 18px;font-size:22px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.5);margin-left:6px}
+.host img{height:30px;filter:invert(1) brightness(.1)}
+.host small{font-weight:600;color:#3b4a41;font-size:18px}
+/* ponsel */
+.phone{position:absolute;width:420px;height:860px;border-radius:60px;background:#0c0c0c;padding:14px;
+   box-shadow:0 0 0 3px #2a2a2a,0 60px 120px rgba(0,0,0,.75),0 0 90px rgba(242,177,52,.25)}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:48px;overflow:hidden;background:#0e1621;
+   background-image:radial-gradient(rgba(255,255,255,.06) 1.5px,transparent 2px);background-size:26px 26px}
+.phone .isl{position:absolute;left:50%;top:14px;width:120px;height:34px;margin-left:-60px;border-radius:20px;background:#000;z-index:3}
+.tg-head{display:flex;align-items:center;gap:14px;padding:58px 22px 14px;background:#17212b;border-bottom:1px solid rgba(255,255,255,.06)}
+.tg-head .av{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#3f8a5f,#215c3f);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;color:#fff}
+.tg-head .nm{font-weight:800;font-size:28px;line-height:1.05}
+.tg-head .st{font-size:19px;color:#8fb3d9}
+.msgs{padding:22px 16px;display:flex;flex-direction:column;gap:14px}
+.bb{max-width:88%;border-radius:22px;padding:16px 20px;font-size:27px;line-height:1.25;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.bb.me{align-self:flex-end;background:#7b6bd6;border-bottom-right-radius:6px}
+.bb.bot{align-self:flex-start;background:#212121;border-bottom-left-radius:6px}
+.bb .ts{display:block;text-align:right;font-size:16px;opacity:.55;margin-top:6px}
+.bb img{display:block;width:100%;border-radius:14px;margin-bottom:10px}
+.tg-input{position:absolute;left:0;right:0;bottom:0;height:86px;background:#17212b;display:flex;align-items:center;gap:14px;padding:0 20px;color:#7e8b97;font-size:24px}
+.tg-input .c{width:44px;height:44px;border-radius:50%;background:#7b6bd6}
