@@ -1,0 +1,42 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Thumbnail C</title>
+<style>
+  html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#0f1713}
+  .t{position:relative;width:1280px;height:720px;font-family:"Segoe UI",Arial,sans-serif;color:#f3f6f3;overflow:hidden;
+     background:radial-gradient(ellipse at 70% 40%,#22352b 0%,#141d18 55%,#0b100d 100%)}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px}
+  .pill{position:absolute;left:56px;top:44px;background:#c0392b;color:#fff;font-weight:800;font-size:26px;letter-spacing:1px;padding:10px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  /* kiri: 1 pendamping */
+  .one{position:absolute;left:56px;top:118px;width:300px;text-align:center}
+  .one .n{font-size:220px;font-weight:800;line-height:1;letter-spacing:-10px;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .one .l{font-size:30px;font-weight:700;color:#c9d6cd;margin-top:-6px}
+  .vs{position:absolute;left:372px;top:190px;font-size:54px;font-weight:800;color:#e0a84a;font-style:italic}
+  /* tengah: 120 UMK sebagai titik */
+  .many{position:absolute;left:470px;top:104px;width:420px}
+  .many .n{font-size:220px;font-weight:800;line-height:1;letter-spacing:-8px;color:#e0a84a;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .many .l{font-size:30px;font-weight:700;color:#c9d6cd;margin-top:-6px}
+  .dots{position:absolute;left:930px;top:96px;width:300px;display:grid;grid-template-columns:repeat(12,1fr);gap:9px}
+  .dots i{display:block;aspect-ratio:1;border-radius:50%;background:#e0a84a;opacity:.85}
+  .dots i.x{background:#3f8a5f}
+  .dotl{position:absolute;left:930px;top:334px;width:300px;font-size:20px;color:#c9d6cd;line-height:1.25}
+  .dotl b{color:#7fd39a}
+  .head{position:absolute;left:56px;top:430px;font-size:62px;font-weight:800;line-height:1.02;letter-spacing:-2px;max-width:1170px;text-shadow:0 6px 24px rgba(0,0,0,.55)}
+  .head em{font-style:normal;color:#e0a84a}
+  .foot{position:absolute;left:56px;bottom:40px;display:flex;align-items:center;gap:18px;font-size:24px;color:#c9d6cd}
+  .foot img{height:44px}
+  .bot{position:absolute;right:56px;bottom:44px;display:flex;align-items:center;gap:12px;background:rgba(10,16,12,.85);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 20px;font-size:22px;color:#c9d6cd}
+  .bot img{height:34px}
+</style></head><body>
+<div class="t">
+  <div class="grid"></div>
+  <div class="pill">38 HARI MENUJU WAJIB HALAL</div>
+  <div class="one"><div class="n">1</div><div class="l">pendamping</div></div>
+  <div class="vs">vs</div>
+  <div class="many"><div class="n">120</div><div class="l">UMK, berkas jarang lengkap</div></div>
+  <div class="dots" id="dots"></div>
+  <div class="dotl"><b>18</b> siap unggah · <b>102</b> masih dikejar</div>
+  <div class="head">AGEN AI INI <em>MENGEJAR DOKUMENNYA</em> SATU PER SATU, TANPA BOSAN</div>
+  <div class="foot"><img src="halalpilot-logo.svg" alt=""><b style="color:#fff;font-size:30px">HalalPilot</b><span style="opacity:.5">·</span>OpenClaw di Telegram</div>
+  <div class="bot"><span>Berjalan di VPS</span><img src="idwebhost-logo-negative.svg" alt=""><b style="color:#fff">AI Hosting</b></div>
+</div>
+<script>const d=document.getElementById("dots");for(let i=0;i<120;i++){const s=document.createElement("i");if(i<18)s.className="x";d.appendChild(s)}</script>
+</body></html>
