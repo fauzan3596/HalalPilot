@@ -10,7 +10,7 @@ import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const src = readFileSync(join(here, "..", "artikel-final.md"), "utf8");
-const imgBase = process.argv[2] || "https://raw.githubusercontent.com/GANTI_AKUN/halalpilot/main/docs/artikel/img";
+const imgBase = process.argv[2] || "https://raw.githubusercontent.com/fauzan3596/HalalPilot/main/docs/artikel/img";
 
 // 1) Buang judul H1 (judul pos diisi di Blogger), catatan draf di bawahnya, dan checklist tayang di paling bawah.
 let md = src.replace(/^# .*\n/, "");
