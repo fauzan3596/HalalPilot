@@ -15,7 +15,7 @@ Yang ditunjukkan di video: intake dari foto label → daftar bahan dipetakan ke 
 Semua berjalan di satu VPS AI Hosting IDwebhost (4 vCPU / 4 GB RAM, Ubuntu 24.04) dengan OpenClaw 2026.8.2, layanan Node + SQLite, tanpa Docker dan tanpa browser headless.
 
 Kode, aturan YAML, konfigurasi OpenClaw, skenario uji (MIT): https://github.com/fauzan3596/HalalPilot
-Artikel: [URL Blogspot — isi setelah tayang]
+Artikel: https://mfauzanrmd.blogspot.com/2026/09/halalpilot-agen-openclaw-berkas-halal-umk.html
 Video ini: https://www.youtube.com/watch?v=BD1u7aonZNI
 AI Hosting IDwebhost: https://idwebhost.com/ai-hosting
 
