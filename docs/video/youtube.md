@@ -1,6 +1,6 @@
 # Teks unggah YouTube — HalalPilot-demo-v11.mp4
 
-Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v11.mp4` (9:57, 1920×1080, 30 fps, 141 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
+Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v12.mp4` (9:51, 1920×1080, 30 fps, 139 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
 
 ## Judul (≤ 100 karakter)
 
@@ -24,18 +24,18 @@ Sumber angka: INDEF mengutip Bappenas (Republika, 21 Agustus 2026); PP 42/2024 p
 
 Bab:
 0:00 Pembuka: 4% dan tenggat 17 Oktober
-0:10 Masalah 120 UMK
-0:47 Lingkungan: VPS AI Hosting, OpenClaw
-1:26 Intake: foto label → keputusan beralasan
-2:48 Cerita proses & sertifikat pemasok → dossier
-3:36 Dossier PDF v1
-4:13 Pengejaran otomatis
+0:12 Masalah 120 UMK
+0:49 Lingkungan: VPS AI Hosting, OpenClaw
+1:27 Intake: foto label → keputusan beralasan
+2:49 Cerita proses & sertifikat pemasok → dossier
+3:38 Dossier PDF v1
+4:14 Pengejaran otomatis
 4:56 Eskalasi ke pendamping
-5:35 Review pendamping
-6:38 Foto ulang → berkas v2 → setuju → ajukan (simulasi)
-8:27 Digest pagi & dashboard
-9:06 Yang berjalan di server
-9:29 Hasil dalam angka & penutup
+5:37 Review pendamping
+6:35 Foto ulang → berkas v2 → setuju → ajukan (simulasi)
+8:25 Digest pagi & dashboard
+9:00 Yang berjalan di server
+9:21 Hasil dalam angka & penutup
 
 #AIHackFest2026 #IDwebhost #AIHosting #OpenClaw #HalalUMK #SelfDeclare
 
