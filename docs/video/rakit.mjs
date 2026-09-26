@@ -32,10 +32,10 @@ const FINAL = "HalalPilot-demo-v3.mp4";
 // captions: { at: detik sumber peristiwa, t: kalimat narasi (dibakar sebagai teks dan disintesis) }
 const SCENES = [
   { id: "01", clip: "142912", end: 42, judul: "1 · Masalah: 120 UMK, 38 hari, berkas tidak lengkap", padAfter: 1.2, captions: [
-    { at: 0.5, t: "Menurut INDEF yang mengutip Bappenas, baru sekitar 4 persen pelaku usaha yang produknya bersertifikat halal.", src: "INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" },
-    { at: 10, t: "Per 17 Oktober 2026, makanan dan minuman UMK wajib bersertifikat halal. Kementerian Agama menegaskan tidak ada penundaan.", src: "PP 42/2024 pasal 160 · Kemenag, rakor Kemenko PMK 12 Agustus 2026 (Republika, 1 September 2026)" },
-    { at: 20, src: "BPJPH, 2 Januari 2026", t: "Kuota gratis 1,35 juta dan 111 ribu pendamping sudah ada. Masalahnya: satu pendamping memegang ratusan UMK, dan berkasnya jarang lengkap." },
-    { at: 30, t: "Yang kurang bukan aplikasi untuk mengunggah dokumen, tetapi seseorang yang mengerjakan dan mengejar dokumennya. Itu yang HalalPilot lakukan." } ] },
+    { at: 0.5, t: "Coba tebak: berapa pelaku usaha yang produknya sudah bersertifikat halal? Empat persen.", src: "INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026" },
+    { at: 10, t: "Padahal 17 Oktober nanti, makanan dan minuman UMK wajib halal. Saya sempat berharap ditunda. Kemenag bilang: tidak.", src: "PP 42/2024 pasal 160 · Kemenag, rakor Kemenko PMK 12 Agustus 2026 (Republika, 1 September 2026)" },
+    { at: 20, src: "BPJPH, 2 Januari 2026", t: "Kuota gratisnya ada, 1,35 juta. Pendampingnya ada, 111 ribu. Tapi satu pendamping pegang ratusan UMK, dan berkasnya jarang lengkap." },
+    { at: 30, t: "Yang kurang bukan aplikasi upload. Yang kurang itu seseorang yang mengerjakan berkasnya, dan menagihnya tiap hari. Itu yang saya buat." } ] },
   { id: "02", clip: "143118", start: 8, thr: 0.5, judul: "2 · Lingkungan: VPS AI Hosting IDwebhost · OpenClaw 2026.8.2", padAfter: 1.6, captions: [
     { at: 8.5, t: "Semua berjalan di satu VPS AI Hosting IDwebhost: 4 vCPU, 4 gigabyte RAM, Ubuntu 24.04." },
     { at: 36, t: "OpenClaw menjadi agen dan kanal Telegram. Layanan kecil Node dan SQLite memegang aturan. Model membaca dan berbicara; kode memutuskan hukum." },
@@ -67,7 +67,7 @@ const SCENES = [
     { at: 40.5, t: "Pendamping tahu persis siapa yang perlu ditelepon, dan kenapa." } ] },
   { id: "07b", clip: "162629", judul: "7 · Eskalasi ke pendamping setelah 10 hari diam", padAfter: 1.8, captions: [
     { at: 1, t: "Dashboard koperasi mencatat eskalasi terbuka untuk Sambal Mak Ijah." } ] },
-  { id: "08", clip: "163241", judul: "8 · Review pendamping: ringkasan & kembalikan berkas", padAfter: 1.8, captions: [
+  { id: "08", clip: "163241", maxOut: 59, judul: "8 · Review pendamping: ringkasan & kembalikan berkas", padAfter: 1.8, captions: [
     { at: 7, t: "Dashboard koperasi: 18 dari 120 UMK siap unggah, laju di bawah kebutuhan, papan diurutkan dari yang paling mendesak." },
     { at: 96.6, t: "Pendamping bertanya status dan menerima ringkasan: total UMK, siap unggah, menunggu review, eskalasi terbuka. Semua dari data, bukan karangan model." },
     { at: 303.8, t: "Pendamping tetap pemegang keputusan. Satu kalimat 'kembalikan' cukup: alasannya diteruskan ke UMK, keputusan baru dicatat, pengejaran dimulai lagi." },
@@ -82,7 +82,7 @@ const SCENES = [
     { at: 335.1, t: "Pendamping menyetujui lewat Telegram. Status berubah menjadi siap unggah." },
     { at: 381.8, t: "Perintah 'ajukan' mengirim ke SiHalal simulasi dan mendapat nomor SIM. Ini bukan pengajuan resmi ke BPJPH." },
     { at: 420, t: "HalalPilot menyiapkan berkas; keputusan halal tetap di BPJPH dan pendamping." } ] },
-  { id: "10", clip: "170250", judul: "10 · Digest pagi & dashboard portofolio", padAfter: 1.8, captions: [
+  { id: "10", clip: "170250", maxOut: 33, judul: "10 · Digest pagi & dashboard portofolio", padAfter: 1.8, captions: [
     { at: 9, t: "Di dashboard, UMK-017 kini selesai. Papan menunjukkan 19 dari 120 UMK siap unggah." },
     { at: 40.0, t: "Setiap pagi pukul tujuh, pendamping menerima ringkasan seperti ini dari automations OpenClaw, tanpa membuka aplikasi apa pun." } ] },
   { id: "11", clip: "170535", fixed: [[0, 14, 1]], judul: "11 · Yang berjalan di server: dua unit systemd, 1,4 GB RAM", padAfter: 2.0, captions: [
@@ -90,7 +90,7 @@ const SCENES = [
     { at: 8, t: "Empat batas yang kami pegang: menyiapkan bukan menerbitkan; portal pemerintah di sini simulasi; tanpa data pribadi; dan semuanya muat di satu VPS kecil." } ] },
 ];
 
-const OPENER = { id: "00-pembuka", min: 7, narasi: "HalalPilot: agen OpenClaw yang menyiapkan dan mengejar berkas sertifikasi halal untuk koperasi UMK, berjalan di VPS AI Hosting IDwebhost.", items: [
+const OPENER = { id: "00-pembuka", min: 7, narasi: "Halo, saya Fauzan. Ini HalalPilot: agen AI yang menyiapkan berkas halal UMK, lalu mengejarnya sampai lengkap. Semuanya jalan di VPS AI Hosting IDwebhost.", items: [
   ["4%", 190, FONTB, 0.12],
   ["pelaku usaha yang produknya bersertifikat halal", 46, FONT, 0.44],
   ["INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026", 30, FONT, 0.53],
@@ -101,7 +101,7 @@ const OPENER = { id: "00-pembuka", min: 7, narasi: "HalalPilot: agen OpenClaw ya
 const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan, 498 sinonim bahan, 86 uji otomatis, satu VPS 4 gigabyte.", items: [
   ["Hasil demo dalam angka", 64, FONTB, 0.12],
 ] };
-const CLOSER = { id: "99-penutup", min: 9, narasi: "Model memutuskan bahasa. Kode memutuskan hukum. HalalPilot menyiapkan berkas; keputusan halal tetap milik BPJPH dan pendamping. Kode dan aturannya terbuka.", items: [
+const CLOSER = { id: "99-penutup", min: 9, narasi: "Di HalalPilot, AI-nya membaca label dan menulis pesan. Yang memutuskan jalur, skor, dan jadwal itu kode. Kami menyiapkan berkas; yang memutuskan halal tetap BPJPH dan pendamping. Kodenya terbuka, silakan dicoba. Terima kasih.", items: [
   ["HalalPilot", 84, FONTB, 0.10],
   ["Menyiapkan berkas, bukan menerbitkan sertifikat.", 40, FONT, 0.30],
   ["OSS, SEHATI, SiHalal dalam demo ini simulasi berlabel.", 40, FONT, 0.39],
@@ -120,6 +120,11 @@ const hash = (s) => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0
 
 // Narasi: sintesis sekali (cache berdasarkan isi teks), kembalikan durasi detik. Teks dikirim ke layanan TTS Microsoft (edge-tts).
 function narasi(name, text) {
+  const rek = `rekam/${name}.mp3`;
+  if (existsSync(join(OUT_WIN, rek))) {   // suara sendiri (hibrida): pembuka, adegan 1, penutup
+    const d = parseFloat(wsl(`ffprobe -v error -show_entries format=duration -of csv=p=0 "${OUT}/${rek}"`));
+    return { mp3: rek, d };
+  }
   const key = `${name}-${hash(text)}`; const mp3 = `tts/${key}.mp3`; const txt = `tts/${key}.txt`;
   writeFileSync(join(OUT_WIN, txt), text, "utf8");
   if (NO_TTS) return { mp3: null, d: Math.max(3, text.split(" ").length * 0.42) };
@@ -214,6 +219,8 @@ for (const sc of SCENES) {
     if (n.mp3) narr.push({ mp3: n.mp3, t: t0 });
     prevEnd = t0 + n.d;
   });
+  // maxOut: potong segmen paling belakang (setelah narasi terakhir selesai) agar keluaran ≤ maxOut detik
+  if (sc.maxOut) { const lim = Math.max(sc.maxOut, prevEnd + 0.6); let t = 0; for (let i = 0; i < segs.length; i++) { const L = segLen(segs[i]); if (t + L > lim) { const g = segs[i]; if (Array.isArray(g)) { const keep = Math.max(0, lim - t); segs.splice(i, segs.length - i, ...(keep > 0.05 ? [[g[0], g[0] + keep * g[2], g[2]]] : [])); } else segs.splice(i); break; } t += L; } }
   let vlen = outLen(segs); const need = prevEnd + 0.6; const len = Math.max(vlen, need);
   // 2) segmen → berkas kecil (nama berisi parameter → cache aman saat berubah), gabung tanpa re-encode
   const segFiles = segs.map((g, i) => {

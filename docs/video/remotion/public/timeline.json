@@ -2,10 +2,10 @@
  "fps": 30,
  "opener": {
   "id": "00-pembuka",
-  "seconds": 10.096,
-  "narasi": "HalalPilot: agen OpenClaw yang menyiapkan dan mengejar berkas sertifikasi halal untuk koperasi UMK, berjalan di VPS AI Hosting IDwebhost.",
-  "mp3": "00-pembuka-cc199a38.mp3",
-  "d": 8.496,
+  "seconds": 11.895999999999999,
+  "narasi": "Halo, saya Fauzan. Ini HalalPilot: agen AI yang menyiapkan berkas halal UMK, lalu mengejarnya sampai lengkap. Semuanya jalan di VPS AI Hosting IDwebhost.",
+  "mp3": "rekam/00-pembuka.mp3",
+  "d": 10.296,
   "items": [
    {
     "t": "4%",
@@ -55,10 +55,10 @@
  },
  "closer": {
   "id": "99-penutup",
-  "seconds": 13.696,
-  "narasi": "Model memutuskan bahasa. Kode memutuskan hukum. HalalPilot menyiapkan berkas; keputusan halal tetap milik BPJPH dan pendamping. Kode dan aturannya terbuka.",
-  "mp3": "99-penutup-3b50f129.mp3",
-  "d": 12.096,
+  "seconds": 15.616,
+  "narasi": "Di HalalPilot, AI-nya membaca label dan menulis pesan. Yang memutuskan jalur, skor, dan jadwal itu kode. Kami menyiapkan berkas; yang memutuskan halal tetap BPJPH dan pendamping. Kodenya terbuka, silakan dicoba. Terima kasih.",
+  "mp3": "rekam/99-penutup.mp3",
+  "d": 14.016,
   "items": [
    {
     "t": "HalalPilot",
@@ -101,41 +101,41 @@
   {
    "id": "01",
    "judul": "1 · Masalah: 120 UMK, 38 hari, berkas tidak lengkap",
-   "cat": "01-cat-5438b9a2.mp4",
-   "vlen": 37.944,
-   "len": 37.944,
+   "cat": "01-cat-363d7ad8.mp4",
+   "vlen": 37.608,
+   "len": 37.608,
    "captions": [
     {
      "t0": 0.6,
-     "t1": 6.994,
-     "text": "Menurut INDEF yang mengutip Bappenas, baru sekitar 4 persen pelaku usaha yang produknya bersertifikat halal.",
+     "t1": 6.489999999999999,
+     "text": "Coba tebak: berapa pelaku usaha yang produknya sudah bersertifikat halal? Empat persen.",
      "src": "INDEF mengutip Bappenas 2026 · Republika, 21 Agustus 2026",
-     "mp3": "01-c0-3be6c213.mp3",
-     "d": 6.144
+     "mp3": "rekam/01-c0.mp3",
+     "d": 5.64
     },
     {
      "t0": 8,
-     "t1": 17.298000000000002,
-     "text": "Per 17 Oktober 2026, makanan dan minuman UMK wajib bersertifikat halal. Kementerian Agama menegaskan tidak ada penundaan.",
+     "t1": 16.866,
+     "text": "Padahal 17 Oktober nanti, makanan dan minuman UMK wajib halal. Saya sempat berharap ditunda. Kemenag bilang: tidak.",
      "src": "PP 42/2024 pasal 160 · Kemenag, rakor Kemenko PMK 12 Agustus 2026 (Republika, 1 September 2026)",
-     "mp3": "01-c1-7f747418.mp3",
-     "d": 9.048000000000002
+     "mp3": "rekam/01-c1.mp3",
+     "d": 8.616
     },
     {
-     "t0": 17.548000000000002,
-     "t1": 28.094,
-     "text": "Kuota gratis 1,35 juta dan 111 ribu pendamping sudah ada. Masalahnya: satu pendamping memegang ratusan UMK, dan berkasnya jarang lengkap.",
+     "t0": 17.116,
+     "t1": 27.758,
+     "text": "Kuota gratisnya ada, 1,35 juta. Pendampingnya ada, 111 ribu. Tapi satu pendamping pegang ratusan UMK, dan berkasnya jarang lengkap.",
      "src": "BPJPH, 2 Januari 2026",
-     "mp3": "01-c2-e8c5b14a.mp3",
-     "d": 10.296
+     "mp3": "rekam/01-c2.mp3",
+     "d": 10.392
     },
     {
-     "t0": 28.344,
-     "t1": 36.778,
-     "text": "Yang kurang bukan aplikasi untuk mengunggah dokumen, tetapi seseorang yang mengerjakan dan mengejar dokumennya. Itu yang HalalPilot lakukan.",
+     "t0": 28.008,
+     "t1": 35.914,
+     "text": "Yang kurang bukan aplikasi upload. Yang kurang itu seseorang yang mengerjakan berkasnya, dan menagihnya tiap hari. Itu yang saya buat.",
      "src": null,
-     "mp3": "01-c3-6606caa.mp3",
-     "d": 8.183999999999997
+     "mp3": "rekam/01-c3.mp3",
+     "d": 7.656000000000002
     }
    ]
   },
@@ -397,9 +397,9 @@
   {
    "id": "08",
    "judul": "8 · Review pendamping: ringkasan & kembalikan berkas",
-   "cat": "08-cat-92505b8e.mp4",
-   "vlen": 62.90475,
-   "len": 62.90475,
+   "cat": "08-cat-7b1920d6.mp4",
+   "vlen": 58.999999999999986,
+   "len": 58.999999999999986,
    "captions": [
     {
      "t0": 5.6,
@@ -519,9 +519,9 @@
   {
    "id": "10",
    "judul": "10 · Digest pagi & dashboard portofolio",
-   "cat": "10-cat-54d0a97e.mp4",
-   "vlen": 38.599999999999994,
-   "len": 38.599999999999994,
+   "cat": "10-cat-a08e9c1a.mp4",
+   "vlen": 33,
+   "len": 33,
    "captions": [
     {
      "t0": 1.6399999999999997,
