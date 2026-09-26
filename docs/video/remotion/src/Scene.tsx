@@ -4,6 +4,7 @@ import { AbsoluteFill, Freeze, Sequence, staticFile, useCurrentFrame } from "rem
 import { ArchInset, ChaseStrip, RoleBadge, ScoreBadge } from "./extras";
 import { RulesInset } from "./extras2";
 import { ARTICLES, ArticleCard } from "./extras3";
+import { Kinetic, KINETIC } from "./kinetic";
 import { ARCH, C, CHASE, FONT, ROLE, SCORE } from "./theme";
 import { f, Scene as SceneT } from "./timeline";
 import { Caption, Progress, SceneTitle, Watermark } from "./ui";
@@ -67,8 +68,10 @@ export const Scene: React.FC<{ scene: SceneT; index: number; total: number }> = 
       ))}
 
       {scene.id === "03" && capStarts[4] !== undefined ? <RulesInset from={capStarts[4]} /> : null}
+      {scene.id === "01" && scene.captions[1] ? <ArticleCard a={ARTICLES.republika4} from={capStarts[0]} until={capStarts[1] - 4} x={1010} y={110} w={870} h={620} /> : null}
       {scene.id === "01" && scene.captions[1] ? <ArticleCard a={ARTICLES.kemenag} from={capStarts[1]} until={f(scene.captions[1].t1)} x={1010} y={110} w={870} h={620} /> : null}
       {scene.id === "01" && scene.captions[2] ? <ArticleCard a={ARTICLES.kuota} from={capStarts[2]} until={f(scene.captions[2].t1)} x={1010} y={110} w={870} h={620} /> : null}
+      {KINETIC[scene.id] ? <Kinetic cues={KINETIC[scene.id]} capStarts={capStarts} sceneLen={scene.len} /> : null}
       {arch ? <ArchInset from={capStarts[arch.fromCap]} autoAt={capStarts[arch.autoCap]} /> : null}
       {chase ? <ChaseStrip litAt={(fr) => chase.steps.reduce((lit, s) => (fr >= capStarts[s.cap] ? Math.max(lit, s.lit) : lit), chase.lit)} /> : null}
       {(SCORE[scene.id] ?? []).map((ev, i) => <ScoreBadge key={i} at={capStarts[ev.cap]} from={ev.from} to={ev.to} />)}

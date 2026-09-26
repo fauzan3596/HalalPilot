@@ -1,6 +1,6 @@
 # Teks unggah YouTube — HalalPilot-demo-v11.mp4
 
-Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v12.mp4` (9:51, 1920×1080, 30 fps, 139 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
+Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v13.mp4` (9:51, 1920×1080, 30 fps, 111 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
 
 ## Judul (≤ 100 karakter)
 
@@ -23,7 +23,7 @@ Catatan: OSS, SEHATI, dan SiHalal dalam demo ini simulasi berlabel. HalalPilot m
 Sumber angka: INDEF mengutip Bappenas (Republika, 21 Agustus 2026); PP 42/2024 pasal 160; Kemenag di rakor Kemenko PMK 12 Agustus 2026 (Republika, 1 September 2026); BPJPH 2 Januari 2026 (kuota 1,35 juta, 111 ribu pendamping).
 
 Bab:
-0:00 Pembuka: 4% dan tenggat 17 Oktober
+0:00 Pembuka
 0:12 Masalah 120 UMK
 0:49 Lingkungan: VPS AI Hosting, OpenClaw
 1:27 Intake: foto label → keputusan beralasan
