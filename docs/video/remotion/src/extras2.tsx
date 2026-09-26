@@ -57,11 +57,11 @@ export const StatsCard: React.FC = () => {
   const { fps } = useVideoConfig();
   const h = timeline.hasil;
   const tiles = [
-    { n: 1, label: "UMK dari foto label sampai berkas siap", sub: "intake → evaluasi → dossier PDF" },
-    { n: 4, label: "pengingat & eskalasi otomatis", sub: "H+1, H+3, H+7, lalu pendamping" },
-    { n: 18, label: "aturan kelayakan deterministik", sub: "Kepkaban BPJPH 146/2025 · KMA 1360/2021" },
-    { n: 498, label: "sinonim bahan di kamus", sub: "124 dikecualikan · 24 positif · 33 kritis" },
-    { n: 86, label: "uji otomatis hijau", sub: "+ 86 skenario penerimaan tertulis" },
+    { n: 1, label: "UMK dari foto label sampai berkas siap", sub: "difoto lewat Telegram, dievaluasi, jadi PDF" },
+    { n: 4, label: "pengingat & eskalasi otomatis", sub: "hari ke-1, ke-3, ke-7, lalu lapor ke pendamping" },
+    { n: 18, label: "aturan halal yang dicek oleh kode, bukan model", sub: "dari Kepkaban BPJPH 146/2025 & KMA 1360/2021" },
+    { n: 498, label: "nama bahan yang dikenali agen", sub: "\"terigu\", \"tepung gandum\" → tepung terigu, kelas positif" },
+    { n: 86, label: "pengujian otomatis, semuanya lolos", sub: "tiap aturan diuji ulang setiap kode berubah" },
     { n: 4, label: "RAM, satu VPS kecil", sub: "terpakai 1,4 GB saat semuanya hidup", suffix: " GB" },
   ];
   return (

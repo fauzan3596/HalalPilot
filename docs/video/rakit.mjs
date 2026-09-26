@@ -98,7 +98,7 @@ const OPENER = { id: "00-pembuka", min: 7, narasi: "Halo, saya Fauzan. Ini Halal
   ["HalalPilot · agen OpenClaw yang menyiapkan dan mengejar berkas self-declare untuk koperasi UMK", 32, FONT, 0.80],
   ["Berjalan di VPS AI Hosting IDwebhost · demo AI HackFest 2026", 28, FONT, 0.88],
 ] };
-const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan, 498 sinonim bahan, 86 uji otomatis, satu VPS 4 gigabyte.", items: [
+const HASIL = { id: "98-hasil", min: 7, narasi: "Hasil demo: satu UMK dari foto label sampai berkas siap, empat pengingat dan eskalasi otomatis, 18 aturan halal yang dicek kode, 498 nama bahan dikenali, 86 pengujian lolos, semua di satu VPS 4 gigabyte.", items: [
   ["Hasil demo dalam angka", 64, FONTB, 0.12],
 ] };
 const CLOSER = { id: "99-penutup", min: 9, narasi: "Di HalalPilot, AI-nya membaca label dan menulis pesan. Yang memutuskan jalur, skor, dan jadwal itu kode. Kami menyiapkan berkas; yang memutuskan halal tetap BPJPH dan pendamping. Kodenya terbuka, silakan dicoba. Terima kasih.", items: [

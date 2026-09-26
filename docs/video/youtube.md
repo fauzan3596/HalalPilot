@@ -1,6 +1,6 @@
 # Teks unggah YouTube — HalalPilot-demo-v11.mp4
 
-Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v14.mp4` (9:51, 1920×1080, 30 fps, 111 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
+Berkas: `Videos/HalalPilot-edit/HalalPilot-demo-v15.mp4` (9:53, 1920×1080, 30 fps, 108 MB). Visibilitas: **Publik** (syarat lomba). Kategori: Science & Technology. Bahasa: Indonesia.
 
 ## Judul (≤ 100 karakter)
 
