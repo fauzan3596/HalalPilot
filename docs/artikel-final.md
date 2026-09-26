@@ -197,7 +197,7 @@ Tiga langkah berikutnya mengikuti langsung dari batas di atas: uji lapangan deng
 
 Ukuran keberhasilannya ada di meja pendamping: dari menyusun berkas satu jam per UMK menjadi menyetujui satu berkas dalam satu menit, dengan setiap keputusan membawa rujukan aturannya. Kecepatan dan ketertelusuran tidak bertentangan bila pembagian kerjanya tegas: model membaca dan menulis, kode memutuskan, manusia memegang dua titik kendali. Sisanya, mengejar foto yang belum dikirim pada hari ke-3 dan ke-7, adalah pekerjaan yang paling cocok diserahkan ke agen yang tidak pernah bosan.
 
-Proyek ini dibuat untuk AI HackFest 2026 IDwebhost. Kode, aturan YAML, konfigurasi OpenClaw, skenario uji, dan data seed tersedia dengan lisensi MIT di [github.com/fauzan3596/HalalPilot](https://github.com/fauzan3596/HalalPilot). Video demo: `[URL video]`.
+Proyek ini dibuat untuk AI HackFest 2026 IDwebhost. Kode, aturan YAML, konfigurasi OpenClaw, skenario uji, dan data seed tersedia dengan lisensi MIT di [github.com/fauzan3596/HalalPilot](https://github.com/fauzan3596/HalalPilot). Video demo: [youtube.com/watch?v=BD1u7aonZNI](https://www.youtube.com/watch?v=BD1u7aonZNI).
 
 ## Referensi
 
@@ -221,4 +221,4 @@ Proyek ini dibuat untuk AI HackFest 2026 IDwebhost. Kode, aturan YAML, konfigura
 
 ---
 
-*Checklist tayang: badan tulisan ≥ 800 kata (terhitung tanpa referensi, tabel, dan blok kode); dua backlink dengan anchor persis "AI Hosting" dan "Cloud VPS" di bagian 6; tidak ada kalimat yang menjanjikan sertifikat; setiap angka ada di referensi bernomor atau di bukti repo (uji dijalankan ulang 19 Sep: 86 uji, 86 skenario; kamus: 498 sinonim, 124 dikecualikan, 24 positif, 33 kritis); empat gambar dari `docs/artikel/img/` dengan nomor Gambar 1–4; isi `[URL video]` (URL repo sudah diisi); tayang ≤ 30 September 2026; setelah tayang uji `site:` di Google.*
+*Checklist tayang: badan tulisan ≥ 800 kata (terhitung tanpa referensi, tabel, dan blok kode); dua backlink dengan anchor persis "AI Hosting" dan "Cloud VPS" di bagian 6; tidak ada kalimat yang menjanjikan sertifikat; setiap angka ada di referensi bernomor atau di bukti repo (uji dijalankan ulang 19 Sep: 86 uji, 86 skenario; kamus: 498 sinonim, 124 dikecualikan, 24 positif, 33 kritis); empat gambar dari `docs/artikel/img/` dengan nomor Gambar 1–4; URL video dan repo sudah diisi; tayang ≤ 30 September 2026; setelah tayang uji `site:` di Google.*

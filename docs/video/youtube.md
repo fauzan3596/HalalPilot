@@ -16,6 +16,7 @@ Semua berjalan di satu VPS AI Hosting IDwebhost (4 vCPU / 4 GB RAM, Ubuntu 24.04
 
 Kode, aturan YAML, konfigurasi OpenClaw, skenario uji (MIT): https://github.com/fauzan3596/HalalPilot
 Artikel: [URL Blogspot — isi setelah tayang]
+Video ini: https://www.youtube.com/watch?v=BD1u7aonZNI
 AI Hosting IDwebhost: https://idwebhost.com/ai-hosting
 
 Catatan: OSS, SEHATI, dan SiHalal dalam demo ini simulasi berlabel. HalalPilot menyiapkan berkas, tidak menerbitkan sertifikat; keputusan halal tetap di BPJPH dan pendamping. Tidak ada data pribadi (KTP, nomor HP, rekening) yang disimpan. Semua UMK dalam demo fiktif.
