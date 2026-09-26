@@ -14,7 +14,7 @@ export const KINETIC: Record<string, Cue[]> = {
     { cap: 0, at: 4.46, kind: "pct" },                                           // "... Empat persen."
     { cap: 1, at: 8.03, kind: "tidak" },                                         // "Kemenag bilang: tidak."
     { cap: 2, at: 3.0, kind: "num", text: "1,35 juta", sub: "kuota sertifikasi gratis", row: 0 },
-    { cap: 2, at: 5.76, kind: "num", text: "111 ribu", sub: "pendamping proses produk halal", row: 1 },
+    { cap: 2, at: 5.76, kind: "num", text: "111 ribu", sub: "pendamping halal", row: 1 },
     { cap: 2, at: 7.3, kind: "num", text: "1 : ratusan", sub: "satu pendamping, ratusan UMK", row: 2 },
     { cap: 3, at: 6.51, kind: "logo" },                                          // "Itu yang saya buat."
   ],
@@ -70,9 +70,9 @@ export const Kinetic: React.FC<{ cues: Cue[]; capStarts: number[]; sceneLen: num
         }
         if (it.kind === "num") {
           return (
-            <div key={i} style={{ position: "absolute", left: 70, width: 900, top: 230 + (it.row ?? 0) * 200, display: "flex", alignItems: "baseline", gap: 28, whiteSpace: "nowrap", fontFamily: FONT, color: C.ink, ...p, transformOrigin: "0% 80%" }}>
-              <div style={{ fontSize: 118, fontWeight: 700, lineHeight: 1, letterSpacing: -5, minWidth: 470, color: it.row === 2 ? "#ff5a47" : C.amber, textShadow: "0 10px 40px rgba(0,0,0,.6)" }}>{it.text}</div>
-              <div style={{ fontSize: 30, color: "#d8e2db", lineHeight: 1.2, whiteSpace: "normal", maxWidth: 380 }}>{it.sub}</div>
+            <div key={i} style={{ position: "absolute", left: 70, top: 236 + (it.row ?? 0) * 200, display: "grid", gridTemplateColumns: "560px 340px", alignItems: "baseline", columnGap: 24, fontFamily: FONT, color: C.ink, ...p, transformOrigin: "0% 80%" }}>
+              <div style={{ fontSize: 112, fontWeight: 700, lineHeight: 1, letterSpacing: -4, whiteSpace: "nowrap", textAlign: "right", color: it.row === 2 ? "#ff5a47" : C.amber, textShadow: "0 10px 40px rgba(0,0,0,.6)" }}>{it.text}</div>
+              <div style={{ fontSize: 30, color: "#d8e2db", lineHeight: 1.2, borderLeft: "3px solid rgba(255,255,255,.25)", paddingLeft: 18 }}>{it.sub}</div>
             </div>
           );
         }
