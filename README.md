@@ -1,5 +1,7 @@
 # HalalPilot
 
+> 🏆 **#2 Best Innovation, AI HackFest 2026 (IDwebhost × PANDI)** — diumumkan 9 November 2026.
+
 Agent pendamping portofolio sertifikasi halal (self-declare) untuk UMK anggota koperasi. Menyiapkan berkas, mengejar dokumen yang kurang, menyerahkan paket siap unggah ke pendamping (P3H). Dibangun dengan **OpenClaw** di **AI Hosting IDwebhost** untuk AI HackFest 2026 (Business Automation).
 
 > HalalPilot **menyiapkan** berkas, tidak menerbitkan sertifikat, tidak menyentuh SiHalal/OSS/SEHATI asli. Keputusan halal tetap milik BPJPH dan pendamping. Seluruh data demo sintetis; entitas fiktif.
