@@ -5,12 +5,14 @@ import { Closer, Opener } from "./Cards";
 import { StatsCard } from "./extras2";
 import { Demo } from "./Demo";
 import { Scene } from "./Scene";
+import { PESAN, PesanKesan } from "./pesan/PesanKesan";
 import { f, FPS, timeline, totalFrames } from "./timeline";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition id="Demo" component={Demo} durationInFrames={totalFrames()} fps={FPS} width={1920} height={1080} />
+      <Composition id="PesanKesan" component={PesanKesan} durationInFrames={Math.round(PESAN.total * FPS)} fps={FPS} width={1920} height={1080} />
       <Folder name="Bagian">
         <Composition id="Pembuka" component={Opener} durationInFrames={f(timeline.opener.seconds)} fps={FPS} width={1920} height={1080} />
         <Composition id="Hasil" component={StatsCard} durationInFrames={f(timeline.hasil?.seconds ?? 8)} fps={FPS} width={1920} height={1080} />
