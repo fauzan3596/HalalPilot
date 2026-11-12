@@ -15,12 +15,12 @@ const wsl = (cmd) => execFileSync("wsl", ["-e", "bash", "-lc", cmd], { encoding:
 
 export const KALIMAT = [
   "Halo, saya Fauzan, pembuat HalalPilot.",
-  "Terima kasih IDwebhost, CloudBaik, dan PANDI untuk AI HackFest 2026.",
+  "Terima kasih IDwebhost, CloudBaik, dan PANDI sudah mengadakan AI HackFest 2026.",
   "Jujur, saya senang sekaligus kaget HalalPilot bisa meraih posisi kedua Best Innovation.",
-  "Kesan saya: sepuluh hari yang berat tapi seru. VPS-nya kecil, waktunya mepet, dan bug paling mahal justru satu perintah npm install di hari pertama.",
-  "Dari situ saya pegang satu prinsip: model memutuskan bahasa, kode memutuskan hukum.",
-  "Pesan saya buat teman-teman: mulai dari masalah yang orangnya nyata.",
-  "Cloud VPS CloudBaik dari hadiah ini akan saya pakai, supaya HalalPilot bisa dicoba koperasi sungguhan.",
+  "Kesan saya, lombanya seru dan menantang. Waktunya cuma sepuluh hari, tapi saya belajar banyak sekali hal baru.",
+  "Yang paling berkesan, ternyata AI bisa membantu masalah sehari-hari, seperti mengurus sertifikat halal untuk UMK.",
+  "Pesan saya buat teman-teman: jangan ragu untuk ikut, mulai saja dari masalah di sekitar kita.",
+  "Semoga AI HackFest terus ada, dan makin banyak karya anak bangsa yang lahir dari sini.",
   "Sampai jumpa di HackFest berikutnya!",
 ];
 const CLEAN = "highpass=f=80,afftdn=nf=-32:nr=10,silenceremove=start_periods=1:start_threshold=-42dB:start_silence=0.15,areverse,silenceremove=start_periods=1:start_threshold=-42dB:start_silence=0.25,areverse,acompressor=threshold=-20dB:ratio=2.5:attack=6:release=90:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9,alimiter=limit=0.7:level=false";

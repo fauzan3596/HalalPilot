@@ -21,13 +21,14 @@ const SKIN = "#f1b689", LID = "#e2a77f";
 const at = (nn: string) => P.clips.find((c) => c.nn === nn)!;
 /** detik absolut saat kata (potongan teks) dalam kalimat nn mulai diucapkan */
 const wordAt = (nn: string, needle: string) => {
-  const c = at(nn); const w = c.words.find((x) => x.w.toLowerCase().includes(needle.toLowerCase()));
+  const c = at(nn); const bare = (x: string) => x.toLowerCase().replace(/[^a-z0-9#-]/g, "");
+  const w = c.words.find((x) => bare(x.w) === bare(needle)) ?? c.words.find((x) => x.w.toLowerCase().includes(needle.toLowerCase()));
   return c.t0 + (w ? w.t : 0);
 };
 const SPONSOR_T = { idw: wordAt("02", "IDwebhost"), cb: wordAt("02", "CloudBaik"), pandi: wordAt("02", "PANDI") };
 const TROFI_T = wordAt("03", "kedua");
-const PRINSIP_T = wordAt("05", "model");
-const NPM_T = wordAt("04", "npm");
+const ALUR_T = wordAt("05", "AI");
+const HARI_T = wordAt("04", "sepuluh");
 
 /** amplitudo suara saat ini (0..1), dihaluskan */
 const level = (t: number, fps: number) => {
@@ -102,7 +103,7 @@ const Avatar: React.FC<{ t: number; fps: number; frame: number }> = ({ t, fps, f
 };
 
 // ---------- caption karaoke: kata muncul satu per satu, kata aktif menyala emas ----------
-const SOROT = /IDwebhost|CloudBaik|PANDI|HalalPilot|HackFest|Best|Innovation|kedua|prinsip|nyata/i;
+const SOROT = /IDwebhost|CloudBaik|PANDI|HalalPilot|HackFest|Best|Innovation|kedua|sepuluh|halal|UMK|ragu|bangsa/i;
 const Karaoke: React.FC<{ c: Clip; t: number }> = ({ c, t }) => {
   const rel = t - c.t0;
   const end = c.d + 0.35;
@@ -193,49 +194,51 @@ const Trofi: React.FC<{ t: number; fps: number }> = ({ t, fps }) => {
   );
 };
 
-// ---------- kartu kutipan prinsip ----------
-const Prinsip: React.FC<{ t: number; fps: number }> = ({ t, fps }) => {
-  const c = at("05"); const rel = t - PRINSIP_T; const end = c.t0 + c.d + 0.6 - PRINSIP_T;
+// ---------- kartu "10 hari": angka menghitung 1 → 10 ----------
+const Hari: React.FC<{ t: number; fps: number }> = ({ t, fps }) => {
+  const rel = t - HARI_T + 0.2; const c = at("04"); const end = c.t0 + c.d + 0.4 - HARI_T;
   if (rel < 0 || rel > end) return null;
-  const a = spring({ frame: Math.round(rel * fps), fps, config: { damping: 14 } });
-  const b = spring({ frame: Math.round((rel - (wordAt("05", "kode") - PRINSIP_T)) * fps), fps, config: { damping: 14 } });
-  const out = interpolate(rel, [end - 0.4, end], [1, 0], clamp);
-  const row = (txt: string, sub: string, v: number, col: string) => (
-    <div style={{ display: "flex", alignItems: "baseline", gap: 18, opacity: v, transform: `translateX(${(1 - v) * 80}px)` }}>
-      <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: 56, color: col, letterSpacing: -1 }}>{txt}</span>
-      <span style={{ fontFamily: FONT, fontSize: 34, color: INK }}>{sub}</span>
-    </div>
-  );
+  const s2 = spring({ frame: Math.round(rel * fps), fps, config: { damping: 11 } });
+  const n = Math.round(interpolate(rel, [0.1, 1.1], [1, 10], { ...clamp, easing: Easing.out(Easing.cubic) }));
+  const out = interpolate(rel, [end - 0.35, end], [1, 0], clamp);
   return (
-    <div style={{ position: "absolute", left: 1300, top: 190, padding: "30px 34px", borderRadius: 26, background: "rgba(12,20,15,0.72)", backdropFilter: "blur(14px)",
-      border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 30px 80px rgba(0,0,0,0.45)", opacity: out, display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ fontFamily: FONT, fontSize: 24, color: GOLD, letterSpacing: 4, textTransform: "uppercase" }}>Satu prinsip</div>
-      {row("Model", "→ memutuskan bahasa", a, "#9fd4b1")}
-      {row("Kode", "→ memutuskan hukum", Math.max(0, b), GOLD)}
+    <div style={{ position: "absolute", left: 1330, top: 170, transform: `scale(${0.75 + 0.25 * s2}) rotate(${(1 - s2) * 8}deg)`, opacity: Math.min(1, s2 * 1.5) * out,
+      padding: "26px 34px 30px", borderRadius: 28, background: "rgba(255,255,255,0.95)", boxShadow: "0 30px 80px rgba(0,0,0,0.5)", textAlign: "center", width: 420 }}>
+      <div style={{ fontFamily: FONT, fontSize: 24, fontWeight: 700, color: "#c0392b", letterSpacing: 4 }}>HACKFEST</div>
+      <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 150, lineHeight: 1, color: "#141414", fontVariantNumeric: "tabular-nums", letterSpacing: -6 }}>{n}</div>
+      <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 34, color: "#3a3a3a", marginTop: -4 }}>hari</div>
+      <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 16 }}>
+        {Array.from({ length: 10 }).map((_, i) => <span key={i} style={{ width: 26, height: 26, borderRadius: 7, background: i < n ? "#3f8a5f" : "#e3e7e4" }} />)}
+      </div>
     </div>
   );
 };
 
-// ---------- terminal mini "npm install -g" ----------
-const Npm: React.FC<{ t: number; fps: number }> = ({ t, fps }) => {
-  const rel = t - NPM_T + 0.3; const c = at("04"); const end = c.t0 + c.d + 0.4 - NPM_T;
+// ---------- kartu alur: dari foto label ke berkas halal ----------
+const Alur: React.FC<{ t: number; fps: number }> = ({ t, fps }) => {
+  const c = at("05"); const rel = t - ALUR_T; const end = c.t0 + c.d + 0.5 - ALUR_T;
   if (rel < 0 || rel > end) return null;
-  const s = spring({ frame: Math.round(rel * fps), fps, config: { damping: 12 } });
-  const cmd = "$ npm install -g openclaw";
-  const typed = cmd.slice(0, Math.floor(interpolate(rel, [0.1, 0.9], [0, cmd.length], clamp)));
-  const err = rel > 1.1;
-  const shake = err ? Math.sin(rel * 70) * interpolate(rel, [1.1, 1.5], [8, 0], clamp) : 0;
-  const out = interpolate(rel, [end - 0.35, end], [1, 0], clamp);
-  return (
-    <div style={{ position: "absolute", left: 1300, top: 200, width: 580, transform: `scale(${0.8 + s * 0.2}) translateX(${shake}px) rotate(-2deg)`, opacity: s * out,
-      borderRadius: 18, overflow: "hidden", boxShadow: "0 30px 80px rgba(0,0,0,0.55)", border: "1px solid rgba(255,255,255,0.12)" }}>
-      <div style={{ display: "flex", gap: 8, padding: "12px 16px", background: "#2b2b2b" }}>
-        {["#ff5f57", "#febc2e", "#28c840"].map((c2) => <span key={c2} style={{ width: 14, height: 14, borderRadius: 7, background: c2 }} />)}
+  const out = interpolate(rel, [end - 0.4, end], [1, 0], clamp);
+  const step = (i: number, emoji: string, label: string) => {
+    const v = spring({ frame: Math.round((rel - i * 0.45) * fps), fps, config: { damping: 12 } });
+    return (
+      <div key={`s${i}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, opacity: Math.max(0, v), transform: `translateY(${(1 - v) * 40}px) scale(${0.7 + 0.3 * v})` }}>
+        <div style={{ width: 120, height: 120, borderRadius: 30, background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 66, boxShadow: "0 18px 40px rgba(0,0,0,0.4)" }}>{emoji}</div>
+        <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 26, color: INK, textShadow: "0 3px 12px rgba(0,0,0,0.6)" }}>{label}</div>
       </div>
-      <div style={{ padding: "22px 26px", background: "#111", fontFamily: "Consolas, monospace", fontSize: 27, lineHeight: 1.5, color: "#e6e6e6" }}>
-        <div>{typed}<span style={{ opacity: Math.floor(rel * 3) % 2 ? 0 : 1 }}>▌</span></div>
-        {err && <div style={{ color: "#ff6b5e", fontWeight: 700 }}>✖ menimpa OpenClaw bawaan VPS</div>}
-        {err && <div style={{ color: "#9a9a9a", fontSize: 24 }}>bug termahal · hari pertama 😅</div>}
+    );
+  };
+  const arrow = (i: number) => {
+    const v = interpolate(rel, [i * 0.45 + 0.25, i * 0.45 + 0.5], [0, 1], clamp);
+    return <div key={`a${i}`} style={{ width: 54 * v, height: 6, borderRadius: 3, background: GOLD, marginTop: 58, boxShadow: `0 0 14px ${GOLD}` }} />;
+  };
+  return (
+    <div style={{ position: "absolute", left: 1250, top: 190, padding: "30px 34px", borderRadius: 26, background: "rgba(12,20,15,0.62)", backdropFilter: "blur(14px)",
+      border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 30px 80px rgba(0,0,0,0.45)", opacity: out }}>
+      <div style={{ fontFamily: FONT, fontSize: 24, color: GOLD, letterSpacing: 4, textTransform: "uppercase", marginBottom: 18 }}>AI untuk UMK</div>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+        {step(0, "📸", "Foto label")}{arrow(0)}{step(1, "🤖", "Agen AI")}{arrow(1)}{step(2, "📄", "Berkas halal")}
       </div>
     </div>
   );
@@ -280,7 +283,7 @@ export const PesanSinema: React.FC = () => {
   // kamera: dolly-in pelan + handheld drift + punch-in di momen penting
   const punch = (center: number, amt: number, dur = 0.9) =>
     interpolate(t, [center - 0.05, center + 0.18, center + dur], [0, amt, amt * 0.6], clamp) * interpolate(t, [center + dur, center + dur + 1.4], [1, 0], clamp);
-  const zoom = 1.06 + t * 0.0016 + punch(TROFI_T, 0.12, 2.6) + punch(PRINSIP_T, 0.05, 2) + punch(at("01").t0, 0.04, 1.2) + lv * 0.006;
+  const zoom = 1.06 + t * 0.0016 + punch(TROFI_T, 0.12, 2.6) + punch(ALUR_T, 0.05, 2) + punch(at("01").t0, 0.04, 1.2) + lv * 0.006;
   const camX = drift(t, 0.4, 9) + interpolate(t, [P.bicara, P.bicara + 1.2], [0, -330], { ...clamp, easing: ease });
   const camY = drift(t, 2.2, 6);
   const camR = drift(t, 5.5, 0.35);
@@ -332,8 +335,8 @@ export const PesanSinema: React.FC = () => {
         color="#2a7de1" label={<Img src={staticFile("idwebhost-logo-negative.svg")} style={{ height: 46, filter: "invert(1) brightness(0.15)" }} />} />
       <SponsorCard t={t} fps={fps} at={SPONSOR_T.cb} x={1400} y={300} until={at("02").t0 + at("02").d + 0.5} color="#29b6f6" label={<>☁️ CloudBaik</>} />
       <SponsorCard t={t} fps={fps} at={SPONSOR_T.pandi} x={1440} y={450} until={at("02").t0 + at("02").d + 0.5} color="#e53935" label={<>🇮🇩 PANDI</>} />
-      <Npm t={t} fps={fps} />
-      <Prinsip t={t} fps={fps} />
+      <Hari t={t} fps={fps} />
+      <Alur t={t} fps={fps} />
       <Trofi t={t} fps={fps} />
 
       {/* label nama gaya "lower third" di awal */}
